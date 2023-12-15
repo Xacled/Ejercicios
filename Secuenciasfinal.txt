@@ -1,0 +1,698 @@
+Se dispone de una secuencia de caracteres. Se desea determinar la cantidad de palabras que comienzan con la letra 'I'.
+
+Accion 2.1.9 Es
+
+Ambiente 
+
+	S: secuencia de caracteres
+	V: caracter 
+	C: entero 
+
+Proceso 
+
+	Arr(S)
+	Avz(S,V)
+	C:=0
+
+	Mientras NFDS(S) Hacer 
+
+	 	Mientras V<>" " Hacer 
+		 	Avz(S,V)
+		Fin Mientras
+
+		Si V = "I" Entonces 
+
+			C:=C+1
+
+		Fin Si
+
+		Mientras V<>" " Hacer
+			Avz(S,V)
+		Fin Mientras
+
+	Fin Mientras
+	Esc("La cantidad de palabras que comienzan con la letra I son:",I)
+	Cerrar(S)
+
+Fin Accion
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+Se dispone de una secuencia de caracteres. Se desea permita contar la cantidad de palabras que comienzan con una letra dada.
+
+Accion 2.1.10 Es
+
+Ambiente 
+
+	S: secuencia de caracteres
+	V: caracter 
+	C: entero 
+	Letra:caracter
+
+Proceso 
+
+	Esc("Ingrese una letra")
+	Leer(Letra)
+
+	Arr(S)
+	Avz(S,V)
+	C:=0
+
+	Mientras NFDS(S) Hacer 
+
+	 	Mientras V<>" " Hacer 
+		 	Avz(S,V)
+		Fin Mientras
+
+		Si V = Letra Entonces 
+
+			C:=C+1
+
+		Fin Si
+
+		Mientras V<>" " Hacer
+			Avz(S,V)
+		Fin Mientras
+
+	Fin Mientras
+	Esc("La cantidad de palabras que comienzan con la letra",Letra,"son:",C)
+	Cerrar(S)
+
+Fin Accion
+----------------------------------------------------------------------------------------------------------------------------------------------
+Ejercicio 2.1.11
+Dada una secuencia de caracteres, determinar la cantidad de palabras de 4 caracteres (letras)
+
+ACCION_2.1.11_ES
+    
+    AMBIENTE
+    
+        S:secuencia de caracteres
+        V:caracteres
+        cont:entero
+        pal4:entero
+        
+    Proceso
+        
+        Arr(S)
+        Avz(S,V)
+        
+        Pal4:=0
+            
+        Mientras NFDS(S) HACER
+            Avz(S,V)
+            Cont:=0
+            MIENTRAS (V = " ") HACER 
+                  Avz(S,V)
+            FM
+            Mientras NFDS(S) V <> " "  hacer
+                Cont:=Cont+1
+                AVZ(S,V)
+            FM       
+            Si (Cont = 4) entonces
+                PAL4:= PAL4 +1
+            FIN SI
+        FM
+            
+        ESC("La cantidad de palabras con 4 letras es:", PAL4)
+        CERRAR(S)
+FIN ACCION
+                          
+-------------------------------------------------------------------------------------------------------------------
+                                
+                                
+  Ejercicio 2.1.12
+Se dispone de una secuencia de caracteres. Se desea listar las palabras que comiencen con "ALG".   
+                    
+                    Algunos, algunas, algas, algarrobo
+                        
+                    
+                        
+ACCION_2.1.12_ES
+                        
+    Ambiente
+    S:secuencia de caracteres                    
+    V:caracteres
+
+    PROCESO
+    
+    ARR(S)
+    Avz(S,V)
+    
+    Mientras NFDS(S) HACER
+        Mientras  V=" " HACER
+        AVZ(S,V)
+    
+            SI V ="A" ENTONCES                                            1    ALGUNO
+                AVZ(S,V)
+           
+                SI V ="L" ENTONCES
+                    AVZ(S,V)
+                
+                       SI V ="G" ENTONCES
+                            Esc("ALG")
+                            AVZ(S,V)
+        
+                            MIENTRAS NFDS (S) ^ V <> " " HACER
+                                ESC("V")
+                                AVZ(S,V)
+                            FM
+                       FS
+                 FS
+             FS
+            MIENTRAS NFDS (S) ^ V <> " " HACER
+            AVZ(S,V)
+            FM 
+        FM
+    FM
+    CERRAR(S)
+FIN ACCION
+        
+        
+        
+---------------------------------------------------------------------------------------------------------------------------
+        
+Ejercicio 2.1.14
+Se dispone de una secuencia de caracteres y se desea saber la cantidad de caracteres (incluidos los espacios) que existen entre una coma y la siguiente. 
+Se debe considerar que puede haber más de un par de comas, y que las subsecuencias inicial y final deben descartarse por no cumplir la condición enunciada. 
+Supóngase que las comas son siempre contiguas al último caracter de la palabra
+        
+ACCION_2.1.14_ES
+        
+    AMBIENTE
+    
+    S:secuencia de caracteres
+    V:caracter
+    Cont:entero
+        
+        
+    Proceso
+        
+    Arr(S)
+    Avz(S,V)
+    
+        
+    Mientras (V<>",") HACER
+        Avz(S,V)
+    FM    
+    Mientras NFDS (S) HACER
+        CONT:= 0
+        Mientras V="," HACER
+            AVZ(S,V)
+        FM
+        
+        MIENTRAS NFDS(S) Y (V<>",")
+            CONT:= CONT +1
+            AVZ(S,V)
+        FM
+        
+        
+        Si NFDS(S) ENTONCES
+            ("La cantidad de caracteres entre coma y coma es:",CONT)
+        Fin si
+    FM
+    Cerrar(S)
+Fin accion
+                
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+    
+ Ejercicio 2.1.16
+Se dispone de una secuencia de números de  asignados a un circuito electoral, generar otra secuencia de números que contenga los DNI múltiplos de 3.
+
+ACCION_2.1.16_ES
+    
+    AMBIENTE
+    S,Sal:secuencia de caracteres 
+    V:caracter
+    
+    Proceso
+  
+    Arr(S)
+    Avz(S,V)
+    CREAR(SAL)
+   
+    MIENTRAS NFDS (S) HACER
+            
+        Si (V MOD 3) = 0 ENTONCES 
+           Esc(Sal,V)
+        Fs
+        
+        Avz(S,V)
+    FM
+    Esc("Secuencia creada con exito beibis")
+    Cerrar(S)
+    Cerrar(Sal)
+Fin accion
+        
+----------------------------------------------------------------------------------------------------------------
+  2.1.18      
+Escribir un algoritmo que produzca una secuencia de salida que contenga una oración formada por las palabras en posición "par" de cada oración de una secuencia texto de entrada, 
+que además comienzan con la letra 'M'.
+        
+Accion 2_1_18 Es
+    
+    Ambiente
+    S,Sal:Secuencia de entero
+    V,PriC:Caracter
+    Cont_P:entero
+        
+    Proceso                          HOLA ADIOS HOLA ADIOS.
+        
+    Arr(S)
+    Avz(S,V)
+    Crear(Sal)
+        
+    Mientras NFDS(S) Hacer
+        Cont_P:=0 // {se inicializa el contador dentro del ciclo para que no se sumen las palabras entre las oraciones}
+            
+      Mientras NFDS(S) Y (V<>".")
+            
+            MIENTRAS (V = " ") HACER 
+				AVZ(SEC,V);
+			FM;
+                Avz(S,V)
+            FM
+            
+            Cont_P:=Cont_P+1
+                
+            PriC:=V
+                
+            Si (Cont_P mod 2 = 0) y (PriC = "M") Entonces
+                
+                Mientras (V<>".") y (V<>"") hacer
+                        Esc(Sal,V)
+                FM
+                Esc(Sal," ")
+            Sino
+                Mientras (V <> ".") ^ (V <> " ") hacer
+                        Avz(S,V)
+                FM
+            FS
+      FM
+        SI V = "." ENTONCES        
+            AVZ(S,V)
+        FS
+    FM
+    ESCRIBIR(SALIDA,".")
+    Cerrar(S)
+    Cerrar(Sal)
+
+Fin accion
+----------------------------------------------------------------------------------------------------------------------
+La empresa Ideas Argentinas S.A. posee datos de sus empleados en dos secuencias de caracteres; la primera secuencia (Sec1) formada por los nombres (uno por persona) de los empleados separados por blancos y la segunda secuencia (Sec2) posee los números de documento de cada uno de los empleados (palabras de 8 dígitos numéricos). 
+
+
+Ambas secuencias poseen la misma cantidad de datos, es decir al primer nombre de la primera secuencia le corresponde el primer número de documento de la segunda secuencia y así sucesivamente. 
+La secuencia de números de documentos no posee espacios en blanco ni ningún otro tipo de caracter que separe un número de documento de otro.
+
+
+A la empresa le interesa tener en una nueva secuencia (Sec3) los datos de todas aquellas personas que cumplan la condición de que el nombre se encuentre en una posición impar. La nueva secuencia debe generarse de la siguiente manera: el número de documento seguido (sin espacios) por una coma y luego (sin espacios) por el nombre y seguido al nombre un #. 
+
+    
+    //S1 Nombres
+    //S2 Dni
+    //S3 Salida
+
+Accion_Ideas_es
+
+AMBIENTE
+
+    S1,S2,SAL3:Secuencia de caracter
+    V1,V2:caracter
+    Cont:entero
+    I: entero
+
+PROCESO
+        
+    Arr(S1)
+    Arr(S2)
+    Crear(Sal3)
+    Avz(S1,V1)
+    Avz(S2,V2)
+    Cont:=0
+        
+    Mientras NFDS(S1) y NFDS(S2) Hacer
+        Cont:=Cont+1
+   
+        Si (Cont Mod 2) <> 0 entonces
+            
+            Para I=1 hasta 8 hacer
+                
+                Esc(SAL3,V2)
+                Avz(S2,V2)
+                
+            FP
+            Esc(Sal3,",");
+            
+            
+            Mientras V1 = " " hacer    
+            
+                Avz(S1,V1)
+                
+            FM    
+            
+            Mientras V1 <> " "  hacer
+
+                Esc(SAL3,V1)
+                AVZ(SAL3,V1)
+            
+            FM
+            
+            Esc(Sal3,"#")
+            
+        FinSi
+            
+        AVZ(S1,V1); AVZ(S2,V2);
+    FM
+    
+    Cerrar(S1);CERRAR(S2);CERRAR(SAL3)
+    ESCRIBIR("La secuencia de salida ha sido creada con exito!")
+
+        
+FinAccion        
+        
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ccion Sec_1.09 Es
+
+	AMBIENTE
+
+     PALABRAS : Secuencia de Caracteres
+     LETRA : Caracter;
+     CONTADOR : Entero;                                                                                                                                                          
+	
+	PROCESO
+
+	ESCRIBIR ("Este algoritmo determina la cantidad de palabras que comienzan con L en una secuencia de caracteres:");
+	ARR(PALABRAS); AVZ(PALABRAS,LETRA);
+	CONTADOR:= 0;
+	MIENTRAS NFDS(PALABRAS) HACER
+		MIENTRAS (LETRA = " ") HACER
+			AVZ(PALABRAS,LETRA)
+		FM;
+		SI LETRA = "L" ENTONCES
+			CONTADOR:= CONTADOR+1;
+		FS;
+		MIENTRAS NFDS(PALABRAS) ^ (LETRA <> " ") HACER                                  pato   
+			AVZ(PALABRAS,LETRA);
+		FM;
+	FM
+	ESCRIBIR ("La cantidad de palabras que comienzan con L es de:", CONTADOR);
+	CERRAR(PALABRAS);
+		
+Fin_Accion. 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Afip dispone de dos secuencias de caracteres:
+
+PERSONAS: Contiene el nombre de personas fisicas o empresas: Nombre Completo y fecha (de nacimiento o creacion) Agrupada por provincias. 
+NO existe caracter separador entre personas, el fin de cada provincia se indica con "&"
+		Ejemplo:
+		Eva Gomez-14071977Snoopy Producciones Aéreas-20062018...&Lionel Messi-24061987...&...{Fin}
+		nombre-ddmmaaaanombre-ddmmaaa....&
+
+CUIT: Contiene la clave unica de identificacion tributaria de las personas de la secuencia PERSONAS 
+(existiendo una correspondencia una a una, es decir la primer persona con el primer cuit, la segunda con el segundo y asi sucesivamente).
+Cada numero de cuit se almacena, por medio de 11 caracteres: Los 2 primeros indican el tipo, los siguientes el Dni para personas fisicas, 
+o de sociedad (en caso de empresas), y el ultimo es un digito verificador.
+
+Ejemplo:
+		*20123456786**23134567823**30712434445*
+
+Los tipos pueden ser: 20,23,24 y 27 para personas fisicas y 30,33, y 34 para Empresas
+
+Se solicita:
+	a) Generar una secuencia de salida que contenga: DNI,NombreyApellido de todos las  personas fisicas cuyo nombres empiecen con una Vocal
+	b) Para cada provincia calcular el total de personas fisicas, y el porcentaje total sobre las provincias
+
+
+
+Accion Afip Es
+
+	Ambiente
+
+		Sal: secuencia de caracteres
+		S1: secuencia de caracteres
+		V1: caracter
+		S2: secuencia de enteros
+		V2: entero
+
+		Vocal("A","E","I","O","U")
+		ContperF:entero
+		ContProv:entero
+		Total:entero
+
+	Proceso
+
+		Arr(S1);Arr(S2)
+		Avz(S1,V1);Arr(S2,V2)
+		Crear(Sal)
+		Contprov:=0
+
+
+		Mientras NFDS(S1)
+
+		ContperF:=0
+		Total:=0
+
+			Mientras V1 <> & Hacer
+
+			Total:=Total+1
+
+			Si V2 = 2 Entonces
+
+			ContperF:ContperF+1
+
+				Si V1 En Vocal Entonces
+
+					Avz(S2,V2);Avz(S2,V2)
+
+					Para I:=1 Hasta 8 Hacer
+						Esc(Sal,V2)
+						Avz(S2,V2)
+					Fin Para
+
+					Mientras V1 <> "-" Hacer
+						Esc(Sal,V1)
+						Avz(S1,V1)
+					Fin Mientras
+
+					Esc(Sal,"-")
+
+					Para I:=1 Hasta 9 Hacer
+						Avz(S1,V1)
+					Fin Para
+
+				Sino 
+
+					Mientras V1 <> "-" Hacer
+						Avz(S1,V1)
+					Fin Mientras
+
+					Para I:=1 Hasta 9 Hacer
+
+						Avz(S1,V1)
+ 
+					Fin Para
+
+					Para I:=1 Hasta 11 Hacer
+
+						Avz(S2,V2)
+ 
+					Fin Para
+
+				Fin Si
+
+			Sino 	
+				Mientras V1 <> "-" Hacer
+					Avz(S1,V1)
+				Fin Mientras
+
+				Para I:=1 Hasta 9 Hacer
+
+					Avz(S1,V1)
+ 
+				Fin Para
+
+				Para I:=1 Hasta 11 Hacer
+
+					Avz(S2,V2)
+				Fin Para
+			Fin Si
+		Fin Mientras
+
+        ContProv:= Contprov +1;
+        ESC("Para la provincia", cont, "el total de personas fisicas es:",ContperF);
+        ESC("Y el porcentaje sobre el total de la provincia es:",(ContperF*100)DIV tot,"%");
+        AVZ(S1,V1); // avanzo el "&"
+	Fin Mientras
+
+	Cerrar(S1)
+	Cerrar(S2)
+	Cerrar(Sal)
+Fin Accion
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Pregunta 3 
+La empresa "LexCorp", dedicada a la elaboracion de piedras preciosas, recientemente encontro un Viejo lote de gemas con su informacion correspondiente con un antiguo backup. 
+Debido a su alto valor, desean obtener esta informacion lo mas rapido posible. La secuencia GEMAS contiene, para cada gema, lo siguiente: 
+inicialmente el nombre comercial de la gema, luego la composicion quimica de la gema y, finalmente, una descripcion de la principal aplicacion de la gema 
+(por ejemplo, uso industrial, cosmético, etc). Todos estos datos estan separados entre si por comas "," y al final de la ultima coma de una gema viene el caracter '%'. 
+    
+En Otra secuencia CODIGOS, de enteros, se tiene un numero (que va desde el O al 999) por cada gema, que indica cl codigo comercial usado para la gema. 
+Existe una correspondencia uno a uno con los datos de la secuencia GEMAS y la de CODIGOS (es decir el primer codigo corresponde a la primera gema, el segundo a la segunda, etc.) 
+Escriba un algoritmo que cumpla con las siguientes consignas: 
+1. Escribir en una secuencia de salida (de caracteres) la composici6n quimica de la gema y el codigo comercial de la misma. Separar los datos entre comas.
+2  Emitir por pantalla el nombre comercial de la gemas, siempre y cuando el codigo comercial de Ias misma sea un numero impar. 
+3, Se desea emitir por pantalla la cantidad de gemas analizadas y el porcentaje de estas segun el siguiente rango de codigos comerciales: 
+entre O y 299, entre 300 y 699, y de 700 en adelante.
+     
+Accion GEMAS es
+    
+AMBIENTE
+    GEMAS: secuencia de caracteres          //ej de sec:  Gemia, buenardium pitonium, cosmetico,%
+    G: caracteres
+        
+    CODIGOS:secuencia de entero
+    C:entero
+
+    SAL: secuencia de caracteres            //que tiene que tener la composicion quimica y el codigo comercial(cod).                                                    Separar entre comas
+            
+                          
+    u,d,k:entero
+        
+    gema1:entero
+    gema2:entero
+    gema3:entero
+
+    FUNCIÓN pasaje(n:entero):caracter ES
+        
+        SEGÚN (n) HACER
+            
+            =0:pasaje:="0"
+            =1:pasaje:="1"
+            =2:pasaje:="2"
+            =3:pasaje:="3"
+            =4:pasaje:="4"
+            =5:pasaje:="5"
+            =6:pasaje:="6"
+            =7:pasaje:="7"
+            =8:pasaje:="8"
+            =9:pasaje:="9"
+            
+        FIN SEGÚN
+            
+    FIN FUNCIÓN
+
+PROCESO
+         
+    Arr(Gemas);Arr(CODIGOS)
+    Avz(Gemas,G);Avz(CODIGOS,C)
+    Crear(Sal)
+
+    Mientras NFDS(Gemas)
+        //SE TRATA NOMBRE SEGUN CODIGO
+        Si (C MOD 2) <> 0 Entonces
+
+            Mientras G <> "," Hacer
+
+                Esc(G)
+                Avz(Gemas,G)
+            FM 
+
+            Esc("-")
+
+        Sino 
+
+            Mientras G <> "," Hacer
+                Avz(Gemas,G)
+            Fin Mientras
+
+        Fin Si
+
+        Avz(Gemas,G)
+
+        //TRATAR COMPOSICION DE CODIGO
+
+        Mientras G <> "," Hacer
+
+            Esc(Sal,",")
+            Avz(Gemas,G)
+
+        Fin Mientras
+
+        u:= C MOD 10
+        d:= (C DIV 10) MOD 10
+        k:= C DIV 100
+
+        SEGUN (C) HACER
+        >99:
+            ESCRIBIR(Sal,pasaje(k))
+            ESCRIBIR(Sal,pasaje(d))
+            ESCRIBIR(Sal,pasaje(u))
+        >9:
+            ESCRIBIR(Sal,pasaje(d))
+            ESCRIBIR(Sal,pasaje(u))
+        >=0:
+            ESCRIBIR(Sal,pasaje(u))
+        
+        FIN SEGUN
+           
+        ESCRIBIR(sal,"-")
+            
+            // TRATAR CATEGORIA
+        
+            SEGÚN (C) hacer
+
+               <300:gema1:= gema1 + 1 
+               <700:gema2:= gema2 + 1
+               <1000:gema3:= gema3 + 1
+
+            FIN SEGÚN
+            
+            cantgemas:=cantgemas+1
+            
+            // TRATAR DESCRIPCIÓN
+            
+            MIENTRAS (G<>"%") HACER
+            
+                AVZ(GEMAS,G)
+            
+            FIN MIENTRAS
+            
+            AVZ(GEMA,G)
+            AVZ(CÓDIGO,C)
+        
+    FIN MIENTRAS
+        
+    ESCRIBIR("La cantidad de gemas de categoría 1 son: ",gema1)
+    ESCRIBIR("La cantidad de gemas de categoría 2 son: ",gema2)
+    ESCRIBIR("La cantidad de gemas de categoría 3 son: ",gema3)
+    ESCRIBIR("La cantidad total de gemas es:",cantgemas)
+    ESCRIBIR("El porcentaje de cada categoría respectivo al total es: ")
+    ESCRIBIR("Categoría 1: ",(gema1/cantgema)*100)
+    ESCRIBIR("Categoría 2: ",(gema2/cantgema)*100)
+    ESCRIBIR("Categoría 3: ",(gema3/cantgema)*100)
+        
+    Cerrar(Gemas)
+    Cerrar(CODIGOS)
+    Cerrar(Sal)
+FIN ACCIÓN
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    
+        
+
+
+
+
+
+
+
+
+
+        
+        
+        
+        
+
+
+
+
+

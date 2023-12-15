@@ -1,0 +1,1088 @@
+Ciclo de apareo excluyente
+
+	Mientras No FDA (arch1) y no FDA(Arch2) Hacer
+
+		PROCESO de registros comunes
+	F Mientras-
+
+	Mientras No FDA(arch1) Hacer //Uno de estos ciclos por cada fichero interviente//
+
+		PROCESO de registros del arch1
+	F Mientras.
+
+	Mientras No FDA(Arch2) Hacer
+
+		Proceso de registros del Arch2
+
+	Fin mientras
+
+
+--------------------------------------------------------------------------
+
+Mientras no se haya acabado el archivo 1 y no se haya acabado el archivo 2 arma la pareja 
+
+Ciclo de apareo incluyente
+
+	Mientras(clave1<>HV) o (clave2<>HV) o...(claveN<>HV) Hacer
+
+		Proceso
+
+	Fin mientras
+
+Para este ciclo prensentamos subacciones nuevas para leer los registros por archivo
+
+Subaccion Leer_Arch1 Es
+
+	Leer(arch1,reg_arch1)
+	Si FDA(Arch1) Entonces
+		reg_arch1.clave:=HV
+	Fin si
+
+Fin subaccion
+
+----------------------------------------------------------------------------------------------------
+
+|dn1|dn2|dn3|
+| / | 	/ 	| 1	|
+| / | 	/	| 2	|
+| 5 | 	/	| 3 |
+|	|  999	| 4 |
+
+
+Proceso
+
+Si dn1 < dni2 entonces
+	dni3:=dni1
+	grabar(a3,r3)
+sino
+
+	si dni1> dni2 entonces
+		dni3:=dni2
+		grabar(a3,r3)
+		leer(a2,r2)
+
+		sino
+
+			si dni1=dni2 entonces.....
+			................
+
+				grabar (a3,r3)
+				leer(a1,r1);leer(a2,r2)
+		    Fin si
+	fin si
+Fin si	
+----------------------------------------------------------------
+
+
+
+
+2.16. Construir un algoritmo que a partir de un fichero de películas nuevas conteniendo:
+P_nuevas
+NRO_PELICULA |TITULO |GENERO |CANT_COPIAS| FECHA_ESTRENO
+y otro fichero de peliculas existentes, ambos ordenados por película,
+Películas
+NRO_PELICULA |TITULO| GENERO |CANT_COPIAS| FECHA_ESTRENO
+Genere un único archivo (con el mismo formato de los ficheros de entrada) que contenga todas las películas.
+Considerar que hay un solo registro por película y no se repiten entre ficheros.
+
+Accion 2.16 Es
+
+Ambiente
+
+	Fecha=registro
+		AA:N(4)
+		MM:1..12
+		DD:1...31
+	Fin registro
+
+	Peliculas=registro
+
+		Nro_Pel:AN(6)
+		Titulo:AN(30)
+		Genero:AN(15)
+		Cant_cop:N(5)
+		Fecha_Es:Fecha
+
+	Fin registro
+
+	Arch_A,P_N,Película:Archivo de Peliculas
+	R_P,R_A,R_PN: Peliculas
+
+Proceso
+
+	Abrir(Pelicula)
+	Leer(Película,R_P)
+	Abrir(P_n)
+	Leer(P_n,P_N)
+	Abrir s/(Arch_A)
+
+	Mientras NFDA(Película) y NFDA(P_nuevas) Hacer
+
+		Si R_P.NRO_PELICULA < R_PN.NRO_PELICULA Entonces
+
+			Si R_P.Nro_Pel < R_PN.Nro_Pel Entonces
+				R_A:=R_P
+				Esc(Arch_A,R_A)
+				leer(Pelicula,R_P)
+			Fin si
+		Sino 
+
+			Si R_P.NRO_PELICULA > R_PN.NRO_PELICULA Entonces
+				R_A:=R_PN
+				Esc(Arch_A,R_A)
+				Leer(P_nuevas,R_PN)
+			Fin si
+
+		Fin Si
+
+	Fin Mientras
+
+	Mientras NFDA(Pelicula) Hacer
+		R_A:=R_P
+		Esc(Arch_A,R_A)
+		Leer(Pelicula,R_P)
+	Fin Mientras
+
+	Mientras NFDA(P_nuevas) Hacer
+		R_A:=R_PN
+		Esc(Arch_A,R_A)
+		Leer(P_nuevas,R_PN)
+	Fin Mientras
+	
+	Cerrar(Pelicula)
+	Cerrar(P_nuevas)
+	Cerrar(Arch_A)
+
+Fin Accion
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+La Secretaría Académica de la Facultad lanza un proyecto para incentivar a aquellos alumnos que realizaron el 
+Cursillo de Ingreso a la Universidad y no lograron aprobarlo en los turnos de Agosto y Febrero, de manera de
+brindarles apoyo académico con el fin de que, en el Cursillo del año siguiente puedan aprobar los exámenes
+necesarios e ingresar a la Universidad.
+
+Para esto, dicha Secretaría necesita crear un archivo donde se encuentren todos los aspirantes que realizaron el
+Cursillo de Ingreso en ambos turnos, y no lograron aprobarlo.
+
+Los datos correspondientes a cada uno de los turnos del Cursillo dictado están almacenados en dos archivos (uno
+para cada turno), los cuales presentan el siguiente formato:
+ASPIRANTES (ordenado por Nro. de DNI)
+			Nro. de DNI| ApeyNom |Carrera |F. Nac |Email |ColegioSec |FechaInscripcion |Aprobado (SI/NO)|
+
+UD debe realizar un algoritmo que permita mezclar los archivos Aspirantes (de Agosto y Febrero) y generar un
+archivo SEGUIMIENTO con el siguiente formato:
+
+SEGUIMIENTO (ordenado por Nro. de DNI)
+								|Nro. de DNI| ApeyNom| Email| ColegioSec|
+
+Al finalizar el proceso informar la cantidad de aspirantes que se grabaron en el archivo SEGUIMIENTO.
+
+
+Accion 2.17 Es
+
+Ambiente
+
+	Fecha=Registro
+		AA:N(4)
+		MM:1..12
+		DD:1..31
+	Fin Registro
+
+	Aspirantes=Registro
+
+		Nro_Dni:N(8)
+		ApeyNom:N(30)
+		Carrera:AN(20)
+		F_Nac:Fecha
+		Email:AN(40) 
+		ColegioSec:AN(30)	
+		F_Insc:Fecha
+		Aprobado: ("Si","No")
+
+	Fin Registro
+
+	Arch_Feb,Arch_Agos: Archivo de Aspirantes
+	R_feb,R_agos:Aspirantes
+
+	Seguimiento=Registro
+
+		Nro_Dni:N(8)
+		ApeyNom:AN(30)
+		Email:AN(40)
+		ColegioSec:AN(30)
+
+	Fin Registro
+
+	Arch_Seg:Archivo de Seguimiento
+	R_Seg:Seguimiento
+
+	Cont:Entero
+
+Proceso
+
+	Abrir(Arch_Feb)
+	Leer(Arch_Feb,R_feb)
+	Abrir(Arch_Agos)
+	Leer(Arch_Agos,R_agos)
+	Abrir s/(Arch_Seg)
+
+	Mientras NFDA(Arch_Feb) Y NDFA(Arch_Agos)
+
+		Si R_feb.Nro_Dni < R_agos.Nro_Dni Entonces
+			Leer(Arch_Feb,R_feb)
+		Sino
+			Si R_feb.Nro_Dni > R_agos.Nro_Dni Entonces
+				Leer(Arch_Agos,R_agos)
+			Sino
+				Si R_feb.Nro_Dni = R_agos.Nro_Dni Entonces
+					Si (R_feb.Aprobado="No") Y (R_agos.Aprobado="No") Entonces
+						R_Seg.Nro_Dni:=R_feb.Nro_Dni
+						R_Seg.ApeyNom:=R_feb.ApeyNom
+						R_Seg.Email:=R_feb.Email
+						R_Seg.ColegioSec:=R_feb.ColegioSec
+						Esc(Arch_Seg,R_Seg)
+						Cont:=Cont+1
+					Fin Si	
+					Leer(Arch_Feb,R_feb)
+					Leer(Arch_Agos,R_agos)
+				Fin Si
+			Fin Si	
+		Fin Si
+	Fin Mientras		
+
+	Mientras NDFA(Arch_Feb) Hacer
+		Leer(Arch_Feb,R_feb)
+	Fin Mientras
+
+	Mientras NFDA(ARCHA)Hacer
+		Leer(Arch_Agos,R_agos)
+	Fin Mientras
+
+	Cerrar(Arch_Feb)
+	Cerrar(Arch_Agos)
+	Cerrar(Arch_Seg)
+
+	Esc("LA CANTIDAD DE ASPIRANTES QUE SE GRABARON EN EL ARCHIVO DE SEGUMIENTO SON:", Cont)
+
+Fin Accion
+
+
+------------------------------------------------------------------------------------------------------------------------
+2.18. Un supermercado desea conocer la totalidad de unidades existentes de cada artículo a fin de hacer un control
+de stock y decidir si se deben comprar nuevas unidades o redistribuir la mercadería existente.
+El supermercado posee dos sucursales, cada una de las cuales envió su información en un fichero con el siguiente
+formato:
+						|Cod_prod |Tipo |Marca |Descripción |Cant_unidades|
+Escribir un algortimo que permita obtener un único fichero de salida, con el mismo formato, que contenga la
+información solicitada y además, emita un listado con los siguientes datos:
+Cod_prod |Tipo| Marca| Descripción |Cant Sucursal 1| Cant. Sucursal 2 |Total de Unidades|
+
+
+Accion 2.2.18 Es
+
+Ambiente 
+
+	Supermercado=Registro
+		Cod_prod:N(5)
+		Tipo:AN(30)
+		Marca:AN(15)
+		Descripción:AN(60)	
+		Cant_U:N 
+	Fin R
+
+	Arch_s1:Archivos de Supermercado
+	Arch_s2:Archivos de Supermercado
+	Arch_sal:Archivos de Supermercado
+	R_s1:Supermercado
+	R_s2:Supermercado
+	R_sal:Supermercado
+	Tot:Entero
+
+Proceso
+	
+	Abrir(Arch_s1)
+	Leer(Arch_s1,R_s1)
+	Abrir(Arch_s2)
+	Leer(Arch_s2,R_s2)
+	Abrir s/(Arch_sal)
+	Tot:=0
+
+	Esc("| Cod_prod | Tipo | Marca | Descripción | Cant Sucursal 1| Cant. Sucursal 2 | Total de Unidades |")
+
+	Mientras NFDA(Arch_s1) Y NFDA(Arch_s2) Hacer
+
+		Si R_s1.Cod_prod < R_s2.Cod_prod Entonces
+
+			R_sal:=R_s1
+			Grabar(Arch_sal,R_sal)
+			Esc(R_s1.Cod_prod, R_s1.Tipo, R_s1.Marca, R_s1.Descripción, R_s1.Cant_U, R_s1.Cant_U)
+			Leer(Arch_s1,R_s1)
+			
+		Sino
+
+			Si R_s1.Cod_prod > R_s2.Cod_prod Entonces
+
+				R_sal:=R_s2
+				Grabar(Arch_sal,R_sal)
+				Esc(R_s2.Cod_prod, R_s2.Tipo, R_s2.Marca, R_s1.Descripción, R_s2.Cant_U, R_s2.Cant_U)
+				Leer(Arch_s2,R_s2)	
+
+			Sino
+
+				Si	R_s1.Cod_prod = R_s2.Cod_prod Entonces
+
+					R_sal:=R_s1
+					Tot:=R_s1.Cant_U+R_s2.Cant_U
+					Grabar(Arch_sal,R_sal)
+					Esc(R_s1.Cod_prod, R_s1.Tipo, R_s1.Marca, R_s1.Descripción, R_s1.Cant_U, R_s1.Cant_U, Tot)
+					Leer(Arch_s1,R_s1)
+					Leer(Arch_s2,R_s2)
+
+				Fin Si
+			Fin Si
+		Fin Si
+	Fin Mientras
+
+	Mientras NFDA(Arch_s1) Hacer
+		R_sal:=R_s1
+		Grabar(Arch_sal,R_sal)
+		Esc(R_s1.Cod_prod, R_s1.Tipo, R_s1.Marca, R_s1.Descripción, R_s1.Cant_U, R_s1.Cant_U)
+		Leer(Arch_s1,R_s1)
+	Fin Mientras
+
+	Mientras NFDA(Arch_s2) Hacer
+		R_sal:=R_s2
+		Grabar(Arch_sal,R_sal)
+		Esc(R_s2.Cod_prod, R_s2.Tipo, R_s2.Marca, R_s2.Descripción, R_s2.Cant_U, R_s2.Cant_U)
+		Leer(Arch_s2,R_s2)
+	Fin Mientras
+
+	Cerrar(Arch_s1)
+	Cerrar(Arch_s2)
+	Cerrar(Arch_sal)
+
+Fin Accion
+---------------------------------------------------------------------------------------------------------
+
+Actualizacion 
+2.19 En una Empresa Farmacéutica se posee un archivo Mae_Remedios (ordenado por Clave: Farmacia +
+Medicamento), el que se actualiza semanalmente, a traves de la información que se encuentra cargada en un archivo
+de Movimientos (ordenado por Clavem: Farmacia + Medicamento, y Codmov), de la siguiente forma:
+
+- Si Clave (Mae_Remedios) es menor que Clavem (Movimientos), simplemente se transfieren los datos del Maestro a
+la salida y se graban.
+
+- Si Clave (Mae_Remedios) es igual a Clavem (Movimientos) y el Codmov es 1, se considera error y se lista un
+mensaje indicando el tipo de error; pero si el Codmov es 2, entonces es un remedio que deja de fabricarse y se
+transfiere el registro al archivo de Remedios vencidos (Rem_Venc) ; pero si el Codmov es 3, se modifica la cantidad
+actual con la cantidad recibida.
+
+- Si Clave (Mae_Remedios) es mayor que Clavem (Movimientos) y el Codmov es 1, se incorpora el remedio a
+nuestro Vademecum, considerando que la cantidad recibida configura la cantidad actual y la fecha-vence es 30 días
+posterior a la fecha actual; pero si el Codmov es 2 o 3 se considera error y se deben producir los correspondientes
+mensajes de error.
+
+Se considera que sólo existe un registro de movimiento para cada registro del maestro.
+
+MAE_REMEDIOS = MAESTRO_ACTUAL
+		REGR = REGA
+								| Farmacia | Medicamento | Cant-actual | Fecha-vence |
+
+MOVIMIENTOS
+REGV
+
+								 | Farmacia | Medicamento | Codmov | Cant-recibida |
+
+REM_VENC
+  REGE
+
+											| Medicamento | Cant-vencida |	
+
+Accion 2.2.19 Es
+
+Ambiente
+
+	Clave1=Registro
+		Farmacia:An(30)
+		Medicamento:An(30)
+	Fr
+
+	Fecha=Registro
+		AA:N(4)
+		MM:1..12
+		DD:1..31
+	Fr
+
+	Rem=Registro
+		Clave:Clave1
+		Cant_A:N(3)
+		Fecha_V:Fecha
+	Fr
+
+	Mov=Registro
+		ClaveM:Clave
+		CodMov:N(3)
+		Cant_Rec:N(3)
+	Fr
+
+	Rem_V=Registro
+		Medicamento:AN(30)
+		Cant_V:N(3)
+	Fr
+
+	MAE_REM:Archivo de Rem ordenado por Clave1
+	Movimientos:Archivo de Mov ordenado por Farmacia,Medicamento y CodMov
+	Rem_venc:Archivo de Rem_V ordenado por Medicamento
+	Maestro_A:Archivo de Rem ordenado por Clave1
+
+	Maestro:Rem
+	Movim:Mov
+	V1:Rem_venc
+
+	Subaccion One Es
+		Leer(MAE_REM,Maestro)
+
+			Si FDA(MAE_REM) Entonces
+				Maestro.clave:=HV
+			Fin Si
+	Fin Subaccion
+	Subaccion Two Es
+		Leer(Movimientos,Movim)
+
+			Si FDA(Movimientos) Entonces
+				Movim.claveM:=HV
+			Fin Si
+	Fin Subaccion
+
+Proceso
+
+	Abrir(MAE_REM)
+	Leer(MAE_REM,Maestro)
+	Abrir(Movimientos)
+	Leer(Movimientos,Movim)
+	Abir s/(Rem_venc)
+	Abrir s/(Maestro_A)
+
+	Mientras Maestro.Clave<>HV o Movim.ClaveM<>HV Hacer
+		Si Clave<ClaveM Entonces
+			Grabar(Maestro_A,Maestro)
+			One
+		Sino
+			Si Clave=ClaveM
+				Segun Movim.Cod_prod Hacer
+				1: Escribir ("Error de Movimientos ya se encuentra el archivo maestro")
+				2: V1.Medicamento:=Maestro.Clave.Medicamento
+				  	V1.Cant_V:=Maestro.Cant_A
+				   	Grabar(Maestro_A,Maestro)
+				3: Maestro.Cant_A:=Movim.Cant_Rec
+				   Grabar(Maestro_A,Maestro)
+				Fin Segun
+				One
+				Two
+			Sino
+				Segun Movim.CodMov Hacer
+					1: 		Maestro.Clave=Movim.ClaveM
+							Maestro.Cant_A:=Movim.Cant_Rec
+							Maestro.Fecha_V=Fecha_A() +30
+							Grabar(Maestro_A,maestro)
+						Fin Si
+					2:	Esc("ERROR: NO SE PUEDE DAR DE BAJA UN REGISTRO QUE NO EXISTE")
+					3:  Esc("ERROR: NO SE PUEDE MODIFICAR UN REGISTRO QUE NO EXISTE")
+				Fin Segun
+				Two
+			Fin Si
+		Fin Si
+	Fin Mientras
+Fin Accion
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+[11:35 p. m., 24/9/2020] ~Mica~: 
+Cuando tenes varios campos como clave y se repiten los mismos campos en otra clave, podes hacer esto:
+
+Clave: registro de 
+    Campo 1 
+    Campo 2
+Fin registro
+
+Y ese Clave usarlo como formato en el registro del archivo, o sea:
+
+Maestro: Registro de 
+     Clave: Clave
+     .
+     .
+     .
+Fin registro
+
+Movimiento: registro de 
+     Clave: Clave
+     . 
+     .
+Fin registro
+[11:36 p. m., 24/9/2020] ~Mica~: Asi despues cuando comparas usas ese registro Clave
+----------------------------------------------------------------------------------------
+2.2.21
+En un práctico para la Facultad un grupo de alumnos debe implementar una Red Social llamada UTNBook. 
+Para lo cual debe utilizar los siguientes archivos:
+
+AMIGOS Ordenado por Cod_Usuario y Cod_Amigo
+
+    |Cod_Usuario |Cod_Amigo |Fecha_Amistad| Mensaje_Muro| 
+
+Cada registro indica la fecha desde que los usuarios son amigos y el último mensaje que un amigo ha escrito en el muro del usuario.
+
+NOTIFICACIONES Ordenado por Cod_Usuario y Cod_Amigo
+
+    |Cod_Usuario| Cod_Amigo |Cod_Movimiento |Fecha_Amistad |Mensaje_Muro| 
+
+Periódicamente se debe actualizar el archivo Amigos, 
+con el fin de que refleje las amistades que posee cada usuario. 
+En el archivo notificaciones pueden existir tres tipos de acciones: 
+la solicitud de una amistad (Cod_mov = 'A'); la eliminación de una amistad (Cod_mov = 'B'); 
+o la información de un mensaje que un amigo ha escrito en el muro del usuario (Cod_mov = 'M'). 
+Considerar que la eliminación de una amistad implica la baja física de un registro 
+y que hay un solo registro de Notificaciones por cada registro de Amigo.
+
+Accion 2.2.21 Es
+	
+Ambiente
+
+	Fecha=Registro
+		AA:N(4)
+		MM:1..12
+		DD:1..31
+	Fin Registro
+
+	Clave= Registro
+		Cod_u:N(5)
+		Cod_Ami:N(5)
+	Fin Registro
+
+	Amigos=Registro
+		Clave_A:Clave
+		Fecha_Ami:Fecha 
+		Msj_Muro:An(200)
+	Fin Registro
+
+	Notificaciones=Registro
+		Clave_A:Clave
+		Cod_mov:("A","B","M")
+		Fecha_Amistad:Fecha 
+		Msj_Nuevo:N(200)
+	Fin Registro 
+
+	Ami:Archivo de Amigos ordenado por Clave
+	Ami_A: Archivo de Amigos ordenado por codigo de usario y  de movimiento
+	Noti:Archivo de Notificaciones ordenado por Clave
+	R_Ami:Amigos
+	R_Noti:Notificaciones
+
+	Subaccion Leer_Ami Es
+		Leer(Ami,R_Ami)
+			Si FDA(Ami) Entonces
+				R_Ami.Clave_A:=HV
+			Fin Si
+	Fin Subaccion
+
+	Subaccion Leer_Noti Es
+		Leer(Noti,R_Noti)
+			Si FDA(Movimientos) Entonces
+				R_Noti.Clave_A:=HV
+			Fin Si
+	Fin Subaccion
+
+Proceso
+
+	Abrir(Ami)
+	Leer(Ami,R_Ami)
+	Abrir(Noti)
+	Leer(Noti,R_Noti)
+	Abrir s/(Ami_A)
+
+	Leer_Ami
+	Leer_Noti
+
+	Mientras(R_Ami.Clave_A<>HV) V (R_Noti.Clave_A<>HV) Hacer
+
+		Si R_Ami.Clave_A < R_Noti.Clave_A Entonces
+
+			Grabar(Ami_A,R_Ami)
+			Leer_Ami
+
+		Sino
+
+			Si R_Ami.Clave_A = R_Noti.Clave_A Entonces
+				Segun R_Noti.Cod_Mov Hacer
+
+					'A':Esc("ERROR ")
+						
+					'B':Leer(Ami_A,R_Ami)	
+
+					'M':R_Ami.Mensaje_Muro:=R_Noti.Mensaje_Muro
+						Grabar(Ami_A,R_Ami)
+				Fin Segun
+
+				Leer_Ami
+				Leer_Noti
+			Sino
+
+				R_Ami.Clave_A:=R_Noti.Clave_A
+				R_Ami.Fecha_Amistad:=R_Noti.Fecha_Amistad
+				R_Ami.Mensaje_Muro:=R_Noti.Mensaje_Muro
+				Grabar(Ami_A,R_Ami)
+				Leer_Noti
+
+			Fin Si
+		Fin Si
+	Fin Mientras
+
+	Cerrar(Ami)
+	Cerrar(Noti)
+	Cerrar(Ami_A)
+
+Fin Accion
+-------------------------------------------------------------------------------------------------------
+2223
+Una empresa de distribución de energía eléctrica posee un archivo maestro con los siguientes datos de sus clientes 
+(la fecha de última lectura son las mediciones realizadas hasta el mes de mayo del 2014):
+
+CLIENTE Ordenado por Id_Casa
+
+Id_Casa|Fecha_Ult_Lectura|Cant_Lecturas|Prom_Lecturas|Tipo_Consumidor
+
+El campo tipo de consumidor puede ser:
+
+A (cuando el promedio de lectura es menor a 20K)
+B (cuando el promedio de lectura es menor a 40K)
+C (cuando el promedio de lectura es igual o supera los 40K)
+
+Cuenta además con el siguiente archivo con datos de las mediciones realizadas en los dos últimos años (desde junio del 2014 hasta junio del 2016)
+
+|Mediciones | Ordenado  por Id_Casa
+
+Id_Casa|Fecha_Medicion|Consumo
+Se pide actualizar el archivo maestro con la información de las lecturas hasta el mes de enero del año 2015 inclusive. 
+Los campos que se deben actualizar son: 
+la fecha de ultima lectura, cantidad de lecturas, el promedio y modificar (en caso de ser necesario) el tipo de consumidor. 
+En caso en que no exista el ID casa (una conexión nueva) se tiene que crear en el maestro y actualizar los otros campos.
+
+Accion 2.2.23 Es
+
+Ambiente
+
+	Fecha=Registro
+
+		AA:N(4)
+		MM:1..12
+		DD:1..31
+
+	Fin Registro
+
+	Cliente=Registro
+
+		Id_Casa:N(4)
+		Fecha_Ult_Lect:Fecha 
+		Cant_Lect:N(6)
+		Prom_Lec:N(4)
+		Tipo_C:("A","B","C")
+
+	Fin Registro
+
+	Mediciones=Registro
+
+		Id_Casa:N(4)
+		Fecha_Medicion:Fecha 
+		Consumo:N(7)
+
+	Fin Registro
+
+	Cli:Archivo de Cliente
+	Med:Archivo de Mediciones
+	Salida:Archivo de Cliente
+
+	Mae:Cli
+	Mov:Med 
+
+	Subaccion Leer_Cliente Es
+		Leer(Cli,Mae)
+		Si FDA(Cli) Entonces
+			Mae.Id_Casa:=HV
+		Fin Si
+	Fin Subaccion
+
+	Subaccion Leer_Mediciones Es
+		Leer(Med,Mov)
+		Si FDA(Med) Entonces
+			Mov.Id_Casa:=HV
+		Fin Si
+	Fin Subaccion
+
+Proceso
+
+	Abrir(Cli)
+	Leer(Cli,Mae)
+	Abrir(Med)
+	Leer(Med,Mov)
+	Abrir s/(Salida)
+	Leer_Mediciones
+	Leer_Cliente
+
+	Mientras (Mae.Id_Casa<>HV) V (Mov.Id_Casa<>HV) Hacer
+		Si (Mae.Id_Casa < Mov.Id_Casa) Entonces
+			Grabar(Salida,Mae)
+			Leer_Cliente
+		Sino
+			Si (Mae.Id_Casa = Mov.Id_Casa) Entonces
+
+				Mientras (Mae.Id_Casa = Mov.Id_Casa) Hacer
+					Si (Mov.Fecha_Medicion.AA < 2015) O ((Mov.Fecha_Medicion.AA =2015) y (Mov.Fecha_Medicion.MM =1)) Entonces
+							Mae.Prom_Lec:=(Mae.Cant_Lect*Mae.Prom_Lec)+Mov.Consumo/Mae.Cant_Lect + 1
+							Mae.Cant_Lecturas:= Mae.Cant_Lecturas+1
+							Fecha_Ult_Lect:=Mov.Fecha_Medicion
+							Leer_Mediciones
+					Fin Si
+				Fin Mientras
+				Segun Mae.Prom_Lec Hacer
+					<20: Mae.Tipo_C := 'A'
+					<40: Mae.Tipo_C := 'B'
+					Otro: Mae.Tipo_C :='C'
+				Fin Segun
+				Grabar(Salida,Mae)
+				Leer_Cliente
+			Sino
+				Mae.Id_Casa:=Mov.Id_Casa
+				Mae.Fecha_Ult_Lect:=Mov.Fecha_Medicion
+				Mae.Cant_Lect:=1
+				Mae.Prom_Lec:=Mov.Consumo
+				Mientras (Mae.Id_Casa = Mov.Id_Casa) Hacer
+					Si (Mov.Fecha_Medicion.AA < 2015) O ((Mov.Fecha_Medicion.AA =2015) y (Mov.Fecha_Medicion.MM =1)) Entonces
+							Mae.Prom_Lec:=(Mae.Cant_Lect*Mae.Prom_Lec)+Mov.Consumo/Mae.Cant_Lect + 1
+							Mae.Cant_Lecturas:= Mae.Cant_Lecturas+1
+							Fecha_Ult_Lect:=Mov.Fecha_Medicion
+					Fin Si
+					Leer_Mediciones
+				Fin Mientras
+				Segun Mae.Prom_Lec Hacer
+					<20: Mae.Tipo_C := 'A'
+					<40: Mae.Tipo_C := 'B'
+					Otro: Mae.Tipo_C :='C'
+				Fin Segun
+				Grabar(Salida,Mae)
+			Fin Si
+		Fin Si
+	Fin Mientras	
+	Cerrar(Cli)
+	Cerrar(Med)
+	Cerrar(Salida)
+Fin Accion
+-------------------------------------------------------------------------------------------------------------------------------------
+2.3.1.Dado un fichero secuencial de Facturas, ordenado por 
+Nro. de Cliente y Nro. de Factura, con la siguiente estructura:
+
+FACTURAS Ordenado por Nro_Cliente, Nro_Factura
+
+Nro_Cliente|Nro_Factura|Fecha|Importe
+Se desea un listado con el siguiente detalle:
+
+Nro. Cliente	|Nombre Cliente|	Total Facturado	|Cantidad de Facturas|
+Los datos del cliente se encuentran en un fichero indexado por Nro. de Cliente, 
+que tiene la siguiente estructura:
+
+CLIENTES Indexado por Nro_Cliente
+
+Nro_Cliente|Nombre| DNI|CUIT|Domicilio
+
+
+Accion 2.3.1.b Es
+
+Ambiente
+	Fecha=Registro
+
+		AA:N(4)
+		MM:1..12
+		DD:1..31
+
+	Fin Registro
+
+	Clave=Registro
+
+		Nro_Cliente:N(5)
+		Nro_Factura:N(6)
+
+	Fin registro
+
+	Facturas=Registro
+
+		C_clave:Clave 
+		Fecha:Fecha
+		Importe:Entero
+
+	Fin Registro
+
+	Clientes=Registro Indexado por Nro_Cliente
+
+		Nro_Cliente=N(5)
+		Nombre=AN(30)
+		DNI=N(8)
+		CUIT=N(11)
+		Domicilio=An(30)
+
+	Fin Registro
+
+	Factura:Archivo de facturas ordenado por Nro_Cliente y Nro_Factura
+	Fac:Factura
+	Cliente:Archivo indexado por Nro_Cliente
+	Cli:Cliente
+	Res:N(5)
+	Tot_Fac:Entero
+	Cant_fac:N(6)
+
+
+Proceso
+	
+	Abrir (Factura)
+	Leer(Factura,Fac)
+	Abrir(Cliente)
+
+	Mientras NFDA(Factura) Hacer	
+
+		Res:=Fac.C_Clave.Nro_Cliente 
+		Tot_Fac:=0
+		Cant_fac:=0
+
+		Mientras (Res = Fac.C_clave.Nro_Cliente)  Hacer
+
+			Tot_Fac:=Tot_Fac+Fac.Importe
+			Cant_fac:=Cant_fac+1
+			Leer(Factura,Fac)
+
+		Fin Mientras
+
+		Cliente.Nro_Cliente:=Res
+		Leer(Cliente,Cli)
+
+		Si Existe
+
+			Esc("| Nro. Cliente	| Nombre Cliente | Total Facturado | Cantidad de Facturas |")
+			Esc(Cli.Nro_Cliente , Cli.Nombre , Tot_Fac , Cant_fac)
+
+		Sino
+
+			Esc("NO EXISTE")
+			Leer(Factura,Fac)
+			Leer(Cliente,Cli)
+
+		Fin Si
+	Fin Mientras
+
+	Cerrar(Factura)
+	Cerrar(Cliente)
+
+Fin Accion
+
+
+--------------------------------------------------------------------------------------------------------------------
+2.3.2 Una empresa dispone de un fichero secuencial con datos de sus empleados, 
+ordenado por número de sucursal, y categoría, con los siguientes datos:
+
+EMPLEADOS Ordenado por Nro_Sucursal, Categoria
+
+Nro_Sucursal |Categoria (A,B,C)|Nombre_Empleado|Cod_Curso|Tecnico (si,no)|
+Y un fichero con datos de cursos, indexado por código de curso:
+
+CURSO Indexado por Cod_Curso
+
+					|Cod_Curso|Nombre|Fecha|Cant_Horas|
+Emitir un listado informando:
+
+1.Para cada empleado: sucursal, categoría, nombre del empleado y nombre del curso que debe realizar.
+2.Por sucursal, categoría y toda la empresa:
+	a.Total empleados técnicos
+	b.Total empleados no técnicos
+	c.Total empleados
+
+Accion 2.3.2 Es
+
+Ambiente
+
+	
+	Fecha1=Registro
+		AA:N(4)
+		MM:1..12
+		DD:1..31
+	Fin Registro
+
+	Clave1=Registro
+
+		Nro_Sucursal:N(2)
+		Categoria:("A","B","C")
+
+	Fin Registro
+
+	Empleados=Registro
+
+		Clave:Clave1
+		Nom_Emp:AN(30)
+		Cod_Curso:N(4)
+		Tecnico:("SI","NO")
+
+	Fin Registro
+
+	Curso=Registro 
+
+		Cod_Curso:N(4)
+		Nombre:An(30)
+		Fecha:Fecha1
+		Cant_Horas:Entero
+
+	Fin Registro
+
+	Emp:Archivo de Empleados ordenado por Nro_Sucursal y Categoria
+	Remp:Emp
+
+	Cur:Archivo indexado por Cod_Curso
+	Rcur:Cur
+
+	C_conttec, C_contnotec, C_contemple:Entero 
+	S_conttec, S_contnotec, S_contemple:Entero
+	T_conttec, T_contnotec, T_contemple:Entero
+
+
+Proceso
+
+	Abrir(Emp)
+	Abrir(Cur)
+	Leer(Emp,Remp)
+	C_conttec, C_contnotec, C_contemple:=0 
+	S_conttec, S_contnotec, S_contemple:=0 
+	T_conttec, T_contnotec, T_contemple:=0
+
+	Mientras NFDA(Emp) Hacer
+
+		Rcur.Cod_Curso:=Remp.Cod_Curso
+		Leer(Cur)
+
+		Remp.Clave:=Clave1
+		Leer(Emp,Remp)
+	
+
+		Esc("| Sucursal | | Categoria |  | Nombre Empleado | | Nombre Curso |")
+
+		Si Existe Entonces
+
+			Si (Remp.Tecnico = "Si") y ()Entonces
+
+
+
+				Tot_ET:=Tot_ET+1 
+			
+			Sino
+
+					Tot_ENT:=Tot_ENT+1
+
+			Sino
+
+				Si 
+
+			Fin Si
+
+			Tot_E:=Tot_ET+Tot_ENT
+			
+
+			Fin Segun
+Fin Accion
+//NI ENPEDO NO DI A TERMINAR ESTE EJERCICIO NI IDEA COMO SEGUIR
+
+-----------------------------------------------------------------------------------------------
+
+2.3.3
+Los automovilistas pasan por el peaje del Puente Gral. Belgrano y deben pagar según su categoría, pero además, si ya han pasado previamente dentro del día tienen pase libre.
+Teniendo en cuenta el archivo siguiente, construya el algoritmo que realice lo que corresponda: 
+genere el comprobante, indicando el importe a pagar o emita un mensaje indicando que ya pasó anteriormente. Además indique cuales deberían ser los datos de entrada.
+
+PEAJE Indexado por Patente, Fecha
+
+Patente XXX-NNN|Fecha N(8)|Ult_Hora N(4)|Costo XXX,XX|
+Costo por categoria
+
+Categoria	Costo
+	1		1,20
+	2		2,50
+	3		4,00
+	4		5,00
+
+Accion 2.3.3 Es
+
+Ambiente
+		Fecha1=Registro
+			AA:N(4)
+			MM:1..12
+			DD:1...31
+		Fin Registro
+
+	Peaje=Registro
+
+		Patente:AN(7)
+		Fecha:Fecha1 
+		Ult_Hora:N(4)
+		Costo:Real
+		Categoria:1..4
+
+	Fin Registro
+
+	Peajaes:Archivo indexado por Patente y Fecha
+	Reg_P:Peajaes
+
+Proceso
+
+	Abrir E/S (Peajaes)
+	Leer(Peajes,Reg_P)
+
+	Mientras NFDA(Peajes) Hacer
+
+		Esc("Ingrese la patente del vehiculo (XXX-NNN)")
+		Leer(Reg_p.Patente)
+		Esc("Ingrese fecha y hora actuall")
+		Leer(Reg_P.Fecha,Reg_P.Ult_Hora)
+		Leer(Peajes,Reg_p)
+
+		Si Existe Entonces
+
+			Esc("El vehiculo ya paso anteriormente en este dia")
+			Esc("|PATENTE| |FECHA| |HORA ANTERIOR| |HORA ACTUAL|")
+			Esc(Reg_P.Patente, Reg_P.Fecha, Reg_P.Ult_Hora)
+			Regrabar(Peajes,Reg_P)
+
+		Sino
+
+			Esc("Ingresar categoria del vehiculo")
+			Leer(Reg_P.Categoria)
+
+			Segun Reg_P.Categoria Hacer
+
+				1: Reg_P.Costo:=Reg_P.Costo+1.20
+
+				2: Reg_P.Costo:=Reg_P.Costo+2.50
+
+				3: Reg_P.Costo:=Reg_P.Costo+4.00
+
+				4: Reg_P.Costo:=Reg_P.Costo+5.00
+
+			Fin Segun
+
+			Leer(Peajes,Reg_P)
+			Grabar(Peajes,Reg_P)
+			Esc("Comprobante")
+			Esc("| Patente  |  | Fecha |  |  Ultima Hora  | | Costo |")
+			Esc(Reg_P.patente,Reg_P.Fecha,Reg_p.Ult_Hora,Reg_P.Costo)
+
+		Fin Si
+	Fin Mientras
+
+	Cerrar(Peajes)	
+
+Fin Accion
+---------------------------------------------------------------------------------------------
+
+

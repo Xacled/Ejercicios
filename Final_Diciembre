@@ -1,0 +1,2150 @@
+------------------------------------------------------------------SECUENCIAS------------------------------------------------------------------
+
+Ejercicio 2.1.1¶
+Dada una secuencia de letras del alfabeto que finaliza con una marca '*', contar cuantas letras "A" hay en la secuencia.
+
+Accion 2_1_1 es 
+	Ambiente
+		sec: secuencia caracter
+		v:caracter
+		cont: entero
+	Prceso
+		arr(sec)
+		avz(sec,v)
+		cont:=0
+		mientras  v <> "*" hacer 
+			si v = "A" entonces 
+				cont:=cont+1			
+			fs
+			avz(sec,v)
+		fm
+		mostrar("La cantidad de letras A en la secuencia es de:",cont)
+		cerrar(sec)
+Fin accion
+
+----------------------------------------------------------------------------------------------------------------------------------
+Ejercicio 2.1.2¶
+Dada una secuencia de letras del alfabeto que finaliza con la letra "Z", contar cuantas consonantes hay en la secuencia.
+
+Accion 2_1_2 es 
+	Ambiente
+		sec: secuencia de caracter 
+		v: caracter
+		cont: entero 
+		vocales : ["A","E","I","O","U"]
+	Proceso
+		arr(sec)
+		avz(sec,v)
+		cont:=0
+
+		Mientras V <> "Z" Hacer 
+			si v no en vocales entonces 
+				cont:=cont+1
+			fs 
+			avz(sec,v)
+		fm 
+		cont:=cont+1
+		Esc("La cantidad de consonantes en la secuencia es de: ",cont)
+		cerrar(sec)
+Fin accion
+-------------------------------------------------------------------------------------------------------------------------------------
+Ejercicio 2.1.3¶
+Se dispone de una secuencia de caracteres y se desea obtener una secuencia de salida que resulte de copiar la secuencia de entrada, descartando el caracter "$".
+
+Accion 2_1_2 es 
+	Ambiente
+		sec,sal: secuencia de caracter 
+		v: caracter
+	Proceso
+		arr(sec)
+		avz(sec,v)
+		crear(sal)
+		
+		Mientras v<>"$" hacer 
+			esc(sal,v)
+			avz(sec,v)
+		fm
+		cerrar(sec)
+Fin accion
+--------------------------------------------------------------------------------------------------------------------------------------
+Ejercicio 2.1.6¶
+Dada una secuencia de enteros que almacena la cantidad de habitantes de las ciudades capitales de las 23 
+provincias de la República Argentina, discriminados 4 categorías: menores de 18 años (varones y mujeres) y 
+mayores de 18 años (varones y mujeres). Se pide determinar la población total y los siguientes porcentajes: 
+masculinos, femeninos, mayores de 18 y menores de 18.
+
+Accion 2_1_6 es 
+	Ambiente
+		Sec: secuencia de enteros
+		v:entero
+		vmen,vmay,mmen,mmay,tot:entero
+	Proceso 
+		arr(sec)
+		avz(sec,v)
+		vmen:=0
+		vmay:=0
+		mmen:=0
+		mmay:=0
+		tot:=0
+		para i:=1 a 23 hacer 
+			para j=1 a 4 hacer
+				segun j hacer 
+					1:vmen:=vmen+v
+					2:mmen:=mmen+v
+					3:vmay:=vmay+v
+					4:mmay:=mmay+v
+				fs 
+				tot:=tot+v
+				avz(sec,v)
+			fp
+		fp
+		esc("total de la poblacion:",tot)
+		esc("porcentaje de varones",(vmen+vmay)/tot*100,"%")
+		esc("porcentaje de mujeres",(mmen+mmay)/tot*100,"%")
+		esc("porcentaje de  mayores de 18",(vmay+mmay)/tot*100,"%")
+		esc("porcentaje de menores de 18",(vmen+mmen)/tot*100,"%")
+		cerrar(sec)
+Fin accion
+--------------------------------------------------------------------------------------------------------------------------------------
+Ejercicio 2.1.7¶
+Se tiene una secuencia de enteros que contiene todos los CUIT de los empleados de una empresa, 
+la misma termina con el CUIT 0. Para evitar largas esperas en los días de pago, 
+la empresa necesita organizarlos de acuerdo al último dígito de su documento, 
+generar una secuencia con los CUIT de las personas que su número de documento termine con 0, 1, 2 o 3.
+
+cuit ejemplo
+
+20 96110359 3
+
+Accion 2_1_7 es 
+	Ambiente
+		sec,sal:Secuencia de enteros
+		v:entero
+		ulti_dig: (0,1,2,3)
+		numero:entero
+	Proceso 
+		arr(sec)
+		avz(sec,v)
+		crear(sal)
+		mientras NFDS(Sec) entonces 
+		
+			numero := v mod 10
+			si numero en ulti_dig entonces 
+				para i:=1 a 11 hacer 
+					esc(sal,v)
+				fp
+			fs 
+			avz(sec,v)
+		fm 
+		cerrar(sec)
+		cerrar(sal)
+Fa
+--------------------------------------------------------------------------------------------------------------------
+Ejercicio 2.1.10¶
+Se dispone de una secuencia de caracteres. Se desea permita contar la cantidad de palabras que comienzan con una letra dada.
+
+Accion 2_1_10 es 
+	Ambiente
+		sec,sal:Secuencia de caracter
+		v,letra:caracter
+		cont:entero
+	Proceso 
+		arr(sec)
+		avz(sec,v)
+		esc("Ingrese la letra con la que comienza la palabra")
+		leer(letra)
+		cont:=0
+		mientras nfds(sec) entonces 
+			mientras v = " " hacer 
+				avz(sec)
+			fm 
+	
+			si v = letra entonces 
+				cont:=cont+1
+			fs
+			
+			mientras v <> " " hacer 
+				avz(sec)
+			fm 
+		fm 
+		esc("la cantidad de palabras que inician con la letra",letra,"es:",cont)
+		cerrar(sec)
+Fa
+--------------------------------------------------------------------------------------------------------------------
+2.1.12
+Se dispone de una secuencia de caracteres. Se desea listar las palabras que comiencen con "ALG".
+Accion 2_1_12 es 
+	Ambiente
+		sec,sal:Secuencia de caracter
+		v,letra:caracter
+		cont:entero
+	Proceso 
+		arr(sec)
+		avz(sec,v)
+		cont:=0
+		mientras nfds(sec) entonces 
+			mientras v = " " hacer 
+				avz(sec) 
+				si v = "A" entonces 
+					avz(sec,v)
+					si v ="L" entonces 
+						avz(sec,v)
+						si v = "G" entonces 
+							esc("ALG")
+							avz(sec,v)
+							mientras v <> "" hacer 
+								esc(v)
+								avz(sec,v)
+							fm
+						fs
+					fs
+				fs		
+				mientras v <> " " hacer 
+					avz(sec)
+				fm 		
+			fm
+		fm 
+		cerrar(sec)
+Fa
+--------------------------------------------------------------------------------------------------------------------
+Ejercicio 2.1.14¶
+Se dispone de una secuencia de caracteres y se desea saber la cantidad de caracteres 
+(incluidos los espacios) que existen entre una coma y la siguiente. 
+Se debe considerar que puede haber más de un par de comas, y que 
+las subsecuencias inicial y final deben descartarse por no cumplir la condición enunciada. 
+Supóngase que las comas son siempre contiguas al último caracter de la palabra.
+
+"Este es un ejemplo de, secuencia de texto con, comas para analizar, la cantidad de caracteres"
+
+
+Accion 2_1_14 es 
+	Ambiente
+		sec: secuencia de caracteres
+		v: caracter 
+		cont:entero
+	Proceso 
+		arr(sec)
+		avz(sec,v)
+		cont:=0
+
+		mientras v <> "," hacer
+			avz(sec,v)
+		fm
+		mientras nfds(sec) hacer 
+			
+			mientras v = "," hacer
+				avz(sec,v)
+			fm
+
+			mientras nfds(sec) y v <>"," hacer 
+				cont:=cont+1
+				avz(sec,v)
+			fm
+
+			si nfds(sec) entonces
+				esc("La cantidad de caracteres entre comas es:",cont)
+				cont:=0
+			fs
+		fm
+		cerrar(sec)
+fin accion
+
+--------------------------------------------------------------------------------------------------------------------
+
+Ejercicio 2.1.16¶
+Se dispone de una secuencia de números de DNI asignados a un circuito electoral, generar otra secuencia de números que contenga los DNI múltiplos de 3.
+Accion 2_1_16 es 
+	Ambiente
+		sec,sal: secuencia de enteros
+		v: enteros 
+		cont:entero
+	Proceso 
+		arr(sec)
+		avz(sec,v)
+		cont:=0
+		crear(sal)
+		mientras nfds(sec) hacer 
+			avz(sec,v)
+			si (v mod 3) = 0 entonces 
+				esc(sal,v)
+			fs	
+		fm
+		cerrar(sec)
+		cerrar(sal)
+fin accion
+--------------------------------------------------------------------------------------------------------------------
+2.1.18      
+Escribir un algoritmo que produzca una secuencia de salida que contenga una oración 
+formada por las palabras en posición "par" de cada oración de una secuencia texto de entrada, 
+que además comienzan con la letra 'M'.
+
+Accion 2_1_16 es 
+	Ambiente
+		sec,sal: secuencia de enteros
+		v,aux: enteros 
+		contp:entero
+	Proceso 
+		arr(sec)
+		avz(sec,v)
+		cont:=0
+		crear(sal)
+		mientras nfds(sec) hacer 
+			mientras v <> "." hacer 
+				mientras v = "" hacer 
+					avz(sec,v)
+				fm
+				avz(sec,v)
+				contp:=contp+1
+				aux:=v
+				
+				si (contp mod 2) = 0 y aux ="M" entonces
+					mientras v <>" "  y v <>"."hacer 
+						esc(sal,v)
+						avz(sec,v)
+					fm
+					esc(sal," ")
+				sino 
+					mientras v <>" " y v<>"."hacer 
+						avz(sec,v)
+					fm
+				fs
+			fm
+			si v = "." entonces 
+				avz(sec,v)
+			fs
+		fm
+		esc(sal,".")
+		cerrar(sec)
+		cerrar(sal)
+fin accion
+----------------------------------------------------------------------------------------------------------------------------------------
+Ejercicio 2.1.22¶
+La empresa Ideas Argentinas S.A. posee datos de sus empleados en dos secuencias de caracteres; 
+la primera secuencia (Sec1) formada por los nombres (uno por persona) de los empleados separados 
+por blancos y la segunda secuencia (Sec2) posee los números de documento de cada uno de los empleados 
+(palabras de 8 dígitos numéricos). 
+Ambas secuencias poseen la misma cantidad de datos, es decir al primer 
+nombre de la primera secuencia le corresponde el primer número de documento de la segunda secuencia y así sucesivamente. 
+La secuencia de números de documentos no posee espacios en blanco ni ningún otro tipo de caracter que separe un número de documento de otro.
+A la empresa le interesa tener en una nueva secuencia (Sec3) los datos de todas aquellas personas que cumplan la condición 
+de que el nombre se encuentre en una posición impar. La nueva secuencia debe generarse de la siguiente manera: 
+el número de documento seguido (sin espacios) por una coma y luego (sin espacios) por el nombre y seguido al nombre un #.
+
+
+Secuencia 1 :
+	Carlos Daniel 
+Secuencia 2:	
+	1234567898765432
+Secuencia 3:
+	12345678,Carlos#
+
+Accion ideas es  
+	Ambiente 
+		sec1,sec3:secuencia de caracteres
+		sec2:secuencia de enteros
+		v1:caracter 
+		v2,cont:entero
+		
+		Funcion EntCar(n:entero):caracter es 
+			segun n hacer 
+				0:EntCar:="0"
+				1:EntCar:="1"
+				2:EntCar:="2"
+				3:EntCar:="3"
+				4:EntCar:="4"
+				5:EntCar:="5"
+				6:EntCar:="6"
+				7:EntCar:="7"
+				8:EntCar:="8"
+				9:EntCar:="9"
+			fs
+		Ff
+	Proceso 
+		arr(sec1)
+		arr(sec2)
+		crear(sec3)
+		avz(sec1,v1)
+		avz(sec2,v2)
+		cont:=1
+		Mientras nfds(sec1) y nfds(sec2) hacer
+			Mientras v1 = ' ' hacer 
+				avz(s1,v1)
+			Fm
+			si	(cont mod 2 )<>0 entonces 
+				para i:=1 a 8 hacer
+					esc(sec3,EntCar(v2))
+					avz(sec2,v2)
+				fp
+				esc(sec3,",")
+				Mientras v1 = ' ' hacer 
+					avz(s1,v1)
+				Fm
+				Mientras v1 <> ' ' hacer 
+					esc(sec3,v1)
+					avz(s1,v1)
+				Fm
+				esc(sal,"#")
+			sino 
+				para i:=1 a 8 hacer
+					avz(sec2,v2)
+				fp
+				Mientras v1 <> ' ' hacer 
+					avz(s1,v1)
+				Fm
+			fs
+			cont:=cont+1
+			avz(sec1,v1)
+			avz(sec2,v2)
+		fm
+		cerrar(sec1),cerrar(sec2)
+		cerrar(sec3)
+FP
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Ejercicio 2.1.25¶
+Dada una secuencia texto de entrada que contiene palabras alfanuméricas, escribir un algoritmo que genere dos secuencias de salida. 
+Una de ellas contendrá solo las palabras de la secuencia original que comienzan con vocal, en las cuales se reemplazarán todas las vocales por ‘#’, 
+por ejemplo: entrada 'avión1', salida '#v##n1' y la otra será una secuencia numérica en la que se almacenarán las cantidades de vocales que se encontraron 
+en cada una de las palabras que cumplieron la condición. Por final de proceso se deberá informar el promedio de palabras por oración.
+
+Accion 2_1_25 es 
+	Ambiente
+		Sec,sal1: Secuencia de caracteres 
+		v:caracter
+		sal2:secuencia de enteros
+		cantv,canto,cantp:entero
+		vocal : ('a','e','i','o','u')
+	Proceso 
+		arr(sec)
+		avz(sec,v)
+		crear(sal1)
+		crear(sal2)
+		conto:=0
+		contp=0
+		Mientras NFDS(sec)  hacer   
+			mientras v <> "."  hacer     avión1
+				mientras v = " " hacer 
+					avz(sec,v)
+				fm
+				contp:=contp+1
+				si v en vocal entonces 
+					contv:=0
+					mientras v <>" " y v<>"."hacer	
+						si v en vocal entonces 
+							esc(sal1,"#")
+							contv:=contv+1
+						sino 
+							esc(sal1,v)
+						fs
+						avz(sec,v)
+					fm
+					esc(sal2,cv)
+				sino 
+					mientras v <>" " y v<>"."hacer	
+						avz(sec,v)
+					fm
+				fs
+			fm
+			conto:=conto+1
+			avz(sec,v)
+		fm
+		esc("El promedio de palabras por oracion es: ", (cantp/conto))
+		cerrar(sec)
+		cerrar(sal1)
+		cerrar(sal2)
+FA
+Afip dispone de dos secuencias de caracteres:
+
+PERSONAS: Contiene el nombre de personas fisicas o empresas: Nombre Completo y fecha (de nacimiento o creacion) Agrupada por provincias. 
+NO existe caracter separador entre personas, el fin de cada provincia se indica con "&"
+		Ejemplo:
+		Eva Gomez-14071977Snoopy Producciones Aéreas-20062018...&Lionel Messi-24061987...&...{Fin}
+		nombre-ddmmaaaanombre-ddmmaaa....&
+
+CUIT: Contiene la clave unica de identificacion tributaria de las personas de la secuencia PERSONAS 
+(existiendo una correspondencia una a una, es decir la primer persona con el primer cuit, la segunda con el segundo y asi sucesivamente).
+Cada numero de cuit se almacena, por medio de 11 caracteres: Los 2 primeros indican el tipo, los siguientes el Dni para personas fisicas, 
+o de sociedad (en caso de empresas), y el ultimo es un digito verificador.
+
+Ejemplo:
+		*20123456786**23134567823**30712434445*
+
+Los tipos pueden ser: 20,23,24 y 27 para personas fisicas y 30,33, y 34 para Empresas
+
+Se solicita:
+	a) Generar una secuencia de salida que contenga: DNI,NombreyApellido de todos las  personas fisicas cuyo nombres empiecen con una Vocal
+	b) Para cada provincia calcular el total de personas fisicas, y el porcentaje total sobre las provincias
+
+Accion Afip es 
+	Ambiente
+		personas,cuit,sal: secuencia de caractero
+		p,c:caracter
+		tot,contf,contp:entero
+		vocal : ("A","E","I","O","U")
+	Proceso
+		arr(personas)
+		arr(cuit)
+		crear(sal)
+		avz(personas,p)
+		avz(cuit,c)
+		//inicializar contadores
+		Mientras NFDS(personas) y NFDS(cuit) hacer 
+			Mientras v <> "&" hacer 
+				tot:=tot+1
+				mientras c <> "*" entonces 
+					si c = "2" entonces
+						contf:=contf +1 
+						avz(cuit,c)
+						avz(cuit,c)
+						si p en vocal entonces 
+							para i:=1 a 8 hacer 
+								esc(sal,c)
+								avz(cuit,c)
+							fp
+
+							mientras p <> "-" hacer 
+								esc(sal,p)
+								avz(personas,p)
+							fm
+							esc(sal,"-")
+							para i:=1 a 8 hacer 
+								avz(personas,p)
+							fp
+						sino
+							para i:=1 a 11 hacer 
+								avz(cuit,c)
+							fp
+
+							mientras p <> "-" hacer 
+								avz(personas,p)
+							fm
+
+							para i:=1 a 8 hacer 
+								avz(personas,p)
+							fp
+						fs
+					sino 
+						mientras p <> "-" hacer 
+							avz(personas,p)
+						fm
+						para i:=1 a 8 hacer 
+							avz(personas,p)
+						fp
+						para i:=1 a 11 hacer 
+							avz(cuit,c)
+						fp
+					fs
+				Fm
+				avz(cuit,c)
+			fm
+			contp:=contp+1
+			ESC("Para la provincia", contp, "el total de personas fisicas es:",contf);
+       		ESC("Y el porcentaje sobre el total de la provincia es:",(contf*100)DIV tot,"%");
+		fm
+		cerrar(personas)
+		cerrar(sal)
+		cerrar(cuit)			
+
+
+MODELO DE PARCIAL
+
+Estructura de la secuencia 
+CodArtCodRubroStockNombreArticulo&CodArtCodRubroStockNombreArticulo&CodArtCodRubroStockNombreArticulo&FDS
+
+Donde:
+	CodArt: 5 caracteres codigo del articulo
+	CodRubro: 1 caracter q hace referencia al rubro del articulo las opciones son:
+		"L":LIMPIEZA ,"F",FIAMBRERIA,"C":CARNICERIA,"B":BAZAR,"H":HIGIENE
+	Stock: 3 caracteres , cantidad de articulos en stock
+	nombrearticulo: es el nombre del articulo y finaliza en &
+
+
+Ademas se posee una secuencia de caracteres con todas las ventas realizadas para los arituclos el fin de las ventas de cada articulo se indica con el caracter"#".
+DiaMesFPFEUVDiaMesFPFEUVDiaMesFPFEUV#
+
+Donde:
+	Dia: 2 caracteres 
+	Mes: 2 caracteres 
+	FP : 1 caracter infica forma de pago "T" Y "C"
+	FE: 1 caracter indica forma de envio "S" Y "D"
+	UV: 2 caracteres unidades vendidas
+
+Ejercicio 1 es 
+	Ambiente 
+
+		sec1,sec2,sal:secuencia de caracteres
+		v1,v2:caracter
+		fenvio:caracter
+		contT,ContC:entero
+		Funcion EntCar(n:caracter):entero es 
+			segun n hacer 
+				0:EntCar:="0"
+				1:EntCar:="1"
+				2:EntCar:="2"
+				3:EntCar:="3"
+				4:EntCar:="4"
+				5:EntCar:="5"
+				6:EntCar:="6"
+				7:EntCar:="7"
+				8:EntCar:="8"
+				9:EntCar:="9"
+			fs
+		Ff
+	Proceso 
+		Arr(sec1);Arr(sec2)
+		Avz(sec1,v1);Avz(sec2,v2)
+		crear(sal)
+
+		ContT:=0
+		ContC:=0
+		Num:=0
+		Esc("Ingrese el tipo de envio del cual quiere generar un informe")
+		leer(fenvio)
+
+		Mientras NFDS(sec1) y nfds(sec2) hacer 
+			
+			Mientras v1 <> "&" Y NFDS entonces  //nos encontramos en el primer articulo 
+			
+				Mientras v2 <>"#" Y NFDS hacer 
+
+					para i:=1 a 4 hacer 
+						avz(sec2,v2)
+					fp
+
+					si v2 = "T" entonces 
+						contT:=ConT +1
+						avz(sec2,v2)
+						
+						aux := v2 //metodo de envio
+
+						avz(sec2,v2)
+						D:= EntCar(v2)*10   
+						avz(sec2,v2)      
+						U:= EntCar(v2)     
+						NumT:=NumT+(D+U)   
+						
+					sino 
+						ContC:=ContC +1 
+						avz(sec2,v2)
+						
+						aux := v2 //metodo de envio
+
+						avz(sec2,v2)
+						D:= EntCar(v2)*10   
+						avz(sec2,v2)      
+						U:= EntCar(v2) 
+						NumC:=NumC+(D+U) 
+					fs 
+					avz(sec2,v2)
+					
+					para i:=1 a 9 hacer 
+						avz(sec1,v1)
+					fp		
+
+					si contT > contC  entonces 
+						si aux = fenvio entonces
+							esc("NOMBRE DEL ARTICULO| CANT UNIDADES VENDIDAS CON TARJETA | CANT UNIDADES DE CONTADO")
+
+							Mientras  v1 <> "&"  Y NFDS Hacer							
+								esc(Sal,v1)
+								esc(v1)  
+								avz(sec1,v1)
+							fm
+
+							esc(NumT,numC)
+						sino
+							Mientras  v1 <> "&"  Y NFDS Hacer							
+								esc(Sal,v1)
+								avz(sec1,v1)
+							fm
+						fs
+					sino 
+						si aux = fenvio entonces
+							esc("NOMBRE DEL ARTICULO| CANT UNIDADES VENDIDAS CON TARJETA | CANT UNIDADES DE CONTADO")
+							Mientras  v1 <> "&" Y NFDS  Hacer							
+								esc(v1)  
+								avz(sec1,v1)
+							fm
+							esc(NumT,numC)
+						sino
+							Mientras  v1 <> "&" Y NFDS Hacer							
+								avz(sec1,v1)
+							fm
+						fs	
+					fs
+				fm
+				avz(sec2,v2)
+			fm
+			avz(sec1,v1)
+		fm
+		
+		cerrar(sec1)
+		cerrar(sec2)
+		cerrar(sal)
+FP
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------REGISTROS/ARCHIVOS------------------------------------------------------------------
+
+Ejercicio 2.2.1¶
+Se dispone de un archivo con los datos de los alumnos de la facultad:
+
+Apellido y Nombre
+Carrera (ISI - IEM - IQ)
+Nº de Legajo
+Fecha de Nacimiento
+Fecha de Ingreso
+D.N.I.
+Sexo (M o F)
+Fecha de último examen aprobado
+Nota
+Se desea un listado de los mismos, con el siguiente formato:
+
+Nro_Legajo|Apellido_Nombre|Documento|Carrera
+
+Accion 221 es 
+	ambiente
+
+		Fecha = registro de 
+			aa:N(4)
+			mm:1..12
+			dd:1..31
+		fr
+
+		Alumnos = registro
+			Apellido_Nombre: an(30)
+			carrera : ("ISI","IEM","IQ")
+			nro_legajo: n(5)
+			fecha_Nac:Fecha
+			fecha_Ing:Fecha
+			dni:n(8)
+			sexo:("F","M")
+			fecha_ult_ex:Fecha
+			Nota:n(2)
+		Fr
+		Alum:Archivo de Alumnos
+		A:Alumnos
+	Proceso 
+		Abrir E/(Alum)
+		leer(Alum,A)
+
+		Esc("Nro_Legajo|Apellido_Nombre|Documento|Carrera")
+		Mientras NFDA(Alum) Hacer 
+			Esc(A.nro_Legajo,"|",A.Apellido_Nombre,"|",A.dni,"|",a.Carrera)	
+			leer(Alum,A)
+		Fm
+		cerrar(Alum)
+Fp
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Dada la siguiente secuencia de datos con el siguiente formato:
+
+Nº de socio
+Nº de teléfono
+Apellido y Nombre
+Carrera (ISI - IEM - IQ - LAR)
+Domicilio
+Cantidad de unidades prestadas
+Correspondiente a los alumnos socios de la Biblioteca, generar la secuencia de los alumnos de “ISI” que tengan prestadas más de 4 unidades bibliográficas.
+
+Accion 223 Es 
+	ambiente 
+		Soc = registro de
+			nro_soc:n(5)
+			nro_tel:n(10)
+			NyP:an(60)
+			Carrera:("ISI","IEM","IQ","LAR")
+			Domicilio:an(30) 
+			Cant_uni:n(2)
+		Fr 
+		Socios,sal:Archivo de Soc
+		reg_soc,reg_sal:Soc
+	Proceso 
+		Abrir E/(Socios)
+		Abrir /S(sal)
+		Leer(Socios,reg_soc)
+		Leer(Sal,reg_sal)
+
+		Mientras NFDA(Socios) Hacer 
+
+			Si reg_soc.Carrera = "ISI" y Reg_soc.Cant_uni > 4 entonces 
+				reg_sal:=reg_soc
+				esc(Sal,reg_soc)
+			fs 
+			Leer(Socios,reg_soc)
+		fm
+		cerrar(Socios)
+		Cerrar(sal)
+Fa
+------------------------------------------------------------------------------------------------------------------
+Ejercicio 2.2.7¶
+Se dispone de un archivo con los datos de un padrón electoral con la siguiente información:
+
+Nombre y apellido
+Clase
+DNI
+Dirección
+Nº de Mesa
+Observaciones
+Nº de Circuito
+Partido (0= independiente, 1=‘A’, 2=‘B’, 3=‘C’)
+Generar:
+a) Una secuencia de salida con nombre y apellido, DNI, y dirección de todas las personas afiliadas al partido “C”.
+b) Una secuencia de salida con nombre y apellido, DNI, y dirección de todas las personas no afiliadas a ningún partido y de clase posterior a 1940.
+
+Accion 227 Es 
+	Ambiente 
+		Padron = registro 
+			NyP: An(30)
+			clase:n(4) 
+			dni:n(8)
+			dirección:an(30)
+			n_mesa:n(2)
+			obser:an(70)
+			n_cir:n(2)
+			partido: 0..3
+		Fr 
+		Pad:Archivo de padron
+		Reg_pad:Padron
+
+		salida = registro
+			NyP: An(30)
+			dni:n(8)
+			dirección:an(30)
+		fr
+		sal1,sal2:archivo de sal
+		Reg_sal1,reg_sal2:sal
+
+	Proceso
+
+		Abrir E/(pad)
+		Leer(pad,Reg_pad)
+		Abrir /S(Sal1)
+		Abrir /S(Sal2)	
+
+		Mientras nfda(pad) hacer 
+			si Reg_pad.partido = 3 entonces
+				reg_sal1.NyP:=Reg_pad.NyP
+				reg_sal1.dni:=Reg_pad.dni
+				reg_sal1.dirección:=Reg_pad.dirección
+				grabar(sal1,reg_sal1)
+			sino 
+				si Reg_pad.partido = 0 y Reg_pad.clase > 1940 entonces
+					reg_sal2.NyP:=Reg_pad.NyP
+					reg_sal2.dni:=Reg_pad.dni
+					reg_sal2.dirección:=Reg_pad.dirección
+					grabar(sal2,reg_sal2)
+				fs
+			fs
+			Leer(pad,Reg_pad)
+		fm
+	cerrar(pad)
+	cerrar(sal1)
+	cerrar(sal2)
+fp
+
+
+------------------------------------------------------------------------------------------------------------------
+ 
+Accion 228 es 
+	Ambiente 
+
+		Fecha = registro 
+			aa:
+			mm:
+			dd:
+		fr 
+
+		COMPRAS = registro 
+			nrocli:n(4)
+			fecha_ult:fecha
+			monto:real
+		fr
+		Arch1:archivo de COMPRAS ordenado por nrocli
+		Comp:COMPRAS
+
+		CLIENTES = registro 
+			nrocli:n(4)
+			AyN:an(30)
+			Domi:an(30)
+			Telefono:n(9)
+			dni:n(8)
+		fr 	
+		arch2:archivo de CLIENTES ordenado por nrocli
+		cli:CLIENTES
+		fechad:fecha
+		montod:real
+	Proceso 
+		//abrir archivos y leerlos
+		//ingresar fecha dada en formato ddmmaaaa
+		leer(fechad.dd,fechad.mm,fechad.aa)
+		leer(montod)
+		Mientras nfda(arch1) y nfda(arch2)
+			si fechad < comp.fecha_ult y montod < comp.monto entonces 
+				//listo lo que piden
+				esc(cli.ayn)
+				esc(comp.fecha_ult.dd,"/",comp.fecha_ult.mm,"/",comp.fecha_ult.aa)
+				esc(comp.monto)
+			fs 
+			//leo devuelta ambos archivos
+		fm
+		//cierro archivos
+fa
+
+--------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------CORTE DE CONTROL-----------------------------------------------------------
+
+// subaccion corte_n es
+//   llamada al corte_n-1
+//   Emitir resultados del nivel
+//   Acumular totales al nivel superior
+//   Reiniciar totales de este nivel
+//   Resguardar la nueva clave
+// fin subaccion
+
+// Algoritmo
+//   Inicializar_archivos
+//   Inicializar_totalizadores
+//   Inicializar_resguardos
+
+//   Mientras NFDA(Arch) Hacer
+//     Tratar_corte
+//     Tratar_registro
+//     Leer_registro
+//   Fin Mientras
+
+//   Corte_3
+//   Emitir_totales
+//   cerrar_archivo
+// Fin accion
+
+// Subaccion Tratar_Corte es
+//   Si r.clave3 <> Reg3 entonces
+//     Corte_3
+//   sino
+//     Si r.clave2 <> Reg2 entonces
+//        Corte_2
+//     sino
+//        Si r.clave1 <> Reg1 entonces
+//          Corte_1
+//        fin si
+//     fin si
+//   fin si
+// fin subaccion
+
+
+
+
+Ejercicio 2.2.12¶
+Dada una secuencia con información de población de un PAIS:
+
+POBLACION Ordenado por Provincia, Departamento, Ciudad, Barrio, ID_Casa
+
+Provincia|Departamento|Ciudad|Barrio|ID_Casa|Cantidad_Habitantes|
+Generar una secuencia con información de los departamentos de esa provincia, cuyo registro tenga el siguiente formato:
+
+POBLACION_SALIDA
+
+Provincia|Departamento|Cantidad_Habitantes
+
+Accion es 2212 es
+	Ambiente 
+		
+		POBLACION =  registro Ordenado por Provincia, Departamento, Ciudad, Barrio, ID_Casa
+			provincia:an(20)
+			departamento:an(20)
+			ciudad:an(20)
+			barrio: an(20)
+			id_casa: n(4)
+			cant_habitantes:entero
+		Fr 
+		Apob:Archivo de POBLACION ordenado 
+		Rpob:POBLACION
+
+		SALIDA = registro 
+			provincia:an(20)
+			departamento:an(20)
+			cant_habitantes:entero
+		Fr
+		Asal:archivo de SALIDA
+		Rsal:SALIDA
+
+		res_prov:an(20)
+		res_dep:an(20)
+		tot_dep:n(5)
+		subaccion corte_dep es 
+			Rsal.provincia:=res_prov
+			Rsal.departamento:=res_dep
+			Rsal.cant_habitantes:=tot_dep
+
+			tot_dep:=0
+			res_dep:=Rpob.departamento
+
+		fs 
+
+
+		subaccion corte_prov es
+			corte_dep
+			res_prov:=Rpob.provincia
+		fs 
+
+		subaccion tratar_Corte es 
+			Si res_prov <> Rpob.provincia entonces
+			    corte_prov
+			sino
+			    Si res_dep <> Rpob.departamento entonces
+			       corte_dep
+			    fin si
+			fin si
+		Fs
+
+	Proceso 
+
+		Abrir E/(Apob)
+		Leer(Apob,Rpob)
+		Abrir /S(ASal)
+		
+		res_prov:=Rpob.provincia
+		res_dep:=Rpob.Departamento
+		tot_dep:=0
+
+		Mientras NFDA(Apob) hacer 
+			tratar_Corte
+			tot_dep:=tot_dep+Rpob.cant_habitantes
+			Leer(Apob,Rpob)
+		fm
+		corte_prov
+		cerrar archivos
+
+Fa
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+Ejercicio 2.2.13¶
+Un Casino de la región ha notado un incremento en los costos de las reparaciones de tragamonedas en sus sucursales. 
+Por ello solicitó un informe con la cantidad de reparaciones y sus costos, discriminados según tragamonedas, modelo, marca, sucursal y total general.
+
+Se dispone de un archivo REPARACIONES, con el siguiente formato. Cada registro representa la reparación de un tragamonedas, 
+tener en cuenta que puede existir más de una reparación por tragamonedas.
+
+REPARACIONES Ordenado por Cod_Sucursal, Marca, Modelo, Cod_Tragamonedas
+
+Cod_Sucursal|Marca|Modelo|Cod_Tragamonedas|Fecha_Reparacion|Costo_Reparacion
+Realice el algoritmo para emitir el informe con los totales solicitados
+
+Accion 2213 es 
+	Ambiente 
+		FECHA = registro 
+			aa:
+			mm:
+			dd:
+		fr
+
+		REPARACIONES = registro 
+			cod_suc:n(4)
+			Marca:an(60)
+			Modelo:an(10)
+			Cod_Tragamonedas:n(5)
+			Fecha_rep:FECHA
+			costo_rep:real
+		Fr
+		Arep:Archivo de reparaciones ordenado 
+		Rrep:REPARACIONES
+
+		costo,costoMod,costoMar,costoSuc,CostoTotal:real
+		Rep,repMod,repMar,repSuc,repTotal:entero
+
+		res_cod:n(4)
+		res_marca:an(60)
+		res_modelo:an(10)
+		res_tragamonedas:n(5)
+
+		subaccion corte_Tragamonedas es
+			esc("Para el tragamonedas",res_tragamonedas,"La cantidad de reparaciones es:",rep,"por un monto de"costo)
+			
+			costoMod:=costoMod+costo
+			repMod:=repMod+rep
+			costo:=0
+			rep:=0
+
+			res_tragamonedas:=Rrep.Cod_Tragamonedas
+		fs
+
+
+		subaccion corte_modelo es 
+			corte_Tragamonedas
+			esc("Para el modelo",res_modelo,"La cantidad de reparaciones es:"repMod,"Con un costo de:",costoMod,"$")
+
+			costoMar:=costoMar+costoMod
+			repMar:=repMas+repMod
+			costoMod:=0
+			repMod:=0
+
+			res_modelo:=Rrep.Modelo
+
+		fs
+
+		subaccion corte_marca es 
+			corte_modelo
+			esc("Para la marca ",res_marca,"La cantidad de reparaciones es:"repMar,"Con un costo de:",costoMar,"$")
+
+			costoSuc:=costoSuc+costoMar
+			repSuc:=repSuc+repMar
+			costoMar:=0
+			repMas:=0
+
+			res_marca:=Rrep.Marca
+
+		fs
+
+
+		subaccion corte_sucursal es 	
+			corte_marca
+			esc("Para la marca ",res_suc,"La cantidad de reparaciones es:"repSuc,"Con un costo de:",costoSuc,"$")
+
+			costoTotal:=costoTotal+costoSuc
+			repTotal:=repTotal+repSuc
+			costoSuc:=0
+			repSuc:=0
+
+			res_suc:=Rrep.cod_suc
+		fs
+
+		subaccion inicializar es 
+			costo:=0
+			costoMod:=0
+			costoMar:=0
+			costoSuc:=0
+			CostoTotal:=0
+			Rep:=0
+			repMod:=0
+			repMar:=0
+			repSuc:=0
+			repTotal:=0
+			
+			res_marca:=Rrep.marca
+			res_modelo:=Rrep.Modelo
+			res_suc:=Rrep.cod_suc
+			res_tragamonedas:=Rrep.Cod_Tragamonedas
+		fs 
+
+		subaccion tratar_corte es 
+			si res_suc <> Rrep.cod_suc entonces 
+				corte_sucursal
+			sino 
+				si res_marca <>Rrep.marca entonces 
+					corte_marca 
+				sino 
+					si res_modelo <> Rrep.Modelo entonces 
+						corte_modelo
+					sino 
+						si res_tragamonedas <> Rrep.Cod_Tragamonedas entonces
+							corte_tragamonedas
+						fs 
+					fs 
+				fs
+			fs
+		fs
+
+
+	Proceso 
+	Abrir E/(Arep)
+	Leer(Arep,Rrep)
+	inicializar()
+
+	Mientras NFDA(Arep) hacer 
+		tratar_corte()
+		rep:=rep+1
+		costo:=costo+Rrep.Costo_Reparacion
+		Leer(Arep,Rrep)
+	fm
+	corte_sucursal
+	Esc("El total de reparaciones que se hicieron fue de :",repTotal,"POR UN MONTO DE $:",ostoTotal)
+	cerrar(Arep)
+Fa
+
+--------------------------------------------------------------------------------------------------------------------------------------
+Ejercicio 2.2.15¶
+El organismo del cual dependen las escuelas de un distrito lleva un archivo con los registros para todos los alumnos de nivel secundario de ese distrito:
+
+ALUMNOS Ordenado por Escuela, Año, División
+
+Escuela|Año|División|Nombre|Cant_Inasistencias
+Se introduce como dato el número de distrito y la cantidad de días de clase dictados en el año. El archivo está ordenado por número de escuela, año y división. Los alumnos que superan el 20% de las inasistencias están en situación de LIBRES, de lo contrario son REGULARES.
+
+Se desea conocer:
+Para cada división:
+- Cantidad de alumnos
+Para cada año:
+- Cantidad total de alumnos libres
+- Cantidad de alumnos regulares
+- Cantidad total de alumnos
+Todas las escuelas:
+- Cantidad total de alumnos
+- Porcentaje de alumnos libres. - Promedio de inasistencias por alumnos.
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+Accion parcial1 es 	
+	Ambiente 
+		Fecha = registro 
+			aa:n(4)
+			mm:1..12
+			dd:1..31
+		fr 
+
+		STOCK = registro 
+			cod_suc:n(2)
+			rubro:an(20)
+			cod_art:n(5)
+			Fechault:Fecha
+			Stock_seguridad:n(2)
+			Stock_Actual:n(2)
+		Fr
+		Astock:Archivo de STOCK ordenado por cod_suc,rubro,cod_art
+		Rstock:STOCK
+
+		Fechadada:Fecha
+
+		res_rubro:an(20)
+		res_suc:n(2)
+		stock,stockS,stockTotal:n(2)
+
+		subaccion corte_rubro es 
+			esc("El stock para el rubro:",res_rubro,"es:",stock)
+			stockS:=stockS+stock
+			stockR:=0
+			res_rubro:=Rstock.rubro
+		fs
+
+		subaccion corte_sucursal es
+			corte_rubro
+			esc("El stock para la sucursal es :",res_suc,"es:",stockS)
+			stockTotal:=stockTotal+stockS
+			stockS:=0
+			res_suc:=Rstock.cod_suc
+		fs
+
+		SAL = registro 
+			cod_suc:n(2)
+			cod_art:n(5)
+		fr
+		Asal: archivo de SAL 
+		Rsal: SAL
+
+		subaccion tratar_corte es 
+			si res_sucursal <> Rstock.cod_suc entonces 
+				corte_sucursal
+			sino 
+				si res_rubro <> Rstock.rubro entonces 
+					corte_rubro
+				fs 
+			fs 
+		fs
+
+		subaccion inicializar es 
+			stockR:=0
+			stockS:=0
+			stockTotal:=0
+			res_rubro:=Rstock.rubro
+			res_suc:=Rstock.cod_suc
+		fs 
+
+	Proceso 
+		abrir E/(Astock)
+		leer(Astock,Rstock)
+		Abrir /S(Asal)
+
+		inicializar()
+		esc("Ingrese una fecha")
+		leer(Fechadada)
+		Mientras NFDA(Astock) hacer 
+
+			tratar_corte()
+			stock := Rstock.Stock_Actual
+			leer(Astock,Rstock)
+		fm
+
+		si Rstock.fechault < Fechadada entonces 
+			corte_sucursal
+			esc("El total general de stock es:",stockTotal)
+			si Rstock.rubro = "Bazar" entonces 
+				Rsal.cod_suc:=Rstock.cod_suc
+				Rsal.cod_art:=Rstock.cod_art
+			fs
+		fs
+		cerrar(Astock)
+		Cerrar(Asal)
+Fa
+
+-----------------------------------------------------------  MEZCLA  -----------------------------------------------------------
+
+
+
+Ejercicio 2.2.16¶
+Construir un algoritmo que a partir de un fichero de películas nuevas conteniendo:
+
+PELICULAS_NUEVAS Ordenado por Nro_Pelicula
+Nro_Pelicula|Titulo|Genero|Cant_Copias|Fecha_Estreno
+y otro fichero de peliculas existentes, ambos ordenados por película,
+
+PELICULAS Ordenado por Nro_Pelicula
+Nro_Pelicula|Titulo|Genero|Cant_Copias|Fecha_Estreno
+
+Genere un único archivo (con el mismo formato de los ficheros de entrada) que contenga todas las peliculas. 
+Considerar que hay un solo registro por película y no se repiten entre ficheros.
+
+Accion 2216 es 	
+	Ambiente
+		
+		FECHA = registro 
+			aa:n(4)
+			mm:1..12
+			dd:1..31
+		Fr
+	
+		PELICULAS = registro
+			Nro_Pelicula:n(2)
+			Titulo:an(30)
+			Genero:an(30)
+			Cant_Copias:n(4)
+			Fecha_Estreno:FECHA
+		Fr
+
+		ArchP,ArchP_N,Arch_sal:Archivo de PELICULAS ordenado por Nro_Pelicula
+		RP,RP_N,Rsal:PELICULAS
+
+	Proceso 
+		Abrir E/(ArchP)
+		Abrir E/(ArchP_N)
+		Abrir /S(Arch_sal)
+		leer(ArchP,RP)
+		leer(ArchP_N,RP_N)
+
+		Mientras NFDA(ArchP) y NFDA(ArchP_N) hacer 
+
+			si RP.Nro_Pelicula < RP_N.Nro_Pelicula entonces 
+				Rsal:=RP
+				esc(Arch_sal,Rsal)
+				leer(ArchP,RP)
+			sino 
+				si RP.Nro_Pelicula > RP_N.Nro_Pelicula  entonces 
+					Rsal:=RP_N
+					esc(Arch_sal,Rsal)
+					leer(ArchP_n,RP_N)
+				fs
+		Fm
+
+		Mientras NFDA(ArchP) hacer 
+			Rsal:=RP
+			esc(Arch_sal,Rsal)
+			leer(ArchP,RP)	
+		Fm
+
+		Mientras NFDA(ArchP_n) hacer 
+			Rsal:=RP_n
+			esc(Arch_sal,Rsal)
+			leer(ArchP_N,RP_N)	
+		Fm
+
+		Cerrar(ArchP)
+		Cerrar(ArchP_N)
+		Cerrar(Arch_sal)
+
+Fa
+--------------------------------------------------------------------------------------------------------------------------------------
+
+Ejercicio 2.2.17
+La Secretaria Academica de la Facultad lanza un proyecto para incentivar a aquellos alumnos que realizaron el Cursillo de Ingreso a la Universidad y no lograron aprobarlo en los turnos de Agosto y Febrero, 
+de manera de brindarles apoyo Academico con el fin de que, en el Cursillo del año siguiente puedan aprobar los examenes necesarios e ingresar a la Universidad.
+
+Para esto, dicha Secretaria ­necesita crear un archivo donde se encuentren todos los aspirantes que realizaron el Cursillo de Ingreso en ambos turnos, y no lograron aprobarlo.
+
+Los datos correspondientes a cada uno de los turnos del Cursillo dictado están almacenados en dos archivos (uno para cada turno), los cuales presentan el siguiente formato:
+
+ASPIRANTES Ordenado por DNI
+
+DNI|ApeyNom|Carrera|F_Nac|Email|ColegioSec|Fecha|Inscripcion|Aprobado (Si/No)|
+UD debe realizar un algoritmo que permita mezclar los archivos Aspirantes (de Agosto y Febrero) y generar un archivo SEGUIMIENTO con el siguiente formato:
+
+SEGUIMIENTO Ordenado por DNI
+
+DNI|ApeyNom|Email|ColegioSec
+Al finalizar el proceso informar la cantidad de aspirantes que se grabaron en el archivo SEGUIMIENTO.
+
+Accion 2217 es
+	Ambiente 
+		Fecha = registro 
+			aa:n(4)
+			mm:1..12
+			dd:1..31
+		Fr
+
+		ASPIRANTES = registro 
+			DNI:n(8)
+			AyP:An(30)
+			Carrera:An(3)
+			F_nac:Fecha
+			Email:an(30)
+			ColegioSec:an(40)
+			Fecha:Fecha
+			Inscripcion:
+			Aprobado: ("si","no")
+		Fr
+		Arch_A,Arch_F:archivo de ASPIRANTES ORDENADO POR DNI
+		R_A,R_F:ASPIRANTES
+
+		SEGUIMIENTO = registro
+			DNI:n(8)
+			AyP:an(30)
+			Email:an(30)
+			ColegioSec:an(40)
+		Fr
+		Arch_Seg:Archivo de SEGUIMIENTO ordenado por DNI 
+		R_seg:SEGUIMIENTO
+		CONT:ENTERO
+	Proceso 
+		Abrir E/ (Arch_A)
+		leer(Arch_A,R_A)
+		Abrir E/ (Arch_F)
+		leer(Arch_F,R_F)
+		Abrir /S(Arch_Seg)
+		CONT:=0
+		Mientras NFDA(Arch_A) Y NFDA (Arch_F) HACER
+
+			Si R_A.DNI < R_F.DNI entonces 
+				Leer(Arch_A,R_A)
+			Sino 
+				Si R_A.DNI > R_F.DNI entonces 
+					Leer(Arch_F,R_F)
+				sino 
+					si  R_A.DNI = R_F.DNI entonces 
+						si R_A.Aprobado = "no" y R_F.aprobado = "no" entonces 
+							R_seg.DNI:=R_A.DNI 
+							R_seg.AyP:=R_A.AyP
+							R_seg.Email:=R_A.Email
+							R_seg.ColegioSec:=R_a.ColegioSec
+							CONT:=CONT+1
+						fs
+						leer(Arch_A,R_A)
+						leer(Arch_F,R_F)	
+					fs
+				fs 
+			fs
+		fm 
+
+		Mientras NFDA(Arch_A) hacer 
+			leer(Arch_A,R_A)
+		Fm
+		
+		Mientras NFDA(Arch_F) hacer 
+			leer(Arch_F,R_F)
+		Fm
+		Esc("La cantidad de aspirantes que se grabaron en el nuevo archivo es:",CONT)
+		CERRAR(Arch_A)
+		CERRAR(Arch_F)
+		CERRAR(Arch_Seg)
+Fa
+
+--------------------------------------------------------------------------------------------------------------------------------------
+Ejercicio 2.2.18¶
+Un supermercado desea conocer la totalidad de unidades existentes de cada artículo a fin de hacer un control de stock y 
+decidir si se deben comprar nuevas unidades o redistribuir la mercadería existente.
+
+El supermercado posee dos sucursales, cada una de las cuales envió su información en un fichero con el siguiente formato:
+
+ARTICULOS
+
+Cod_Prod|Tipo|Marca|Descripción|Cant_Unidades
+
+Escribir un algortimo que permita obtener un único fichero de salida, con el mismo formato, que contenga la información solicitada y además, emita un listado con los siguientes datos:
+
+Cod_Prod|Tipo|Marca|Descripción|Cant_Suc_1|Cant_Suc_2|Total_Unidades
+
+
+Accion 2218 Hacer 
+
+	Ambiente
+
+		Supermercado = registro
+			Cod_prod:N(5)
+			Tipo:An(30)
+			Marca:An(60)
+			Descripcion:An(100)
+			Cant_Unidades:entero
+		Fr
+
+		Sup1,Sup2,Sal:Archivo de Supermercado
+		R_S1,R_S2,R_sal:Supermercado
+		Tot:entero 
+		
+	Proceso 
+	
+		Abrir E/(Sup1)
+		Abrir E/(Sup2)
+		Abrir /S(Sal)
+		leer(Sup1,R_s1)
+		leer(Sup2,R_s2)
+		Tot:=0
+		Esc("| Cod_prod | Tipo | Marca | Descripción | Cant Sucursal 1| Cant. Sucursal 2 | Total de Unidades |")
+
+		Mientras NFDA(Sup1) y NFDA(sup2) hacer 
+
+			Si R_s1.Cod_Prod <R_s2.Cod_prod entonces 
+				R_sal:=R_s1
+				esc(SAL	,R_sal)
+				esc(R_s1.Cod_prod,R_s1.tipo,R_s1.marca,R_s1.Cant_Suc_1,"0",R_s1.Cant_Uni)
+				leer(Sup1,R_s1)
+				
+			Sino 
+				Si R_s1.Cod_Prod > R_s2.Cod_prod entonces 
+					R_sal:=R_s2
+					esc(SAL	,R_sal)
+					esc(R_s1.Cod_prod,R_s2.tipo,R_s2.marca,"0",R_s2.Cant_Suc_2,R_s2.Cant_Uni)
+					leer(Sup2,R_s2)
+				sino 
+					Si R_s1.Cod_Prod = R_s2.Cod_prod entonces 
+					R_sal:=R_s1
+					tot:=R_s1.Cant_Uni+R_s2.Cant_Uni
+					esc(SAL	,R_sal)
+					esc(R_s1.Cod_prod,R_s1.tipo,R_s1.marca,R_s1.Cant_Suc_1,R_s2.Cant_Suc_2,R_s1.Cant_Uni)
+					leer(Sup1,R_s1)
+				fs 
+			fs
+		fm
+-----------------------------------------------------------------------------------------------------------------------
+Actualizacion¶
+Ejercicio 2.2.19¶
+En una Empresa Farmacéutica se posee un archivo MAE_REMEDIOS (ordenado por Clave: Farmacia + Medicamento), el que se actualiza semanalmente, 
+a traves de la información que se encuentra cargada en un archivo de MOVIMIENTOS (ordenado por Clavem: Farmacia + Medicamento, y Cod_Mov), de la siguiente forma:
+
+Si Clave (MAE_REMEDIOS) es menor que Clavem (MOVIMIENTOS), simplemente se transfieren los datos del Maestro a la salida y se graban.
+
+Si Clave (MAE_REMEDIOS) es igual a Clavem (MOVIMIENTOS) y el Codmov es 1, se considera error y se lista un mensaje indicando el tipo de error; 
+pero si el Codmov es 2, entonces es un remedio que deja de fabricarse y se transfiere el registro al archivo de Remedios vencidos (REM_VENC) ; 
+pero si el Cod_Mov es 3, se modifica la cantidad actual con la cantidad recibida.
+
+Si Clave (MAE_REMEDIOS) es mayor que Clavem (MOVIMIENTOS) y el Codmov es 1, se incorpora el remedio a nuestro Vademecum, 
+considerando que la cantidad recibida configura la cantidad actual y la Fecha_Vencimiento es 30 días posterior a la fecha actual; 
+pero si el Codmov es 2 o 3 se considera error y se deben producir los correspondientes mensajes de error.
+
+Se considera que solo existe un registro de movimiento para cada registro del maestro.
+
+MAE_REMEDIOS Ordenado por Farmacia y Medicamento
+Farmacia|Medicamento|Cant_Actual|Fecha_Vencimiento
+
+MOVIMIENTOS Ordenado por Farmacia, Medicamento y Cod_Mov
+Farmacia|Medicamento|Cod_Mov|Cant_Recibida
+
+REM_VENC Ordenado por Medicamento
+Medicamento|Cant_Vencida
+
+Accion 2219 Es 
+	Ambiente 
+
+		Fecha = registro 
+			aa:n(4)
+			mm:1..12
+			dd:1..31
+		Fr
+
+		Clave = Registro 
+			Farmacia:
+			Medicamento:
+		Fr 
+
+		MOVIMIENTOS = registro 
+			mov:Clave
+			cod_mov:
+			Cant_rec:
+		fr
+		AMOV: archivo de MOVIMIENTOS ordenado por Mov Y cod_mov
+		RMOV: MOVIMIENTOS
+
+		MAE = registro 
+			mae:Clave 
+			cant_actual:
+			Fecha_V:Fecha
+		Fr 
+		AMAE,sal: archivo de MAE ordenado por mae
+		RMAE,Rsal: MAE
+
+		REM_VENC = registro 
+			Medicamento: 
+			cant_venc:
+		fr
+		AREM: archivo de REM_VENC 
+		Rrem: REM_VENC
+
+		subacion leer_mae es 	
+			leer(AMAE,RMAE)
+			si FDA(AMAE) entonces 
+				RMAE.mae:=HV
+			FS 
+		fS
+
+		subacion leer_mov es 	
+			leer(AMOV,RMOV)
+			si FDA(AMOV) entonces 
+				RMOV.mov:=HV
+			FS 
+		fS
+
+		Subaccion Abrir_Archivos es 		
+			Abrir E/(AMOV)
+			Abrir E/(AMAE)
+			Abrir /S(Sal)
+			Abrir /S(AREM)
+		Fs
+		
+		Subaccion procesos_iguales es 	
+			segun RMOV.cod_mov hacer 
+				1:
+					Esc("Error de Movimiento,no es posible realizar el alta")
+				2:
+					Rrem.Medicamento:=RMAE.mae.Medicamento
+					Rrem.cant_venc:=Rrem.cant_venc+1
+					grabar(AREM,Rrem)
+				3:
+					Rsal.Cant_Actual:=RMOV.Cant_rec
+					graban(SAL,Rsal)
+			Fs
+		Fs
+
+		Subaccion procesos_distintos es 	
+			segun RMOV.cod_mov hacer 
+				1:
+					Rsal.mae:=RMOV.mov
+					Rsal.cant_act:=RMOV.Cant_rec
+					Rsal.Fecha_ven:=fecha_actual()+30
+					grabar(ASAL,Rsal)
+				2:
+					Esc("Error no se puede dar de baja")
+				3:
+					Esc("Error no se puede realizar la modificacion")
+			Fs
+		fs
+
+
+	Proceso 
+		Abrir_Archivos
+		leer_mae
+		leer_mov
+
+		Mientras (RMAE.mae <> HV) o (RMOV.mov <>HV) hacer 
+			Si RMAE.mae = RMOV.mov entonces 
+				procesos_iguales
+			sino 
+				si  RMAE.mae < RMOV.mov entonces 
+					 Rsal:=RMAE
+					 grabar(SAL,RSAL)
+					 Leer_Mae
+				sino 
+					procesos_distintos
+				fs
+			fs
+		Fm
+		cerrar(SAL)
+		Cerrar(AMAE)
+		Cerrar(AMOV)
+		Cerrar(AREM)
+ 
+Fa
+-------------------------------------------------------------------------------------------------------------------------
+Ejercicio 2.2.21¶
+En un práctico para la Facultad un grupo de alumnos debe implementar una Red Social llamada UTNBook. Para lo cual debe utilizar los siguientes archivos:
+
+AMIGOS Ordenado por Cod_Usuario y Cod_Amigo
+Cod_Usuario|Cod_Amigo|Fecha_Amistad|Mensaje_Muro
+
+Cada registro indica la fecha desde que los usuarios son amigos y el último mensaje que un amigo ha escrito en el muro del usuario.
+
+NOTIFICACIONES Ordenado por Cod_Usuario y Cod_Amigo
+
+Cod_Usuario|Cod_Amigo|Cod_Movimiento|Fecha_Amistad|Mensaje_Muro
+
+
+
+
+
+
+Accion 22221 es 
+	Ambiente 
+		
+		FECHA = registro 
+			AA:
+			MM:
+			DD:
+		Fr
+
+		Clave = registro 
+			Cod_Usuario:
+			Cod_Amigo:	
+		Fr
+
+		AMIGOS = registro 
+			Mae:Clave
+			Fecha_Amistad:FECHA
+			Mensaje_Muro:
+		Fr
+		AMi,Ami_A:Archvio de AMIGOS ordenado por Mae
+		RMI,RMI_A:AMIGOS
+
+		NOTIFICACIONES = registro 
+			Mov:clave
+			Cod_Mov: ('A','B','C')
+			Fecha_Amistad:FECHA
+			Mensaje_Muro:
+		Fr
+		ANOT:Archivo de NOTIFICACIONES ordenado por Mov
+		RNOT:NOTIFICACIONES
+
+		Subaccion Leer_Mae  es 	
+			Leer(AMI,RMI)
+			Si FDA(AMI) entonces 
+				RMI.Mae:=HV
+			Fr
+		Fs
+
+		Subaccion Leer_Mov  es 	
+			Leer(ANOT,RNOT)
+			Si FDA(ANOT) entonces 
+				RMI.Mov:=HV
+			Fr
+		Fs
+
+		Subaccion procesos_iguales es 
+
+			Segun RNOT.cod_mov hacer 
+				'A':
+					Esc("Ya lo tiene añadido como amigo")
+					RAMI_A:=RAMI
+					grabar(AMI_A,RAMI_A)
+				'B':
+					Esc("Amigo eliminado")
+				'M':
+					RAMI_A:=RAMI
+					RAMI_A.Mensaje_muro:=RNOT.Mensaje_muro
+					grabar(AMI_A,RAMI_A)
+			Fs
+
+		Fs
+
+		Subaccion procesos_distintos es 
+			Segun RNOT.cod_mov hacer 
+				'A':
+					RAMI_A.MAE:=RNOT.Mov
+					RAMI_A.Fecha_Amistad:=fecha_actual()
+					RAMI_A.Mensaje_muro:=RNOT.Mensaje_muro
+					grabar(AMI_A,RAMI_A)
+				'B':
+					Esc("No puedes eliminar a alguien que no es tu amigo")
+				'M':
+					Esc("No puedes mandar mensaje a alguien que no es tu amigo")
+			Fs	
+		Fs
+
+		PROCESO
+
+			Abrir  E/(AMI)
+			ABRIR E/(RNOT)
+			ABRIR /S(AMI_A)
+			Leer_Mae
+			Leer_Mov
+
+			Mientras (RAMI.Mae<>HV) O (RNOT.Mov<>HV)
+				
+				Si  RAMI.mae = RNOT.Mov entonces 
+					procesos_iguales
+					Leer_Mae
+					Leer_Mov
+				Sino 
+					si RAMI.mae < RNOT.Mov entonces 
+						RAMI_A:=RAMI
+						grabar(AMI_A,RAMI_A)
+						leer_mae	
+					sino 
+						Procesos distintos
+						leer_mov
+					fs
+				fs
+			fm
+			cerrar archivos
+Fin accion
+
+-----------------------------------------------------------------------------------------------------------------------
+
+Accion 2223 Es 
+
+	Ambiente 
+
+		CLIENTE = Registro
+			id_casa:
+			Fecha_ult_c:fecha
+			Cant_Lec:
+			Prom_Lec:
+			Tipo_Cons: ('A','B','C')
+		Fr
+		ACLI,ACLI_A:Archivo de CLIENTE ordenado por id_casa 
+		RCLI,RCLI_A:CLIENTE
+
+		MEDICIONES = registro 
+			id_casa:
+			Fecha_Med:fecha
+			consumo:
+		Fr
+		AMED:Archivo de MEDICIONES ordenado por id_casa
+		RMED:MEDICIONES
+
+		subaccion Leer_mae es 
+			Leer(ACLI,RCLI)
+			SI FDA(ACLI) ES 	
+				RCLI.ID_Casa:=HV
+			Fs
+		Fs
+		subaccion Leer_mov es 
+			Leer(AMED,RMED)
+			SI FDA(ACMED) ES 	
+				RMED.ID_Casa:=HV
+			Fs
+		Fs
+
+	Proceso 
+
+		Abrir E/(ACLI)
+		Abrir E/(AMED)
+		Abrir /S(ACLI_A)
+		Leer_mae 
+		Leer_mov
+
+		Mientras (RCLI.ID_Casa <>HV) O (RMED.ID_Casa <>HV) hacer 
+			si RCLI.ID_Casa < RMED.ID_Casa entonces
+				RCLI_A:=RCLI
+				grabar(ACLI_A,RCLI_A)
+				leer_mae
+			sino 
+				si RCLI.ID_Casa = RMED.ID_Casa entonces 
+					Mientras RCLI.ID_Casa = RMED.ID_Casa Hacer 
+						si RMED.Fecha_Med.AA < 2016 Y RMED.Fecha_Med.MM <6 ENTONCES 
+							RCLI_A:=RCLI
+							RCLI_A.fecha_ult:=RMED.Fecha_Med
+							RCLI_A.Cant_Lec:=RMED.Cant_Lec+1
+							RCLI_A.Prom_Lec:=RMED.Consumo					
+						fs
+						Leer_Mov
+					FM
+					segun  ACLI.Prom_Lec hacer 
+						<20000:RCLI_A.Tipo_Cons:="A"
+						<40000:RCLI_A.Tipo_Cons:="B"
+						>40000:RCLI_A.Tipo_Cons:="C"
+					Fs
+					grabar(ACLI_A,RCLI_a)
+					Leer_mae
+					
+				Sino 
+					si RMED.Fecha_Med.AA < 2016 Y RMED.Fecha_Med.MM <6 ENTONCES 
+						RCLI_A:=RCLI
+						RCLI_A.fecha_ult:=RMED.Fecha_Med
+						RCLI_A.Cant_Lec:=RMED.Cant_Lec+1
+						RCLI_A.Prom_Lec:=RMED.Consumo
+					fs
+					segun  ACLI.Prom_Lec hacer 
+						<20000:RCLI_A.Tipo_Cons:="A"
+						<40000:RCLI_A.Tipo_Cons:="B"
+						>40000:RCLI_A.Tipo_Cons:="C"
+					Fs
+					grabar(ACLI_A,RCLI_a)
+					Leer_mov
+				fs
+			fs
+		fm
+		cerrar archivos
+Fin accion
+				
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------
+
+Accion EjercicioFinal  es 
+	Ambiente 
+		LISTADO = registro
+			N_Pregunta:n(2)
+			Pregunta: an(100)
+			Ra: alfanumerico
+			Rb: alfanumerico
+			Rc: alfanumerico
+			Correcta: alfanumerico
+			Cant_Usada:n(2)
+		Fr
+		Alis:Archivo de LISTADO indexado por N_Pregunta
+		Rlis:LISTADO 
+
+		nodo : registro 
+			dato: LISTADO			
+			prox: puntero a nodo
+		fr
+		ant,q,p:puntero a nodo
+
+
+		preguntas_Test,cant_max_rep:n(3)
+
+	Proceso 
+		Abrir E/S(Alis)
+
+		Esc("Ingrese la cantidad de preguntas que tendra el test")
+		leer(preguntas_test)
+		Esc("Ingrese cauntas veces se podran repetir preguntas en distintos test")
+		leer(cant_max_rep)
+
+		mientras  usuario = "si" hacer 
+
+			mientras preguntas < preguntas_test hacer 
+
+
+				Rlis.N_pregunta:=RANDOM()
+				// aux:=Rlis.N_pregunta
+				Leer(Alis,Rlis)
+
+				Si Existe entonces 
+
+					si Rlis.Cant_Usada < cant_max_rep entonces 
+						nuevo(q)
+						*q.dato:=Rlis
+						
+						si  prim = nill entonces 
+							prim:=q 
+							*q.prox:=nill
+							Rlis.Cant_Usada := Rlis.Cant_Usada +1
+						sino 
+							p:=prim
+
+							mientras p <> nil y *p.dato.N_pregunta <> Rlis.N_Pregunta hacer 
+								p:=*p.prox
+							fm 
+							si p = nill entonces 
+								 q*prox:=prim
+								 prim:=q
+								 Rlis.Cant_Usada := Rlis.Cant_Usada +1
+							fs
+								
+						fs
+						preguntas:=preguntas+1
+					fs
+				fs	
+			Fm
+
+			mientras p <> nil hacer 
+				esc(*p.dato.N_pregunta)
+				esc(*p.dato.Ra)
+				esc(*p.dato.Rb)
+				esc(*p.dato.Rc)
+				Leer(respuesta)
+				si respuesta = *p.dato.correcta entonces 
+					cont:=cont+1
+				fs
+				p:=*p.prox	
+			fm
+
+			si (cont/preguntas)*100 > 70 entonces 
+				Esc("aprobado")
+			sino 
+				Esc("Reprobrado")
+			fs 
+
+			esc("Hay otro usuario que realizara el test? S/N")
+			Leer(usuario)
+		Fm
+Fa
+
+
+-----------------------------------------------------------------------------------------------------------------------
+ARREGLOS
+Ejercicio 3.1¶
+Para cada una de las consignas siguientes, genere un algoritmo que permita solucionarla (3 algoritmos) usando un arreglo de 100 números enteros:
+
+Almacenar 100 números.
+Localizar el número de mayor valor y el de menor valor, informar sus valores y sus posiciones.
+Contar y sumar todos los números pares.
+
+
+Accion 3_1 Es 
+	Ambiente
+		arr:arreglo(1..100) de entero
+		sum,may,men,posMay,posMen.cont:entero
+	Proceso 
+		para i:=1 a 100 hacer 
+			esc("Ingrese valor")
+			leer(arr[i])
+		fp
+
+		may:=HV
+		men:=LV
+
+		para i:=1 a 100 hacer 
+			si arr[i]>may entonces
+				may:=arr[i]
+				pmay:=i
+			sino 
+				si arr[i]<men entonces 
+					men := arr[i]
+					pmen:=i
+				fs
+			fs
+		fp
+		sum:=0 ,cont:=0
+		para i:=1 a 100 hacer 
+			si arr[i] mod 2 = 0 entonces 
+				suma:=suma+arr[i]
+				cont:=cont+1
+			fs
+		fp 
+		esc("El mayor numero es :",may,"en la posicion:",pmay,"El menor es :",men,"La posicion:",pmen,"la suma de los numeros pares:",sum,"con una cantidad de numeros pares:",cont)
+Fin accion
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Considerando un arreglo de 50 números enteros, confeccione un algoritmo para resolver las siguientes consignas:
+
+Modificar el arreglo dado, de modo que todos sus elementos sean múltiplos de 3.
+Crear otro arreglo que contenga los números que no cumplieron la condición.
+Informar cuántos números cumplieron la condició
+
+Accion 304 es 
+
+	Ambiente 
+		arr1: arreglo(1,,50) de enteros
+		arr2: arreglo(1,,50) de enteros
+		cont:entero
+	Proceso 
+	Para i:=1 a 50 hacer 
+		Si Arr1[i] mod 3 = 0 entonces 
+			Conts:=Conts+1
+		sino
+			Contn:=Contn+1
+			Arr2[i]:=Arr1[i]
+			Arr1[i]:=Arr[i]*3
+		Fs 
+		escribir(contsi," cumplieron la condicion")
+	Fp	
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Ejercicio 3.5¶
+
+Dados 2 vectores:
+
+A: arreglo [1 .. 30] de reales B: arreglo [1 .. 30] de reales
+
+Ambos ordenados de forma creciente, escribir un algoritmo que realice la mezcla de ambos para obtener otro vector tambien ordenado de forma creciente
+
+C: arreglo [1 .. 60] de reales
+
+Accion 3.5 es 
+	Ambiente
+		A: arreglo [1..30] de reales 
+		B: arreglo [1..30] de reales
+		C: arreglo [1..60] de reales 
+		i,k:entero 
+
+	Proceso
+		para k:=1 a 60 hacer 
+			para i:=1 a 30 hacer 
+				si A[i]<B[i] entonces 
+					C[k]:=A[i]
+				sino
+					C[k]:=B[i]
+				fs
+			fp
+			para i:=30 a 60 hacer 
+				si A[i]<B[i] entonces 
+					C[k]:=A[i]
+				sino
+					C[k]:=B[i]
+				fs
+			fp
+		fp
+
+Fin accion
+
+
+Algoritmo MezclaOrdenada
+   Ambiente
+      A: arreglo [1..30] de reales
+      B: arreglo [1..30] de reales
+      C: arreglo [1..60] de reales
+      i, j, k: entero
+
+   Proceso
+      i := 1
+      j := 1
+      k := 1
+
+      mientras i <= 30 y j <= 30 hacer
+         si A[i] <= B[j] entonces
+            C[k] := A[i]
+            i := i + 1
+         sino
+            C[k] := B[j]
+            j := j + 1
+         fs
+         k := k + 1
+      fmientras
+
+      mientras i <= 30 hacer
+         C[k] := A[i]
+         k := k + 1
+         i := i + 1
+      fmientras
+
+      mientras j <= 30 hacer
+         C[k] := B[j]
+         k := k + 1
+         j := j + 1
+      fmientras
+------------------------------------------------------------------------------------------------------------------------
+Ejercicio 3.6¶
+Escribir un algoritmo que permita cargar un arreglo de N nombres, considerando que cada nombre debe tener entre 1 y 10 caracteres.
+
+
+Accion 306 es 
+	ambiente
+		Arr:Arreglo de [1..N] de cadena
+		nombres:AN(10)
+		N,i:entero 
+	proceso
+		Esc("Ingrese una cantidad de nombres")
+		Leer(N)
+		para i:=1 a N hacer 
+			Esc("Ingrese nombre:")
+			Leer(nombre)
+			Arr[i]:=nombre
+		Fp
+Fin accion
+
+------------------------------------------------------------------------------------------------------------------------
+
+Ejercicio 3.10¶
+Dado un arreglo de 50 elementos, cada uno de los cuales tiene los siguientes datos: Código de localidad y Lluvia caída en un año. 
+Escribir un algoritmo que permita saber dada una localidad, cuanto llovió en el año. 
+Aplicar el método más adecuado considerando que el arreglo esta ordenado por Código de localidad.
+
+Accion 3010  (a: arreglo [1.50] de pre)es 
+	Ambiente 
+		precipataciones = registro 
+			loc: N[2]
+			llu: n(5)
+		Fr
+		pre:precipataciones
+		i : entero
+		localidad : N(2)
+	Proceso
+		esc("Ingrese el codigo de localidad")
+		leer(localidad)
+		mientras (i < 50) y (localidad < a[i].loc) 
+			i:=i+1
+		fm
+		si (localidad = a[i].loc) entonces
+			escribir('En la localidad ', localidad, ' llovio la siguiente cantidad: ', a[i].llu)
+		sino
+			escribir('Error: No se encuentra la localidad')
+		fin si
+
+Fin Accion

@@ -1,0 +1,239 @@
+Accion 2.3.4 Es
+    Ambiente
+        Fecha = Registro
+            d: n(2)
+            m: N(2)
+            a: N(4)
+        Fin_Registro
+
+        Productos = Registro
+            cod_prod: N(5)
+            nombre: AN(30)
+            stock: N(4)
+            precio: N(3,2)
+        Fin_Registro
+        Mae: Archivo de Productos indexado por cod_prod
+        reg_mae: Productos
+
+        Ticket = Registro
+            nro: N(4)
+            fecha: Fecha
+            cliente: N(5)
+        Fin_Registro
+        Tic: Archivo de Ticket indexado por nro.
+        reg_tic: Ticket
+
+        Detalle_Ticket = Registro
+            nro: N(4)
+            linea: N(4)
+            cod_prod: N(5)
+            cant: N(5)
+        Fin_Registro
+        Det: Archivo de Detalle_Ticket indexado por nro.
+        reg_det: Detalle_Ticket
+
+        lineas, cant : entero
+        total, subtotal : reales
+        cod-prod : N(15)
+        rta_ticket, rta_producto : {"si", "no"}
+
+PROCESO
+	Abrir E/S (Mae)
+	Abrir /S (Tic)
+	Abrir /S (Det)
+
+	Esc("¿Desea emitir ticket?")
+	Leer(rta_ticket)
+
+	Mientras (rta_ticket = "si") Hacer
+	 	reg_tic.nro_ticket:= OBTENER_TICKET()
+	 	reg_tic.fecha:= fecha_sistema()
+	 	reg_tic.cliente:= "consumidor final"
+	 	Grabar(Tic, reg_tic)
+	 	Esc("¿Desea añadir un producto a la compra?")
+	 	Leer(rta_producto)
+	 	lineas:= 0
+	 	total:= 0
+	 	Mientras (rta_producto = "si") Hacer
+	 		lineas:= lineas + 1
+	 		Esc("Ingrese el código del producto y la cantidad")
+	 		Leer(cod_prod)
+            Esc("Ingrese la cantidad que desea comprar")
+            Leer(cant)
+
+	 		reg_mae.cod_prod := cod_prod
+	 		Leer(Mae, reg_mae)
+	 		Si existe Entonces
+				reg_mae.stock:= reg_mae.stock - cant
+	 			ReGrabar(Mae, reg_mae)
+	 		Fin_si
+	 		reg_det.nro_ticket:= regtick.nro_ticket
+	 		reg_det.nro_linea:= linea
+	 		reg_det.cod_prod:= cod_prod
+	 		reg_det.cantidad:= cant
+	 		Grabar(Det, reg_det)
+	 		subtotal:= reg_mae.precio * cant
+	 		total:= total + subtotal
+
+	 		Esc("Producto:", reg_mae.prod,"Cantidad:", cant, "Subtotal:", subtotal)
+	 		Esc("¿Desea añadir un producto a la compra?")
+	 		Leer(rta_producto)
+	 	Fin_Mientras
+
+	 	Esc("total:", total)
+	 	Esc("desea emitir ticket?")
+	 	Leer(rta_ticket)
+
+	Fin_Mientras
+	Cerrar(Mae)
+	Cerrar(Det)
+	Cerrar(Tic)
+Fin_Accion
+-----------------------
+Pregunta 3 
+La empresa "LexCorp", dedicada a la elaboracion de piedras preciosas, recientemente encontro un Viejo lote de gemas con su informacion correspondiente con un antiguo backup. 
+Debido a su alto valor, desean obtener esta informacion lo mas rapido posible. La secuencia GEMAS contiene, para cada gema, lo siguiente: 
+inicialmente el nombre comercial de la gema, luego la composicion quimica de la gema y, finalmente, una descripcion de la principal aplicacion de la gema 
+(por ejemplo, uso industrial, cosmético, etc). Todos estos datos estan separados entre si por comas "," y al final de la ultima coma de una gema viene el caracter '%'. 
+    
+En Otra secuencia CODIGOS, de enteros, se tiene un numero (que va desde el O al 999) por cada gema, que indica cl codigo comercial usado para la gema. 
+Existe una correspondencia uno a uno con los datos de la secuencia GEMAS y la de CODIGOS (es decir el primer codigo corresponde a la primera gema, el segundo a la segunda, etc.) 
+Escriba un algoritmo que cumpla con las siguientes consignas: 
+1. Escribir en una secuencia de salida (de caracteres) la composici6n quimica de la gema y el codigo comercial de la misma. Separar los datos entre comas.
+2  Emitir por pantalla el nombre comercial de la gemas, siempre y cuando el codigo comercial de Ias misma sea un numero impar. 
+3, Se desea emitir por pantalla la cantidad de gemas analizadas y el porcentaje de estas segun el siguiente rango de codigos comerciales: 
+entre O y 299, entre 300 y 699, y de 700 en adelante.
+     
+Accion GEMAS es
+    
+AMBIENTE
+    GEMAS: secuencia de caracteres          //ej de sec:  Gemia, buenardium pitonium, cosmetico,%
+    G: caracteres
+        
+    CODIGOS:secuencia de entero
+    C:entero
+
+    SAL: secuencia de caracteres            //que tiene que tener la composicion quimica y el codigo comercial(cod).                                                    Separar entre comas
+            
+                          
+    u,d,k:entero
+        
+    gema1:entero
+    gema2:entero
+    gema3:entero
+
+    FUNCIÓN pasaje(n:entero):caracter ES
+        
+        SEGÚN (n) HACER
+            
+            =0:pasaje:="0"
+            =1:pasaje:="1"
+            =2:pasaje:="2"
+            =3:pasaje:="3"
+            =4:pasaje:="4"
+            =5:pasaje:="5"
+            =6:pasaje:="6"
+            =7:pasaje:="7"
+            =8:pasaje:="8"
+            =9:pasaje:="9"
+            
+        FIN SEGÚN
+            
+    FIN FUNCIÓN
+
+PROCESO
+         
+    Arr(Gemas);Arr(CODIGOS)
+    Avz(Gemas,G);Avz(CODIGOS,C)
+    Crear(Sal)
+
+    Mientras NFDS(Gemas)
+        //SE TRATA NOMBRE SEGUN CODIGO
+        Si (C MOD 2) <> 0 Entonces
+
+            Mientras G <> "," Hacer
+
+                Esc(G)
+                Avz(Gemas,G)
+            FM 
+
+            Esc("-")
+
+        Sino 
+
+            Mientras G <> "," Hacer
+                Avz(Gemas,G)
+            Fin Mientras
+
+        Fin Si
+
+        Avz(Gemas,G)
+
+        //TRATAR COMPOSICION DE CODIGO
+
+        Mientras G <> "," Hacer
+
+            Esc(Sal,",")
+            Avz(Gemas,G)
+
+        Fin Mientras
+
+        u:= C MOD 10
+        d:= (C DIV 10) MOD 10
+        k:= C DIV 100
+
+        SEGUN (C) HACER
+        >99:
+            ESCRIBIR(Sal,pasaje(k))
+            ESCRIBIR(Sal,pasaje(d))
+            ESCRIBIR(Sal,pasaje(u))
+        >9:
+            ESCRIBIR(Sal,pasaje(d))
+            ESCRIBIR(Sal,pasaje(u))
+        >=0:
+            ESCRIBIR(Sal,pasaje(u))
+        
+        FIN SEGUN
+           
+        ESCRIBIR(sal,"-")
+            
+            // TRATAR CATEGORIA
+        
+            SEGÚN (C) hacer
+
+               <300:gema1:= gema1 + 1 
+               <700:gema2:= gema2 + 1
+               <1000:gema3:= gema3 + 1
+
+            FIN SEGÚN
+            
+            cantgemas:=cantgemas+1
+            
+            // TRATAR DESCRIPCIÓN
+            
+            MIENTRAS (G<>"%") HACER
+            
+                AVZ(GEMAS,G)
+            
+            FIN MIENTRAS
+            
+            AVZ(GEMA,G)
+            AVZ(CÓDIGO,C)
+        
+    FIN MIENTRAS
+        
+    ESCRIBIR("La cantidad de gemas de categoría 1 son: ",gema1)
+    ESCRIBIR("La cantidad de gemas de categoría 2 son: ",gema2)
+    ESCRIBIR("La cantidad de gemas de categoría 3 son: ",gema3)
+    ESCRIBIR("La cantidad total de gemas es:",cantgemas)
+    ESCRIBIR("El porcentaje de cada categoría respectivo al total es: ")
+    ESCRIBIR("Categoría 1: ",(gema1/cantgema)*100)
+    ESCRIBIR("Categoría 2: ",(gema2/cantgema)*100)
+    ESCRIBIR("Categoría 3: ",(gema3/cantgema)*100)
+        
+    Cerrar(Gemas)
+    Cerrar(CODIGOS)
+    Cerrar(Sal)
+FIN ACCIÓN
+    
+        

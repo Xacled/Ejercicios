@@ -1,0 +1,3119 @@
+Ejercicios.txt
+
+Accion ejercicio_1 es 
+
+	Ambiente
+
+	//variables/constantes
+
+	algoritmos
+
+	//cuerpo del algoritmo
+
+fin accion
+
+
+//////////////////////////////////////////////////////////////
+
+Algortimo que determine si un numero es primo
+
+Accion primo Es 
+
+	Ambiente
+	
+	num: entero;
+	divi: entero;
+	Algortimo
+
+		Esc("Ingrese un numero"); 7 
+		leer(num);
+		divi:=2;
+ 					1 < 7          7 mod 1 <> 0     
+		mientras (divi < num) y (num MOD divi <>0) hacer   
+			divi:=divi+1  5
+		fin mientras
+
+		si divi=num entonces 
+			Esc(num,"es numero primo");
+		sino 
+			Esc(num,"no es un numero primo")
+		fin si
+fin accion
+
+-----------------------------------------------------------
+
+accion primo es 
+	Ambiente
+		num: entero 
+		divisiones : entero
+	proceso
+
+		esc("Igrese un numero")
+		leer(num)
+		si num > 1 entonces
+
+			para divi:=2 hasta num-1 hacer
+				si num mod divi = 0 entonces 
+					esc("El numero no es primo")
+				fs
+			fp
+
+			esc("El numero  es primo")
+
+		sino 
+			esc("El numero no es primo")
+		fs
+
+Fa
+--------------------------------------------------------------
+Algortimo q imprima numeros menores a un valor dado n.
+
+Accion primo Es 
+
+	Ambiente
+	
+	i,divi,n: entero;
+	Algortimo""
+		Esc("Este algoritmo muestra los numeros primos menores a un valor dado");
+		Esc("Ingrese un numero");
+		leer(n);
+		para i:=2 a n hacer
+			divi:=2;
+
+			mientras (divi < i) y (i MOD divi <>0) hacer
+				divi:=divi+1
+			fin mientras
+
+			si divi=i entonces 
+				Esc(i,"es numero primo");
+			sino 
+				Esc(i,"no es un numero primo")
+			fin si
+
+		fin para
+fin accion
+
+------------------------------------------------------------------------
+Escriba un algoritmo que permita ingresar 3 valores numéricos y 
+determine cuál es el mayor, el medio y el menor. (era el 3 de los complementarios)
+
+accion mayorque es 
+	ambiente
+		n1,n2,n3 : entero
+
+	proceso 
+		esc("Ingrese 3 numeros para saber el mayor de ellos")
+		leer(n1,n2,n3)
+
+		si (n1 > n2) y (n1>n3) entonces 
+			esc("El mayor de los numeros es:",n1)
+			si n2>n3 entonces
+				esc("El numero del medio es:",n2)
+				esc("El numero menor es:",n3)
+			sino
+				esc("El numero del medio es:",n3)
+				esc("El numero menor es:",n2)
+		sino 	
+			si (n2>n1) y n(n2>n3) entonces 
+				esc("El mayor de los numeros es:",n2)
+				si n1>n3 entonces
+					esc("El numero del medio es:",n1)
+					esc("El numero menor es:",n3)
+				sino
+					esc("El numero del medio es:",n3)
+					esc("El numero menor es:",n1)
+			sino 
+				esc("El mayor de los numeros es:",n3)
+				si n1>n2 entonces
+					esc("El numero del medio es:",n1)
+					esc("El numero menor es:",n2)
+				sino
+					esc("El numero del medio es:",n2)
+					esc("El numero menor es:",n1)
+			Fs
+		Fs
+Fin accion
+-----------------------------------------------------------------
+Escriba un algoritmo que acepte un número entero mayor a 100 y menor a 1000, 
+y muestre como está compuesto (unidades, decenas y centenas) y si es múltiplo de 3 
+(Recordar: todo número cuya suma de sus dígitos sea múltiplo de 3, lo es también).
+
+accion numeromayora100y1000 es 
+
+	ambiente
+		num,c,d,u,suma : entero
+	proceso
+
+		esc("Ingrese un numero mayor que 100 y menor 1000")
+		leer(num)
+
+		si num >100 y num <1000 entonces 
+			c = num / 100
+			d = (num mod 100)/10
+			u = num mod 10
+
+			esc("El numero esta compuesto por:")
+			esc("Centena:",c)
+			esc("Decena:",d)
+			esc("Unidad:",u)
+
+			suma := c+d+u
+
+			si (suma mod 3) = 0 y (num mod 3)=0 entonces 
+				esc("El numero es multiplo de 3")
+			sino 
+				esc("El numero no es multiplo de 3")
+			fs
+		sino 
+			esc("Ingreso un numero menor a 100 o mayor a 1000")
+		fs
+Fa
+	
+----------------------------------------------------------
+Escriba un algoritmo para calcular cada renglón de una factura (valor unitario * cantidad vendida) y el total de la misma, suponiendo que el número de renglones es variable. Emitir un mensaje de error si el valor unitario es <= 0. Realizar la prueba de escritorio con los siguientes valores: Cantidad de renglones: 4
+
+Accion factura es 
+
+	Ambiente
+
+	renglon,tot,valoru,cant,i:entero 
+
+
+	Proceso	
+
+	esc("Este algoritmo calcula cada renglon en la factura")
+	esc("Ingrese cantidad de reglones en la factura")
+	leer(renglon)
+
+	tot:=0
+	valoru:=0
+	cant:=0
+	para i:=1 a renglon hacer 
+
+		esc("Ingrese el valor unitario del producto y cantidad renglon:",i)
+		leer(valoru)
+		leer(cant)
+
+		si (valoru <=0) entonces
+			Esc("Error no puede tener un valor negativo o no tener un valor")
+		fs 
+
+		esc("Ganancias",valoru*cant," en el renglon:",i,)
+		tot:=tot+(valoru*cant)
+
+	fin para
+
+	esc("Ganancias totales:",tot)
+fin accion	
+
+
+----------------------------------------------------------------------------------------------
+Elabore un algoritmo para calcular los primeros 50 números de FIBONACCI,
+
+
+Accion fibonacci es 	
+
+	Ambiente
+		
+		Fibo,f1,f2,i:=entero
+		n:= 50
+
+
+		Proceso 	
+
+		fibo:=0
+		f1:=0
+		f2:=1
+
+		para i:=1 a n hacer 
+
+			fibo:=f1+f2
+			f1:=f2
+			f2:=fibo
+
+			esc(fibo)
+
+		fp
+
+Fa
+------------------------------------------------------------
+
+Ejercicio 2.1.1¶
+Dada una secuencia de letras del alfabeto que finaliza con una marca '*', contar cuantas letras "A" hay en la secuencia.
+
+Accion 211 es
+
+	Ambiente
+
+		Sec:Secuencia de caracteres
+		v:caracter
+		conta:entero
+	Proceso 
+		
+		arr(sec)
+		Avz(Sec,v)
+
+		conta:=0
+		mientras v <> "*" hacer
+
+			si v = "a" entonces 
+				conta:=conta+1
+			fs
+			avz(sec,v)
+			
+		fm
+		esc("Hay",conta,"letras a")
+		cerrar(sec)
+fin accion
+
+-----------------------------------------------------
+
+Ejercicio 2.1.2¶
+Dada una secuencia de letras del alfabeto que finaliza con la letra "Z", contar cuantas consonantes hay en la secuencia.
+
+Accion 212 es
+
+	Ambiente
+
+		Sec:Secuencia de caracteres
+		v:caracter
+		cont:entero
+		vocales:("a","e","i","o","u")
+	Proceso 
+		
+		arr(sec)
+		Avz(Sec,v)
+
+		
+		mientras v <> "Z" hacer
+			si v no en vocales entonces 
+				cont:=cont+1
+			fs
+			avz(sec,v)
+		fm
+		cont:=cont+1
+		esc("Hay",conta,"consonantes")
+fin accion
+
+Accion 212 es
+
+	Ambiente
+
+		Sec:Secuencia de caracteres
+		v:caracter
+		cont:entero
+		vocales:("a","e","i","o","u")
+	Proceso 
+		
+		arr(sec)
+		cont:=0
+		repetir
+			avz(sec,v)
+			si v no en vocales entonces 
+				cont:=cont+1
+			fs
+			
+		hasta que v = "z"
+		
+		esc("Hay",conta,"consonantes")
+fin accion
+
+--------------------------------------------------------------------
+Ejercicio 2.1.7¶
+Se tiene una secuencia de enteros que contiene todos los CUIT de los empleados de una empresa, 
+la misma termina con el CUIT 0. Para evitar largas esperas en los días de pago, 
+la empresa necesita organizarlos de acuerdo al último dígito de su documento, 
+generar una secuencia con los CUIT de las personas que su número de documento termine con 0, 1, 2 o 3.
+
+cuit ejemplo
+
+20 96110359 3
+
+Accion 217 es 
+	
+	Ambiente
+
+	Sec,sal: secuencia de enteros
+	v,s:entero
+	nroT: (0,1,2,3)
+	ulti_dig:entero
+
+	Proceso 		
+		Arr(sec)
+		avz(sec,v)
+		crear(sal)
+
+		Mientras v <> 0 hacer 
+
+			ulti_dig:= (v div 10) mod 10
+
+			si ulti_dig en nroT entonces
+				"s:=v"
+				esc(sal,s) o esc(sal,v)
+			fs
+			avz(sec,v)
+		fm
+
+		cerrar(sec)
+		cerrar(sal)
+FA
+------------------------------------------------------------
+Ejercicio 2.1.6¶
+Dada una secuencia de enteros que almacena la cantidad de habitantes de las ciudades capitales de las 23 provincias de la República Argentina, discriminados 4 categorías: menores de 18 años (varones y mujeres) y mayores de 18 años (varones y mujeres). Se pide determinar la población total y los siguientes porcentajes: masculinos, femeninos, mayores de 18 y menores de 18.
+
+accion 216 es 
+
+	ambiente
+
+	sec:secuencia de caracteres
+	v:caracter
+	vmen,vmay,mmen,mmay,tot: entero
+	porc:real
+
+	proceso
+
+		arr(sec)
+		avz(sec,v)
+
+		//inicializo contadores
+
+		para i:=1 a 23 hacer 
+
+			para j:=1 a 4 hacer
+
+				segun j hacer
+					1:	vmen:=vmen+v
+					2:	mmen:=mmen+v
+					3:	vmay:=vmay+v
+					4:	mmay:=mmay+v
+				fs
+				tot:=tot+v
+				avz(sec,v)
+			fp
+		fp
+		esc("total de la poblacion:",tot)
+		esc("porcentaje de varones",(vmen+vmay)/tot*100,"%")
+
+		esc("porcentaje de mujeres",(mmen+mmay)/tot*100,"%")
+
+		esc("porcentaje de  mayores de 18",(vmay+mmay)/tot*100,"%")
+
+		esc("porcentaje de menores de 18",(vmen+mmen)/tot*100,"%")
+
+		cerrar(sec)
+fin accion
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Ejercicio 2.1.10¶
+Se dispone de una secuencia de caracteres. Se desea permita contar la cantidad de palabras que comienzan con una letra dada.
+
+Accion 2110 es
+	
+	ambiente
+
+		sec:secuencia de caracteres
+		v:caracter
+		letra:caracter
+		cont:entero
+
+	proceso
+
+		arr(sec)
+		avz(sec,v)
+		esc("Ingrese letra con la que comienza la palabra")
+		leer(letra)
+		cont:=o
+
+		mientras nfds(sec) hacer
+
+			mientras v = "" hacer
+				avz(sec,v)
+			fm
+
+			si v = letra entonces
+				cont:=cont+1	
+			fs
+
+			mientras v <> " " hacer 
+				avz(sec,v)
+			fm
+		fm
+		esc("la cantidad de palabras que inician con la letra",letra,"es:",cont)
+		cerrar(sec)
+fin accion
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Se dispone de una secuencia de caracteres. Se desea listar las palabras que comiencen con "ALG".
+
+accion alg es
+
+	ambiente
+		sec:secuencia de caracteres
+		v:caracter 
+		cont:entero
+
+	proceso 
+		arr(sec)
+		avz(sec,v)
+		cont:=0
+		mientras v <> "*" hacer
+			mientras v = "" hacer
+				avz(sec,v)
+			fm 
+
+			si v="a" entonces
+				avz(sec,v)
+				si v="l" entonces
+					avz(sec,v)
+					si v="g" entonces
+						cont:=cont+1
+					fs
+				fs
+			fs
+
+			mientras v <> "" hacer
+				avz(sec,v)
+			fm 
+		fm
+	fp
+	esc("La cantidad de palabras que empiezan por alg es:",cont)
+	cerrar(sec)
+fa
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Se desea saber la cantidad promedio de palabras que contienen las oraciones de una secuencia de caracteres. 
+Supóngase que los puntos son siempre contiguos al último caracter de la palabra. La secuencia finaliza con una marca.
+
+
+accion promedio es 
+	
+	ambiente
+		sec:secuencia de caracteres
+		v:caracter 
+		conp,prom:entero
+
+	proceso 
+
+		arr(sec)
+		avz(sec,v)
+		conp:=0
+		cono:=0
+
+		mientras v <>"*" hacer 
+			mientras v <>"." hacer 
+				mientras v = "" hacer
+					avz(sec,v)
+				fm 
+				conp:=conp+1
+				mientras v <> "" hacer
+					avz(sec,v)
+				fm 
+			FM
+			cono:=cono+1
+		FM
+		prom:=conp/cono
+		esc("Promediop de palabras por oracion:",prom)
+		cerrar(sec) 
+	fin accion
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+La empresa "LexCorp", dedicada a la elaboracion de piedras preciosas, recientemente encontro un Viejo lote de gemas con su informacion correspondiente con un antiguo backup. 
+Debido a su alto valor, desean obtener esta informacion lo mas rapido posible. La secuencia GEMAS contiene, para cada gema, lo siguiente: 
+inicialmente el nombre comercial de la gema, luego la composicion quimica de la gema y, finalmente, una descripcion de la principal aplicacion de la gema 
+(por ejemplo, uso industrial, cosmético, etc). Todos estos datos estan separados entre si por comas "," y al final de la ultima coma de una gema viene el caracter '%'. 
+    
+En Otra secuencia CODIGOS, de enteros, se tiene un numero (que va desde el O al 999) por cada gema, que indica cl codigo comercial usado para la gema. 
+Existe una correspondencia uno a uno con los datos de la secuencia GEMAS y la de CODIGOS (es decir el primer codigo corresponde a la primera gema, el segundo a la segunda, etc.) 
+Escriba un algoritmo que cumpla con las siguientes consignas: 
+1. Escribir en una secuencia de salida (de caracteres) la composici6n quimica de la gema y el codigo comercial de la misma. Separar los datos entre comas.
+2  Emitir por pantalla el nombre comercial de la gemas, siempre y cuando el codigo comercial de Ias misma sea un numero impar. 
+3, Se desea emitir por pantalla la cantidad de gemas analizadas y el porcentaje de estas segun el siguiente rango de codigos comerciales: 
+entre O y 299, entre 300 y 699, y de 700 en adelante.
+
+accion gema es 
+
+	ambiente
+
+	gemas:Secuencia de caracteres "gemas"
+	g:caracter
+	codigo:Secuencia de enteros	"Codigos"
+	c:entero
+
+	sal:secuencia de caracteres
+	g1,g2,g3:entero
+
+	uni,dec,cen:entero
+
+	Funcion EntCar(n:entero):caracter es
+
+		segun n hacer
+			=0 :EntCar:="0"
+			=1 :EntCar:="1"
+			=2 :EntCar:="2"
+			=3 :EntCar:="3"
+			=4 :EntCar:="4"
+			=5 :EntCar:="5"
+			=6 :EntCar:="6"
+		 	=7 :EntCar:="7"
+		 	=8 :EntCar:="8"
+		 	=9 :EntCar:="9"
+		 fs
+	ff
+
+	procedimiento inicializar es 
+		g1:=0
+		g2:=0
+		g3:=0
+		uni:=0
+		dec:=0
+		cen:=0
+		contg:=0
+	fp
+
+	Proceso 
+
+		arr(gemas)
+		avz(gemas,g)
+		arr(codigo)
+		avz(codigo,c)
+		crear(sal)
+		inicializar
+
+		Mientras nfds(gemas)hacer 
+
+			// trato las gemas con numeros impares y emito en pantalla
+			si c mod 2 <> 0 entonces 
+				
+				mientras g <> "," hacer
+					esc(g)
+					avz(gemas,g)
+				fm 
+				esc(",")
+			sino 	
+				mientras g <> "," hacer
+					avz(gemas,g)
+				fm 
+			fs
+
+			avz(gemas,g)
+
+			//tratar posicion
+
+			mientras g <> "," hacer
+				esc(sal,",")
+				avz(gemas,g)
+			fm 
+
+			uni:=c mod 10 
+			dec:= (c div 10) mod 10
+			cen:= c div 100
+
+
+			segun c hacer 
+
+				>99:
+					esc(sal,EntCar(uni))
+					esc(sal,EntCar(dec))
+					esc(sal,EntCar(cen))
+				>9
+					esc(sal,EntCar(uni))
+					esc(sal,EntCar(dec))
+				>=0
+					esc(sal,EntCar(uni))
+
+			fs 
+
+			esc(sal,",")
+
+			segun (c) hacer
+
+				<300 : g1:=g1+1
+				<700 : g2:=g2+1
+				>=700: g3:=g3+1
+			fs
+
+			cantg::=cantg+1
+
+			mientras g<>% hacer
+				avz(gemas,g)
+			fm
+			avz(gemas,g)
+			avz(codigo,c)
+		fm
+
+		esc("La cantidad de gemas c1  son: ",g1)
+		esc("La cantidad de gemas c2 son:",g2)
+		esc("La cantidad de gemas c3 son:",g3)
+
+		esc("La cantidad total de gemas es:"cantg)
+		esc("El porcentaje de cada categoría respectivo al total es: ")
+	    esc("Categoría 1: ",(g1/cantg)*100)
+	    esc("Categoría 2: ",(g2/cantg)*100)
+	    esc("Categoría 3: ",(g3/cantg)*100)
+	 	cerrar(gemas)
+	 	cerrar(sal)
+	 	cerrar(codigo)
+fin accion
+
+----------------------------------------------------------------------------------------------------------------------
+
+
+Accion ideas es 
+	ambiente
+
+		s1,sal:secuencia de caractreres
+		s2:secuencia de enteros
+		v1:caracter
+		i,cont,v2:entero
+
+		Funcion EntCar(n:entero):caracter es
+			segun n hacer
+				=0 :EntCar:="0"
+				=1 :EntCar:="1"
+				=2 :EntCar:="2"
+				=3 :EntCar:="3"
+				=4 :EntCar:="4"
+				=5 :EntCar:="5"
+				=6 :EntCar:="6"
+				=7 :EntCar:="7"
+				=8 :EntCar:="8"
+				=9 :EntCar:="9"
+			fs
+		ff
+
+	proceso
+
+		arr(s1);arr(s2);crear(sal)
+		avz(s1,v1);avz(s2,v2)
+		cont:=1
+		Mientras NFDS(s1) y NFDS(s2) hacer
+			Mientras v1 = ' ' hacer 
+				Avz(s1,v1)
+			Fm
+			si cont mod 2 <> 0 hacer
+				para i:=1 a 8 hacer
+					esc(sal,EntCar(v2))
+					avz(s2,v2)
+				fp 
+				esc(sal,",")
+
+				mientras v=" "hacer
+					avz(s1,v1)
+				fm
+				mientras v <> " " hacer
+					esc(sal,v1)
+					avz(s1,v1)
+				fm
+				esc(sal,"#")		
+			sino 
+				para i:=1 a 8 hacer					
+					avz(s2,v2)
+				fp 
+				mientras v <> " " hacer				
+					avz(s1,v1)
+				fm				
+			fs
+			cont:=cont+1
+			avz(s2,v2)
+			avz(s1,v1)
+		fm
+		cerrar(s1);cerrar(s2);cerrar(sal)
+fin accion
+--------------------------------------------------------------------------------------
+
+Accion 221 es 
+	
+	ambiente
+
+		sec,sal:secuencia de caracteres 
+		v1:caracter
+		contp,conti:entero
+		pares: ("2","4","6","8")
+		impares: ("1","3","5","7","9")
+
+	proceso 
+
+		arr(sec)
+		avz(sec,v1)
+		crear(sal)
+		contp:=0
+		conti:=0
+		tot:=0
+		mientras NFDS(Sec) hacer
+
+			si v en pares entonces	
+				contp:=contp+1
+			sino 
+				si v en impares entonces 
+					conti:=conti+1
+					grabar(sal,v)
+				fs 
+			fs 
+			avz(sec,v)
+
+		fm 
+
+		tot:=contp+conti
+		esc("La cantidad total de digitos es :",tot)
+		esc("cantidad de impares:",conti)
+		esc("cantidad de pares:",contp)
+		esc("porcentaje de impares:",conti/tot *100,"%")
+		esc("porcentaje de pares:",contp/tot *100,"%")
+		cerrar(sec)
+		cerrar(sal)
+fin accion                                                                                                                                                                        
+
+
+-´------------------------------------------------------------------------------------
+
+accion 221 es 
+
+	Ambiente
+
+		fecha = registro de 
+			aa:N(4)
+			mm:1..12
+			dd:1..31
+		fr
+
+		Alumno : registro de 
+
+			 NyP: An(60)
+			 Carrera:("ISI","IEM","IQ")
+			 nroLeg:n(6)
+			 fechaN:fecha
+			 fechaIn:fecha 
+			 dni:n(8)
+			 sexo:("M","F")
+			 fechaUlte:fecha 
+			 nota:real
+		fr
+
+		car:An(3)
+
+		alumnos,sal:archivo de Alumno
+		reg_alu,reg_sal:Alumno
+
+	Proceso 
+
+		Abrir E/(alumnos)
+		leer(alumnos,reg_alu)
+		Abrir /S(sal)
+		esc("Carrera que le interesa saber ISI,IEM,IQ")
+		leer(car)
+
+		Mientras NFDA(alumnos) hacer
+
+			//esc(reg_alu.nroLeg,"|",reg_alu.AyP,"|",reg_alu.dni,"|",reg_alu.Carrera)
+			si( reg_alu.Carrera = car) (reg_alu.nota >7) y (reg_alu.fechaUlte = 2022 entonces 
+					reg_sal:=reg_alu
+					grabar(sal,reg_sal) 
+			fs 
+			leer(alumnos,reg_alu)
+		fm 
+	cerrar(alumnos)
+	cerrar(sal)
+FA
+
+--------------------------------------------------------------------------------
+
+Accion 223 es 
+	
+	Ambiente 
+
+		Soc = registro de
+			nro_soc:n(5)
+			nro_tel:n(10)
+			NyP:an(60)
+			Carrera:("ISI","IEM","IQ","LAR")
+			Domicilio:an(30) 
+			Cant_uni:n(2)
+		Fr 
+
+		Socios,sal:Archivo de Soc
+		reg_soc,reg_sal:Soc
+
+	Proceso 
+
+		Abrir E/(Socios)
+		leer(Socios,reg_soc)
+		Abrir /S(Sal)
+
+		Mientras nfda(Socios) hacer
+
+			si (reg_soc.Carrera = "ISI" ) y (reg_soc.Cant_uni = 4) entonces 
+
+				reg_sal:=reg_soc
+				esc(salida,reg_sal)
+			fs
+			leer(Socios,reg_soc) 
+		fm  
+		cerrar(alumnos)
+Fa 
+
+---------------------------------------------------------------------------------
+
+
+accion 227 es 
+
+	ambiente 
+
+		Padron = registro
+			NyP: An(60)
+			Clase:N(4)
+			Dni:N(8)
+			Direccion:An(30)
+			Nro_Mesa:N(2)
+			Observaciones:An(60)
+			Nro_circuito:N(3)
+			Partido:0..3
+		Fr 
+
+		Salida = registro
+			NyP: An(60)
+			Dni:N(8)
+			Direccion:An(30)
+		Fr
+
+
+		Pad:Archivo de Padron
+		Reg_p:Padron
+		Asal1,Asal2:Archivos de Salida
+		Sal1,Sal2:Salida
+
+	Proceso
+
+		Abrir E/(Pad)
+		leer(Pad,Reg_p)
+
+		Abrir /S(Asal1)
+		Abrir /S(Asal2)
+
+		Mientras NFDA(Pad) Hacer
+
+			Si Reg_p.Partido = 3 entonces 
+
+				Sal1:=Reg_p.NyP
+				Sal1:=Reg_p.Dni
+				Sal1:=Reg_p.Direccion
+
+				Grabar(Asal1,Sal1) 
+			Sino 
+
+				Si (Reg_p.Partido = 0) y (Reg_p.Clase > 1940)  entonces 
+					Sal2:=Reg_p.NyP
+					Sal2:=Reg_p.Dni
+					Sal2:=Reg_p.Direccion
+					Grabar(Asal2,Sal2)
+				Fs
+			Fs 
+			leer(Pad,Reg_p)
+		Fm 
+		Cerrar(Pad)
+		Cerrar(Asal1)
+		Cerrar(Asal2)
+FA
+
+---------------------------------------------------------------------------------
+
+Accion 229 es 
+	
+	Ambiente
+
+		Productos = registro
+			Cod_Producto:N(4)
+			Tipo:1..3
+			Marca:an(15)
+			Modelo:an(10)
+			Descripción:an(100)
+			Cantidad_Existente:N(4)
+			Precio_Unitario:real
+		Fr 
+
+		Pro,Sal:Archivo de Productos ordenado por Cod_Producto
+		Reg_p,reg_sal:Productos
+
+		totalg,ContTíp1;ContTíp2,ContTíp3:entero
+
+	Proceso
+
+		Abrir E/(Pro)
+		Leer(Pro,Reg_p)
+		Abrir /S(sal)
+
+		totalg:=0
+		ContTíp1:=0
+		ContTíp2:=0
+		ContTíp3:=0
+
+		Mientras NFDA(Pro) hacer 
+
+			Segun Reg_p.tipo hacer 
+
+				1:
+					reg_sal.Precio_Unitario:=Reg_p.Precio_Unitario * 1.10
+					ContTíp1:=ContTíp1+1
+				2:
+					reg_sal.Precio_Unitario:=Reg_p.Precio_Unitario * 1.25
+					ContTíp1:=ContTíp1+1
+				3:
+					reg_sal.Precio_Unitario:=Reg_p.Precio_Unitario * 1.50
+					ContTíp1:=ContTíp1+1					
+			fs 
+			Grabar(Sal,reg_sal)
+			Leer(Pro,Reg_p)
+		Fm 
+		totalg:=ContTíp1+ContTíp2+ContTíp3
+		Esc("Cantidad de tipo 1:",ContTíp1)
+		Esc("Cantidad de tipo 2:",ContTíp2)
+		Esc("Cantidad de tipo 3:",ContTíp3)
+		Esc("Total general:",totalg)
+		cerrar(Pro)
+		cerrar(Sal)
+Fs
+................................................................................1
+
+
+
+Accion 228 es 
+
+	Ambiente
+
+		Fecha = registro
+			AA:n(4) 
+			MM:1..12 
+			DD:1..31 
+		Fr
+
+		COMPRAS = registro
+			Nro_cli:n(2)
+			Fecha_ult_c:Fecha
+			Monto:real 
+		Fr 
+
+		Com:Archivo de COMPRAS ordenado por Nro_cli
+		Reg_C:COMPRAS
+
+		CLIENTES = registro
+			Nro_cli:n(2)
+			AyN:an(60)
+			Domicilio:an(100)
+			Telefono:n(12)
+			Dni:n(8)
+		Fr
+
+		Cli: Archivo de CLIENTES ordenado por Nro_cli
+		Reg_cli:CLIENTES
+		Faux:fecha
+		montox:real
+
+	Proceso
+
+		Abrir E/(Com)
+		Leer(Com,Reg_c)
+		Abrir E/(Cli)
+		Leer(Cli,Reg_cli)
+
+		Esc("Este algoritmo lista clientes cuya compra sea posterios a una fecha  en formato aammdd")
+		Leer(Faux)
+		Esc("Ingrese monto dado")
+		Leer(montox)
+		Esc("|Nombre y apellido| Fecha ultima compra |Monto de ultima compra  |")
+		Mientras NFDA(Com) hacer 
+
+			Si (Reg_c.Fecha_ult_c > Faux) y (Reg_c.Monto > montox) entonces 
+				Esc(Reg_cli.AyN,"|",Reg_c.Fecha_ult_c,"|",Reg_c.Monto,"|")
+			Fs
+			Leer(Com,Reg_c)
+			Leer(Cli,Reg_cli)
+		Fm
+
+		Cerrar(Cli)
+		Cerrar(Com)
+	Fa
+------------------------------------------------------------------------------------------------------------------------
+
+
+Accion 2213 es 
+	
+	Ambiente
+
+		Fecha = registro
+			AA:n(4)
+			MM:1..12
+			DD:1..31
+		Fr
+
+
+		REPARACIONES = registro
+
+			Cod_Sucursal:n(4)
+			Marca:An(60)
+			Modelo:An(10)
+			Cod_Tragamonedas:n(5)
+			Fecha_Reparacion:Fecha
+			Costo_Reparacion:real
+
+		Fr
+
+		Rep:Archivo de REPARACIONES ordenado por Cod_Sucursal, Marca, Modelo, Cod_Tragamonedas
+		Reg_r:REPARACIONES
+		
+		cont_rep,totg,cont_marca,cont_model,cont_traga:entero
+		costo:real
+		res_cod:n(4)
+		res_marca:an(60)
+		res_modelo:an(10)
+		res_tragamonedas:n(5)
+		Subaccion corte_Tragamonedas es 
+			Esc("para el tragamonedas",res_tragamonedas,"la cantidad de reparaciones:",cant_rep_traga)
+			
+			cont_model:=cont_model+cont_tra
+			costo_mo:=costo_mo+costoTraga
+			cont_tra:=0
+			costoTraga:=0
+			res_tragamonedas:=reg_r.Cod_Tragamonedas
+		fs
+
+		Subaccion corte_modelo es 
+
+			corte_Tragamonedas
+			Esc("para el tragamonedas",res_tragamonedas,"la cantidad de reparaciones:",cant_rep_traga)
+			
+			cont_ma:=cont_ma+cont_model
+			costo_mar:=costo_mar+costo_mo
+			costo_mo:=0
+			cont_model:=0
+			res_modelo:=reg_r.Modelo
+		fs
+
+		
+			
+--------------------------------------------------------------------------------
+Accion 2_2_11  es
+
+Ambiente
+
+	Fecha: registro de 
+
+		DD:1...31
+		MM:1..12
+		AA:N(4)
+
+	Fin R 
+
+	Alumno: registro 
+
+		Sexo:("F","M")
+		Carrera:("IEM","IQ","ISI","LAR")
+		Nro_Legajo:N(6)
+		Fecha_Ing:Fecha
+		Tot_Mat_Ap:N(2)
+
+	Fin registro
+
+	Alumnos:Archivo de Alumno ordenado por Sexo, Carrera, Nro_Legajo
+	Reg_alu:Alumno
+
+......................................................................................
+
+Accion 2216 es 
+	
+	Ambiente
+		Fecha: registro de 
+
+			DD:1...31
+			MM:1..12
+			AA:N(4)
+
+		Fr
+
+		Peliculas = registro
+			NroP:N(5)
+			Titulo:An(30)
+			Genero:An(30)
+			Cant_cop:Entero
+			Fecha_est:Fecha
+		Fr
+
+		Pelis_N,Pelis,Sal:Archivo de Peliculas ordenado por NroP
+		R_Pn,R_P,R_s:Peliculas
+
+	Proceso 
+
+		AbrirE/(Pelis_N,R_Pn)
+		Leer(Pelis_N,R_Pn)
+		AbrirE/(Pelis)
+		Leer(Pelis,R_P)
+		Abrir /S(Sal)
+
+		Mientras NFDA(Pelis) Y NFDA(Pelis_N) Hacer 
+			Si R_P.NroP < R_pn.NroP entonces 
+				R_S:=R_p
+				Esc(Sal,R_S)
+				Leer(Pelis,R_P)
+			Sino 
+				Si R_P.NroP > R_pn.NroP entonces 
+					R_S:=R_pn
+					Esc(Sal,R_S)
+					Leer(Pelis_N,R_Pn)
+				Fs
+			Fs 
+		Fm
+
+		Mientras NFDA(Pelis) Hacer 		
+			R_S:=R_p
+			Esc(Sal,R_S)
+			Leer(Pelis,R_P)		
+		Fm
+
+		Mientras NFDA(Pelis_N) Hacer 		
+			R_S:=R_pn
+			Esc(Sal,R_S)
+			Leer(Pelis_N,R_Pn)	
+		Fm
+
+		Cerrar(Pelis)
+		Cerrar(Pelis_n)			
+		Cerrar(Sal)
+Fin accion
+
+--------------------------------------------------------------------------------------------------------------------------
+
+Accion 2217 Es 
+	
+	Ambiente
+
+		Fecha: registro de 
+			DD:1...31
+			MM:1..12
+			AA:N(4)
+		Fr
+
+		Aspirantes = registro
+			DNI:N(8)
+			AyN:An(60)
+			Carrera:An(20)
+			F_Nac:Fecha
+			Email:An(60)
+			Colegio:
+			F_Insc:Fecha
+			Aprobado:("S","N","s","n")
+		Fr 
+
+		Agosto,Febrero:Archivo de Aspirantes ordenado por Dni
+		Reg_A,Reg_F:Aspirantes
+
+		Seguimiento = registro
+			Dni:N(8)
+			AyN:An(60)
+			Email:An(60)
+			Colegiosec:An(60)
+		Fr
+
+		Segui:Archivo de Seguimiento ordenado por DNI
+		Reg_S:Seguimiento
+
+		Cont:Entero
+
+	Proceso
+
+		Abrir E/(Agosto)
+		Abrir E/(Febrero)
+		Abrir /S(Segui)  
+		Leer(Agosto,Reg_A)
+		Leer(Febrero,Reg_F)
+
+		Mientras NFDA(Agosto) Y NFDA(Febrero) Hacer 
+
+			Si R_F.Dni < R_A.Dni Entonces 
+				Leer(Febrero,R_F)
+			Sino
+				Si R_F.Dni > R_A.Dni Entonces 
+					Leer(Agosto,R_A)
+				Sino 
+					Si R_F.Dni = R_A.Dni Entonces 
+
+						Si R_f.Aprobado ="N" y R_A ="N" entonces
+							R_S.Dni:=R_F.Dni
+							R_S.AyN:=R_F.AyN		
+							R_S.Email:=R_F.Email
+							R_S.Colegiosec:=R_F.Colegiosec
+							Cont:=Cont+1
+							Esc(Segui,R_S)
+						Fs
+						Leer(Agosto,R_A)
+						Leer(Febrero,R_F)
+					Fs		
+				Fs 
+			Fs  
+		Fm 
+
+
+		Mientras NFDA(Agosto) Hacer
+			Leer(Agosto,R_A)
+		Fm 
+
+		Mientras NFDA(Febrero) Hacer
+			Leer(Febrero,R_F)
+		Fm
+		Esc("La cantidad de aspirantes que se grabaron en el nuevo archivo es:",Cont)
+		Cerrar(Agosto)
+		Cerrar(Febrero)
+		Cerrar(Segui)
+Fin accion
+
+------------------------------------------------------------------------------------------------------------------------
+
+Accion 2218 Hacer 
+
+	Ambiente
+
+		Supermercado = registro
+			Cod_prod:N(5)
+			Tipo:An(30)
+			Marca:An(60)
+			Descripcion:An(100)
+			Cant_Uni:N
+		Fr
+
+		Sup1,Sup2,Sal:Archivo de Supermercado
+		Res_S1,Res_S2,Res_sal:Supermercado
+		Tot:N 
+
+	Proceso 
+
+		Abrir E/(Sup1)
+		Abrir E/(Sup2)
+		Leer(Sup1,Res_S1)
+		Leer(Sup2,Res_s2)
+		Abrir /S(sal)
+		Tot:=0
+		Esc("| Cod_prod | Tipo | Marca | Descripción | Cant Sucursal 1| Cant. Sucursal 2 | Total de Unidades |")
+
+		Mientras NFDA(SUP1) Y NFDA(SUP2) Hacer 
+
+			Si Res_S1.Cod_Prod <  Res_S2.Cod_Prod Entonces 
+				Res_sal:=R_s1
+				Grabar(Sal,Res_sal)
+				esc(Res_S1.Cod_Prod,Res_S1.Tipo,Res_S1.Marca,Res_S1.Descripción,Res_S1.Cant_uni,"0",Res_s1.Cant_uni)
+				Leer(Sup1,Res_S1)
+			Sino
+				Si Res_S1.Cod_Prod >  Res_S2.Cod_Prod Entonces 
+					Res_sal:=R_s2
+					Grabar(Sal,Res_sal)
+					esc(Res_S2.Cod_Prod,Res_S2.Tipo,Res_S2.Marca,Res_S2.Descripción,"0",Res_S2.Cant_uni,Res_s2.Cant_uni)
+					Leer(Sup2,Res_S2)
+				Sino 
+					Si Res_S1.Cod_Prod =  Res_S2.Cod_Prod Entonces 
+						Res_sal:=R_s1
+						Tot:=Res_S1.Cant_uni+Res_S2.Cant_uni
+						Grabar(Sal,Res_sal)
+						esc(Res_S1.Cod_Prod,Res_S1.Tipo,Res_S1.Marca,Res_S1.Descripción,Res_S1.Cant_uni,Res_S2.Cant_uni,tot)
+						Leer(Sup2,Res_S2)
+						Leer(Sup1,Res_S1)
+					Fs
+				Fs
+			Fs 
+		Fm
+
+		Mientras NFDA(SUP1)  Hacer 
+			Res_sal:=R_s1
+			Grabar(Sal,Res_sal)
+			esc(Res_S1.Cod_Prod,Res_S1.Tipo,Res_S1.Marca,Res_S1.Descripción,Res_S1.Cant_uni,"0",Res_s1.Cant_uni)
+			Leer(Sup1,Res_S1)	
+		Fm
+
+		Mientras NFDA(SUP1)  Hacer 
+			Res_sal:=R_s2
+			Grabar(Sal,Res_sal)
+			esc(Res_S2.Cod_Prod,Res_S2.Tipo,Res_S2.Marca,Res_S2.Descripción,Res_S2.Cant_uni,"0",Res_s2.Cant_uni)
+			Leer(Sup2,Res_S2)	
+		Fm
+
+		Cerrar(Sup1)
+		Cerrar(Sup2)
+		Cerrar(Sal)
+FA
+
+---------------------------------------------------------------------------------------------------------
+
+Accion 2219  hacer 	
+
+	Ambiente 
+
+		Clave =  registro
+			Farmacia:
+			Medicamentos:
+		Fr 
+
+		Fecha =  registro
+			AA:N(4)
+			MM:1..12
+			DD:1..31
+		Fr
+
+		Mae_rem = registro
+			CLaveMae:Clave 	
+			Cant_Act:N
+			Fecha_ven:Fecha
+		Fr
+	
+		Movimiento = registro
+			ClaveMov:Clave 
+			CodMov:N(2)
+			Cant_Reci:N
+		Fr
+
+		Rem_V=Registro
+			Medicamento:AN(30)
+			Cant_V:N(3)
+		Fr
+
+		Mae,mae_sal:Archivo de Mae_rem ordenado por Clave
+		Mov:Archivo de Movimiento ordenado por Clave y CodMov
+		Vencido:Archivo ordenado por Medicamento
+
+		Reg_Mae:Mae_rem
+		Reg_Mov:Movimiento
+		Reg_V:Rem_V
+
+		Subaccion Leer_Mae Es 
+			Leer(Mae,Reg_Mae)
+			Si FDA(Mae) entonces
+				Reg_Mae.ClaveM:=HV 
+			Fs 
+		Fs 
+
+		Subaccion Leer_Mov Es 
+			Leer(Mov,Reg_Mov)
+			Si FDA(Mov) entonces
+				Reg_Mov.ClaveMov:=HV 
+			Fs 
+		Fs 
+
+	Proceso
+
+		Abrir E/(Mae)
+		Leer(Mae,Reg_Mae)
+		Abrir E/(Movimiento)
+		Leer(Movimiento,Reg_Mov)
+		Abrir /S(Vencido)
+		Abrir /S(mae_sal)
+
+		Mientras (Reg_Mae.ClaveM <> HV) O (Reg_Mov.ClaveMov <>HV) Hacer 
+			Si Reg_Mae.ClaveM < Reg_mov.ClaveMov Entonces 
+				 Grabar(Mae_sal,Reg_Mae)
+				 Leer_Mae
+
+			Sino 	
+
+				Si Reg_Mae.ClaveM = Reg_mov.ClaveMov Entonces
+
+					Segun Reg_mov.CodMov Hacer
+						1: 
+							Esc("ERROR DE MOVIMIENTO")
+						2: 
+							Reg_V.Medicamento:=Reg_Mae.Medicamento
+					   		Reg_V.Cant_V:=Reg_Mae.Cant_Act
+							Grabar(Mae_sal,Reg_Mae)
+						3:
+							Reg_Mae.Cant_Act:=Reg_mov.Cant_Reci	
+							Grabar(Mae,Reg_Mae)
+					Fs 
+				Sino 
+					Segun Reg_mov.CodMov Hacer
+						1: 
+							Reg_Mae.ClaveM:=Reg_Mov.Reg_Mov
+					   		Reg_Mae.Cant_Act:=Reg_Mov.Cant_Reci
+					   		Reg_Mae.Fecha_ven:=Fecha_act()+30
+							Grabar(Mae_sal,Reg_Mae)
+							
+						2: 
+							Esc("ERROR DE MOVIMIENTO NO SE PUEDA DAR DE BAJA")
+						3:
+							Esc("ERROR DE MOVIMIENTO NO SE PUEDE MODIFICAR")
+					Fs 
+					Leer_Mov
+				Fs 
+			Fs 
+		Fm 
+		Cerrar(Mae)
+		Cerrar(Mov)
+		Cerrar(Mae_sal)
+		Cerrar(Rem_V)
+Fin Accion
+
+--------------------------------------------------------------------------------------------------------
+Accion 2221 Es 
+	
+	Ambiente 
+		Fecha =  registro
+			AA:N(4)
+			MM:1..12
+			DD:1..31
+		Fr
+
+		Clave = registro
+			Cod_Usuario:N(5)
+			Cod_Amigo:N(5)
+		Fr 
+
+		Amigos = registro
+			ClaveMae:Clave
+			Fecha_Amis:Fecha
+			Mensaje_muro:An(200)
+		Fr
+
+		Notificaciones = registro
+			ClaveMov:Clave
+			Cod_Mov:("A","B","M")
+			Fecha_Amis:Fecha
+			Mensaje_Nuevo:An(200)
+		Fr
+
+		Ami,Ami_A:Archivo de amigos ordenado por ClaveMae
+		Noti:Archivo de Notificaciones ordenado por ClaveMov
+		R_ami:Amigos
+		R_Noti:Notificaciones
+
+		Subaccion Leer_Mae Es 
+			Leer(Ami,R_ami)
+			Si FDA(Ami) Entonces 
+				R_ami.ClaveMae:=HV
+			Fs 
+		Fs 
+
+		Subaccion Leer_Mov Es 
+			Leer(Noti,R_noti)
+			Si FDA(Noti) Entonces 
+				R_ami.ClaveMov:=HV
+			Fs 
+		Fs 
+
+	Proceso
+
+		Abrir E/(Ami)
+		Abrir E/S(Ami_A)
+		Abrir /S(Noti)
+
+		Leer_Mae
+		Leer_Mov
+
+		Mientras (R_ami.ClaveMae <>HV) O (R_mov.ClaveMov<>HV) Hacer
+
+			Si R_ami.ClaveMae<R_mov.ClaveMov Entonces
+				Grabar(Ami_A,R_ami)
+				Leer_Mae
+			Sino
+
+				Si R_ami.ClaveMae=R_mov.ClaveMov Entonces
+
+					Segun R_noti.CodMov Hacer
+
+						"A":Esc("Error Ya esta en su lista de amigos")
+
+						"B":Leer(Ami_A,R_ami)
+
+						"M":R_ami.Mensaje_muro:=R_noti.Mensaje_Nuevo
+							Grabar(Ami_A,R_ami)
+					Fs 
+				Sino 
+
+					R_ami.ClaveMae:=R_noti.ClaveMov
+					R_ami.Fecha_Amis:=R_Noti.Fecha_Amis
+					R_ami.Mensaje_muro:=R_noti.Mensaje_Nuevo
+					Grabar(Ami_A,R_Ami)
+					Leer_Noti
+				Fs 
+			Fs 
+		Fm 
+Cerrar(AMI)
+Cerrar(Noti)
+Cerrar(AMI_a)
+-----------------------------------------------------------------------------------------
+
+Accion 2.2.23 Es 
+	
+	Ambiente
+
+		Clave = registro
+			id_casa:N(4)
+		Fr 
+
+		Fecha =  registro
+			AA:N(4)
+			MM:1..12
+			DD:1..31
+		Fr
+
+		Cliente = registro
+			ClaveMae:Clave
+			Fecha_Ult_L:Fecha
+			Cant_Lec:N(6)
+			Prom_Lec:N(7)
+			Tipo_Cons:("A","B","C")
+		Fr 
+
+		Mediciones = registro
+			Clavemov:Clave
+			Fecha_Med:Fecha
+			Consumo:N(7)
+		Fr
+
+		Cli,Cli_a:Archivo de Cliente ordenado por ClaveMae
+		R_cli:Cliente
+
+		Medi:Archivo de Mediciones ordenado por ClaveMov
+		R_med:Mediciones
+
+		Subaccion Leer_Cli es 
+			Leer(Cli,R_cli)
+			Si FDA(Cli) entonces 
+				R_cli.ClaveMae := HV 
+			Fs 
+		Fs 	
+
+		Subaccion Leer_medi es 
+			Leer(Medi,R_Med)
+			Si FDA(Medi) entonces 
+				R_medi.ClaveMov := HV 
+			Fs 
+		Fs 	
+
+
+	Proceso
+	
+		Abrir E/(Cli)
+		Abrir /S(Cli_A)
+		Abrir E/(Medi)
+		Leer_Cli
+		Leer_medi
+
+		Mientras R_cli.ClaveMae<>HV o R_medi.ClaveMov<>HV Hacer 
+
+			Si R_cli.ClaveMae < R_med.Clavemov Entonces 
+				Grabar(Cli_A,R_cli)
+				Leer_Cli
+			Sino 
+
+				Si R_cli.ClaveMae = R_med.Clavemov Entonces 
+
+					Mientras R_cli.ClaveMae = R_med.Clavemov Hacer 
+
+						Si (R_med.Fecha_Med.AA<2015) o (R_med.Fecha_Med = 2015) y (R_med.Fecha_Med.MM < 6) entonces 
+
+							R_cli.Fecha_Ult_L:=R_med.Fecha_Med
+							R_cli.Cant_Lec:=R_cli.Cant_Lec+1
+							R_cli.Prom_Lec:=R_med.Consumo
+							Leer_medi
+						Fs
+					Fm 
+
+					Segun Mae.Prom_Lec Hacer 
+						<20000:R_cli.Tipo_Cons:="A"
+						<40000:R_cli.Tipo_Cons:="B"
+						otro:R_cli.Tipo_Cons:="C"
+					Fs
+					Grabar(Cli_A,R_cli)
+					Leer_cli
+				Sino 
+					R_cli.ClaveMae:=R_med.ClaveMov
+					R_cli.Fecha_Ult_L:=R_med.Fecha_Med
+					R_cli.Cant_Lec:=R_cli.Cant_Lec+1
+					R_cli.Prom_Lec:=R_med.Consumo
+
+					Mientras R_cli.ClaveMae = R_med.Clavemov Hacer 
+
+						Si (R_med.Fecha_Med.AA<2015) o (R_med.Fecha_Med = 2015) y (R_med.Fecha_Med.MM <6) entonces 
+
+							R_cli.Fecha_Ult_L:=R_med.Fecha_Med
+							R_cli.Cant_Lec:=R_cli.Cant_Lec+1
+							R_cli.Prom_Lec:=R_med.Consumo
+							Leer_medi
+						Fs
+					Fm
+
+					Segun Mae.Prom_Lec Hacer 
+						<20000:R_cli.Tipo_Cons:="A"
+						<40000:R_cli.Tipo_Cons:="B"
+						otro:R_cli.Tipo_Cons:="C"
+					Fs
+					Grabar(Cli_A,R_cli)
+					leer_mae
+					leer_mov
+				Fs 
+			Fs 
+		Fm
+	Cerrar(Cli)
+	Cerrar(Med)		
+	Cerrar(Sal)
+FA
+-------------------------------------------------------------------------
+
+Accion 301 Es 
+	
+	Ambiente
+
+		Fecha =  registro
+			AA:N(4)
+			MM:1..12
+			DD:1..31
+		Fr	
+
+		FACTURAS = registro
+			Nro_cli:N(5)
+			Nro_factura:N(5)
+			Fecha:Fecha
+			Importe:Real
+		Fr 
+
+		Clientes = registro
+			Nro_cli:N(5)
+			Nombre:An(30)
+			Dni:N(8)
+			Cuit:N(11)
+			Domicilio:An(60)
+		Fr 
+
+		Fact:Archivo de FACTURAS ordenado por Nro_cli,Nro_factura	
+		Rf:FACTURAS
+
+		Cli:Archivo de Clientes indexado por Nro_cli
+		R_c:Clientes
+
+		Res_cli:N(5)
+		Total,Cant:Entero 
+
+	Proceso
+
+		Abrir E/(Fact)
+		Abrir E/(Cli)
+		Leer(Fact,R_F)
+		
+		Esc("Nro. Cliente	|Nombre Cliente|	Total Facturado	|Cantidad de Facturas|")
+		Mientras NFDA(Fact) Hacer 
+			Total:=0			
+			Cant:=0
+			Res_Cli:=R_f.Nro_cli
+			R_c.Nro_cli:=R_f.Nro_cli
+			Leer(Cli,R_c)
+
+			Si existe entonces 
+
+				Mientras NFDA(Fact) y (Res_cli=R_f.Nro_cli) Hacer 
+					CantF:=CantF+1
+					Total:=Total+R_f.Importe
+					Leer(Fact,R_f)
+				Fm 
+				Esc(Res_Cli, R_C.Nombre , Total, CantF)
+			Sino 
+				Esc("Error , datos del cliente no encontrado")
+				Leer(Fact,R_f)
+			Fs 
+		Fm 
+		Cerrar(Fact)
+		Cerrar(Cli)
+FA
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+
+Elgourmet.com, un reconocido sitio web de cocina, lo ha contratado para agregar una funcionalidad de emi´sión de informes.
+
+Para ello se cuenta con una secunecia de carcateres que contiene la sig informacion sobre las recetas disponibles en el sitio:
+
+Categoria 1 caracter: (C)arnes - (E)ntrantes - (M)ariscos - (P)astas - (D)ulces. 
+Tiempo de preparación en minutos (3 carcateres), 
+nombre de la receta (indetermiando, termina con un -), 
+ingrediente principal (Indeterminado, termina con un #) y 
+dificultad (1 carcater): (F)acil - (N)ormal - (D)ificil
+
+Ejemplo
+C045escalopes al jerez-lomo#F+D030tiramisu de la nona-bizcochos vainilla#N+
+los datos de cada receta finalizan con un +
+
+1) Generar una secuencia de salida con todas las recetas dulces cuyo tiempo de preparación sea menor a 30 minutos, 
+incluyendo solamente el nombre de la receta, el ingrediente principal y dificultad.
+
+2)informar la cantidad y porcentaje que representan sobre el total, las recetas dificiles
+
+
+
+
+Accion gourmet es 
+
+	Ambiente 
+
+		Sec,Sal:Secuencia de caracteres 
+		V:Caracter 
+
+		CantT,CantD:Entero 
+		porcentaje:real 
+
+	Proceso 	
+		Arr(Sec)
+		Avz(Sec,V)
+		Crear(Sal)
+		CantT:=0
+		CantD:=0
+		porcentaje:=0
+		Mientras NFDS(Sec) Hacer 
+
+			Si V = "D" Hacer
+				Avz(Sec,V) //D
+				Si V ="0" Hacer//D0 
+					Avz(Sec,V) //D01	
+					Si V ="0" O V="1" O V="2" Hacer 
+						// D01
+						Avz(Sec,V)
+						Avz(Sec,V) //D019
+						
+						Mientras V <> "-" Hacer
+							Esc(Sal,V)
+							avz(Sec,V)
+						Fm 
+
+						Esc(Sal,"-")
+						Avz(Sec,V)
+
+						Mientras V <> "#" Hacer 
+							Esc(Sal,V)
+							avz(Sec,V)
+						Fm 	
+
+						Esc(Sal,"#")
+						Avz(Sec,V)
+
+						Si V="D" Hacer 
+							ContD:=ContD+1
+							Esc(Sal,V)
+						Sino 
+							Esc(Sal,V)
+						Fs 
+					Fs 
+				Sino 
+
+					Mientras V <> "#" Hacer 
+						avz(Sec,V)
+					Fm 	
+					avz(Sec,V)
+					Si V="D" Hacer 
+						ContD:=ContD+1
+						Avz(Sec,V)
+					Sino 
+						Avz(Sec,V)
+					Fs 
+					Avz(Sec,V) 	
+				Fs 
+				Avz(Sec,V)
+			Sino
+				Mientras V<>'#' Hacer 
+					Avz(Sec,V)
+					Si V="D" entonces 
+						CantD:=CantD+1
+						Avz(Sec,V)					
+					Sino 
+						avz(Sec,V)
+					Fin si
+					Avz(Sec,V)
+				Fm 
+			Fs			
+			CantT:=CantT+1
+		Fm
+		Porcentaje:=(CantD/CantT)*100
+
+	Esc("La cantidad de recetas dificiles es de:",CantD,"'Que representan un porcentaje de:'",porcentaje,"'% del total'")
+
+	cerrar(Sec)
+	Cerrar(Sal)
+
+Fin accion
+ 
+					
+
+-------------------------------------------------------------------------------------------------------------------------------------
+2.3.3
+Los automovilistas pasan por el peaje del Puente Gral. Belgrano y deben pagar según su categoría, 
+pero además, si ya han pasado previamente dentro del día tienen pase libre.
+Teniendo en cuenta el archivo siguiente, construya el algoritmo que realice lo que corresponda: 
+genere el comprobante, indicando el importe a pagar o emita un mensaje indicando que ya pasó anteriormente. 
+Además indique cuales deberían ser los datos de entrada.
+
+PEAJE Indexado por Patente, Fecha
+
+Patente XXX-NNN|Fecha N(8)|Ult_Hora N(4)|Costo XXX,XX|
+Costo por categoria
+
+Categoria	Costo
+	1		1,20
+	2		2,50
+	3		4,00
+	4		5,00
+
+Accion 2.3.3 Es
+
+Ambiente
+	Peaje:Registro
+		Patente:AN(7)
+		Fecha:N(8) 
+		Ult_Hora:N(4)
+		Costo:Real
+		Categoria:1..4
+	Fin Registro
+
+	Peajaes:Archivo indexado por Patente y Fecha
+	Reg_P:Peajaes
+
+	{res_patente:An(7)
+		res_Fecha:N(8)}
+	X:("S","N")
+Proceso
+
+	Abrir E/S (Peajaes)
+	Leer(Peajes,Reg_P)
+
+
+	Esc("Sistema de peaje")
+
+
+	Repetir
+
+		Esc("Ingrese numero de patente")
+		leer(Reg_p.Patente)
+		Reg_P.Fecha:=Fecha_Sistema()
+		Reg_P.Ult_Hora:=0
+		Leer(Peajes,Reg_P)
+		Si EXISTE entonces 
+			Esc("Pase libre")
+			Esc("Patente:",Reg_P.Patente)
+		Sino 
+			Esc("Ingrese categoria")
+			Leer(Reg_P.Categoria)
+			Segun  Reg_P.Categoria hacer 
+
+				1: Reg_P.costo:=1.20
+				2: Reg_P.costo:=2.50
+				3: Reg_P.costo:=4.00
+				4: Reg_P.costo:=5.00
+			Fs 
+			Reg_P.Ult_Hora:=Hora_sistema()
+			Esc(Peajes,Reg_p)
+			Esc("Patente:",Reg_p.Patente,"Costo:",Reg_P.costo,"$")
+		Fs 
+		Esc("Desea continuar")
+		leer(x)
+	Hasta que x = "N"
+	Cerrar(Peajes)
+Fin accion
+
+-------------------------------------------------------------------------------------------------------------------
+Ejercicio 2.3.4¶
+Crear un algoritmo que simule el trabajo de una caja de supermercado.
+El algoritmo debe permitir imprimir el ticket de compra y realizar 
+el descuento de stock del producto.
+
+Al generar el comprobante del ticket 
+debe guardar los datos en los archivos TICKET y DETALLE_TICKET 
+(el cliente es: "consumidor final" y el NroTicket se genera automáticamente, 
+mediante la función OBTENER_TICKET). 
+Archivos:
+
+PRODUCTOS Indexado por Cod_Prod
+Cod_Prod|Nombre|Stock|Precio
+
+TICKET Indexado por Nro_Ticket
+Nro_Ticket|Fecha|Cliente
+
+DETALLE_TICKET Indexado por Nro_Ticket
+Nro_Ticket|Nro_Linea|Cod_Prod|Cantidad
+
+Comprobante:
+
+Empresa:	......................................	CUIT:	.... - ............ - ...	Fecha:	... / ... / ...
+Cliente	.................................................................................................................................
+Producto									Cantidad						Subtotal
+..............................	..............................	..............................
+..............................	..............................	..............................
+..............................	..............................	..............................
+Total	..............................
+
+
+Accion 234 es 
+
+	Ambiente 
+
+		Fecha = registro
+			AA:N(4)
+			MM:1..12
+			DD:1..31
+		Fr
+
+		Producto : registro
+			Cod_Prod:N(5)
+			Nombre:An(60)
+			Stock:N(5)
+			Precio:real
+		Fr 
+
+		Ticket : registro
+			Nro_Ticket:N(4)
+			Fecha:Fecha
+			Cliente:N(5)
+		Fr 
+
+		Detalles : registro
+			Nro_Ticket:N(4)
+			Nro_Linea:N(12)
+			Cod_Prod:N(5)
+			Cantidad:Entero 
+		Fr 
+
+		Prod:Archivo de Producto Indexado por Cod_Prod
+		Rp:Producto
+		Tick:Archivo de Ticket Indexado por Nro_Ticket
+		Rt:Ticket
+		Det:Archivo de Detalles Indexado por Nro_Ticket
+		Rd:Detalles
+		Cod_Producto:N(5)
+		rta1,rta2:("s","n")
+		cantidad,total,subtotal:Entero
+
+	Proceso 
+		Abrir E/S(Prod)
+		Abrir /S(Det)
+		Abrir /S(Tick)
+		inicializar contadores
+
+		Esc("Desea emitir ticket S/N")
+		Leer(rta1)
+
+		Mientras rta1 = "S" hacer 
+
+			Rt.Nro_Ticket:=OBTENER_TICKET
+			Rt.Fecha:=Fecha_sistema()
+			Rt.Cliente:="Consumidor final"
+			Grabar(Tick,Rt)
+			
+			Esc("Desea añador algun producto a su compra?")
+			leer(rta2)
+			Mientras rta2= "S" hacer 
+				Lin:=Lin+1
+				Esc("Ingrese el codigo del producto y la cantidad")
+				Leer(Cod_Producto)
+				Leer(Cantidad)	
+
+				Rp.Cod_Prod:=Cod_Producto
+				Leer(Prod,Rp)
+				Si EXISTE entonces 
+					Rp.Stock:=Rp.Stock -Cantidad
+					Regrabar(Prod,Rp)
+				Fs  
+				Rd.Nro_Ticket:=Rt.Nro_Ticket
+				Rd.Nro_Linea:=Lin
+				Rd.Cod_prod:=Cod_Producto
+				Rd.Cantidad:=cantidad
+				Grabar(Det,Rd)
+				Subtotal:=Rp.Precio*cantidadt
+				total:=total+subtotal
+				
+				escribir("producto, cantidad, subtotal")
+				Esc("Desea añadir otro producto a la compra?")
+				leer(rta2)
+			FM
+			Esc("Total:",Total)
+			Esc("Desea emitir  otro ticket ?")
+			Lee(rta1)
+		FM 
+		cerrar archivos
+Fin accion 
+..............................................................................................
+Ejercicio 3.4¶
+Considerando un arreglo de 50 números enteros, confeccione un algoritmo para resolver las siguientes consignas:
+
+1 Modificar el arreglo dado, de modo que todos sus elementos sean múltiplos de 3.
+2 Crear otro arreglo que contenga los números que no cumplieron la condición.
+3 Informar cuántos números cumplieron la condición.
+
+Accion 3.4 Es 
+
+	Ambiente 
+
+		Arr1: [1..50] de entero 
+		Arr2: [1..50] de entero 
+		i,j:1..50
+		Cont:entero
+
+	Proceso 
+		Para i:=1 a 50 hacer 
+			Si Arr1[i] mod 3 <> 0 entonces 
+				Arr2[i]:=Arr1[i]
+				Cont:=Cont+1
+				Arr1[i]:=Arr[i]*3
+
+			Fs 
+		Fp		
+..............................................................................................
+Accion 4.2 (Prim:Puntero a nodo) Es 
+	Ambiente
+		Nodo = registro
+			Dato:entero
+			Prox:Puntero a nodo 
+		Fr 
+		p,q,Prim1:puntero a nodo
+	Proceo 
+		P:=Prim 
+		ant:=Nil
+		Prim1:=nil1 
+
+		Si p = nil entonces 
+			Esc("LISTA VACIA")
+		Sino 
+			Mientras P <> nil entonces
+
+				Si *p.dato mod 10 = 0 entonces 
+					Nuevo (q)
+					Si prim1 = nil entonces 
+						Nuevo (q)
+						*q.dato:=*p.dato
+						*q.prox:=nil
+						Prim1:=q
+					Sino 
+						*q.prox:=nil 
+						prim1:=q 
+					Fs 
+
+					Si ant = prim entonces 
+						prim:=*prim.prox
+					Sino 	
+						*ant.prox:=*p.prox	
+					Fs 
+					disponer(p)
+				Fs 
+				ant:=p 
+				P:=*p.prox
+			Fm 
+		Fs 
+Fa
+..............................................................................................
+
+..............................................................................................
+Accion 4.4 (prim: Puntero a Nodo) Es
+    Ambiente
+        Nodo = Registro
+            dato: Entero
+            prox: Puntero a Nodo
+        Fin_Registro
+        p, prim1, q: Puntero a Nodo
+
+    Proceso
+        prim1:= Nil
+        p:= prim
+
+        Mientras (p <> Nil) Hacer
+       	 	Nuevo(q)
+            Si (prim1 = Nil) Entonces
+                *q.prox:= Nil
+            Sino                  
+                *q.prox:= prim1
+            Fin_Si
+            *q.dato:= *p.dato
+            prim1:= q
+            p:= *p.prox
+        Fin_Mientras
+        
+Fin_Accion
+..............................................................................................
+Accion 4_5(Prim:puntero a nodo) Es
+	Ambiente 
+
+		Nodo = registro 
+			Nombre:An(30)
+			Capital:An(30)
+			Cantidad:N
+			Tot_Hab:N
+			Analfabetos:N
+			Prox:Puntero a nodo 
+		Fr
+		p:puntero a nodo
+ 
+		Nodo2 = registro 
+			Nombre:An(30)
+			Capital:An(30)
+			Porcentaje:real
+			Prox:Puntero a nodo 
+		Fr
+		q,prim1,prim2,prim3:Puntero a nodo2
+
+		Procedimiento recibe(prim:puntero a nodo) es 
+			Si (prim = Nil) Entonces
+	                *q.prox:= Nil
+	            Sino                  
+	                *q.prox:= prim
+	            Fin_Si
+				prim:=q
+			Fs
+			p:=*p.prox
+		Fp
+
+	Proceso
+
+		p:=prim
+		prim1:=nil 
+		prim2:=nil 
+		prim3:=nil 
+
+		Si  p=nil entonces 
+			Esc("Lista vacia")
+		Sino 
+			Mientras p <> nil entonces 
+				Nuevo(q)
+				*q.nombre:=*p.nombre
+				*q.Capital:=*p.capital
+				*q.porcentaje:=*p.Analfabetos * 100/(*p.Tot_Hab)
+
+				Segun *q.porcentaje hacer 
+					<=10: Recibe(prim1)
+					>=16: Recibe(prim2)
+					>25	: Recibe(prim3)
+				Fs 
+				
+			Fm 
+		Fs 
+FA
+
+
+
+..............................................................................................
+Accion 4_6(Prim:puntero a nodo) Es
+	Ambiente 
+		Nodo = registro 
+			NCliente:An(30)
+			TotC:N
+			NumM: 
+			Prox:Puntero a nodo 
+		Fr
+		p:puntero a nodo
+r
+		q,prim:Puntero a nodo
+	
+		op: ("")
+	Proceso
+
+	
+		Esc("Que Funcion desea realizar: A:Añadir cliente,R:Registrar consumo,C:Realizar cobro")
+		Leer(op)
+		Prim:= nil
+		Segun Op hacer 
+			A:	p:=Prim
+				LEER(AuxNC)
+				NUEVO(q) 
+				*q.NCliente:= AuxNC 
+				q:= Prim 
+
+				Mientras (p <> nil) y (*p.NCliente < AuxNC) HACER
+	    			p:= *p.prox
+				Fm
+
+				Si (p = prim) Entonces
+				    *q.prox:= Prim
+				    Prim:= q
+				Sino
+				    *q.prox:= p
+				Fs
+
+			R:	
+				p:=prim
+				Esc("Ingrese nombre de cliente")
+				LEER(AuxNC)
+				
+				Mientras (p <> nil) y (*p.NCliente <> AuxNC) HACER
+	    			p:= *p.prox
+				Fm	
+
+				Si (*p.NCliente = AuxNC) Entonces
+					Esc("Ingrese monto")
+					Leer(Monto)
+				   	*p.TotC:=*p.TotC+Monto
+				Sino
+				    Esc("No se puede registrar consumo")
+				Fs	
+			C:	
+				p:=prim 
+				Esc("Ingrese nombre de cliente")
+				LEER(AuxNC)
+				Esc("Ingrese Fecha")
+				Leer(Fecha)
+				Esc("Ingrese Numero de mesa")
+				Leer(*p.NumM)	
+
+				Mientras (p <> nil) y (*p.NCliente <> AuxNC) HACER
+	    			a:=p
+	    			p:= *p.prox	
+				Fm	
+
+				Si (*p.NCliente = AuxNC) Entonces
+					Esc("Nombre:",*P.NCliente,"Fecha:",Fecha,"Numero de mesa:",*p.NumM,"Total consumido:"*p.TotC)			
+					Si p = prim entonces
+						prim:=*p.prox
+					Sino 
+						*a.prox:=*p.prox
+					Fs 
+					Disponer(p)
+				Sino
+				    Esc("No se puede realizar cobro")
+				Fs
+		Fs
+
+Fa 
+
+
+
+		
+
+	
+
+	
+..............................................................................................
+Accion P2 Es 
+	
+	Ambiente 
+
+		Almacena = Registro 
+			Site:An(10)
+			Area:An(5) 
+			Version:['W','M']
+			TamañoE: 3..6
+			Ticket_Res:N(3)
+			Estado_P:['F','E']
+		Fr
+		Alm:Archivo de Almacena ordenado por Site,Area,Version
+		Reg:Almacena
+
+		Salida = registro
+			Site:An(10)
+			Tot_Ticket_Res:N(3)
+		Fr
+		Sal:Archivo de Salida
+		Reg_sal:Salida
+
+
+		Tot_Site,Tot_Area,Tot_Version,Tot_Gral:Entero
+		res_Site:An(10)
+		res_Area:An(5)
+		res_Version:['W','M']
+
+
+		Subaccion Corte_Version Es 
+			Esc("La Version:",res_Version)
+			Esc("Tiene un equipo con ",Reg.TamañoE, "integrantes")
+			Esc("El estado del proyecto esta :",Reg.Estado_P)
+			Esc("Se resolvieron:",Tot_Version,"Tickets")
+
+			Tot_Area:=Tot_Area+Tot_Version
+			Tot_Version:=0
+			res_Version:=Reg.Version
+		Fs 
+
+		Subaccion Corte_Area Es 
+			Corte_Version
+			Esc("En el Area:",res_Area)
+			Esc("Se resolvieron:",Tot_Area,"Tickets")
+
+			Tot_Site:=Tot_Site+Tot_Area
+			Tot_Area:=0
+			res_Area:=Reg.Area
+		Fs 
+
+		Subaccion Corte_Site Es
+			Corte_Area
+			Esc("En el Site:",res_Site)
+			Esc("Se resolvieron:",Tot_Site,"Tickets")
+			Reg_sal.Site:=res_Site
+			Reg_Sal.Tot_Ticket_Res:=Tot_Site+1
+			Grabar(Sal,Reg_sal)
+			Tot_Gral:=Tot_Gral+Tot_Site
+			Tot_Site:=0
+			res_Site:=Reg.Site
+			
+		Fs 
+
+		Subaccion Inicializar Es 
+			Tot_Site:=0
+			Tot_Area:=0
+			Tot_Version:=0
+			Tot_Gral:=0
+			res_Version:=Reg.Version
+			res_Area:=Reg.Area
+			res_Site:=Reg.Site
+		Fs 
+
+	Proceso 
+
+		Abrir E/(Alm)
+		Abrir /S(Sal)
+		Leer(Alm,Reg)
+
+		Inicializar
+
+
+		MIENTRAS NFDA(Alm) HACER
+            SI (res_site <> Reg.Site ) ENTONCES
+                Corte_Site
+                
+            SINO
+                SI (res_Area <>Reg.Area ) ENTONCES
+                    Corte_Area
+                SINO
+                    SI ( res_Version<>Reg.Version ) ENTONCES
+                        Corte_Version
+                    FIN_SI
+                FIN_SI
+            FIN_SI
+
+            Si (Reg.TamañoE > 4) Y (Reg.Estado_P = E) Entonces 
+            	Tot_Version:=Tot_Version+Reg.Ticket_Res
+            Fs
+            Leer(Alm,Reg) 
+        Fm 
+
+        Corte_Site
+
+        Esc("El total general de tickets Resueltos es:"Tot_Gral)
+       	Cerrar(Alm)
+       	Cerrar(Sal)
+FA
+            
+            
+..............................................................................................
+ Accion capicua es 
+
+ 	n:entero 
+ 	Palabra:Arreglo de [1..n] de caracteres 
+ 	C:caracter
+ 	Funcion capi(in,fin,p):Booleano
+
+ 		Si  in > fin entonces
+ 			Capi:=Verdadero
+ 		Sino
+	 		Si p[in] = p[fin] entonces 
+				capi:=capi(In+1,fin-1,z)
+			Sino  
+				capi:=Falso
+			Fs
+		Fs
+	 Ff 
+ Proceso 
+
+ 	Esc("ingrese El tamaño de la palabra")
+ 	Leer(n)
+ 	
+ 	Para i:=1 a n hacer	
+ 		Palabra[i]:=' '
+ 	Fp 
+
+ 	Para i:=1 a n hacer
+ 		Esc("Ingrese Caracter")
+ 		Leer(C)
+ 		Palabra[i]:=C
+ 	Fp 
+
+ 	Si capi Entonces 
+ 		Esc("Capicua")
+ 	Sino 
+  		Esc("No es capicua")
+  	Fs 
+  Fp 
+Fa
+
+..............................................................................................
+Funcion Arbo(nodito:Puntero a nodo):entero 
+	
+	Si nodito = nil  entonces 
+		Arbo:=0
+	sino 	
+		Arbo:=Arbo(nodito.izq)+Arbo(nodito.der)+1
+	Fs 
+
+Ff 
+
+Funcion Altura(nodito:Puntero a nodo):entero 
+	
+	Si nodito = nil  entonces 
+		Altura:=-1
+	sino 	
+		Altura:=Altura(nodito.izq)+Altura(nodito.der)+1
+	Fs 
+
+Ff 
+..............................................................................................
+Accion Parcial1 Es 
+	Ambiente 
+		Producto = registro
+			ID:N(4)
+			Desc:An(250) 
+			Dato_C:("si","no")
+		Fr 
+		Prod:Archivo de Producto indexado por ID 
+		RegP:Producto 
+
+		Local = Registro 
+			IDE:N(4)
+			Zona:1..5
+			RazonS:An(200)
+		Fs 
+		Loc:Archivo de Local indexado por IDE y Zona 
+		RegL:Local
+
+		Precio = registro
+			IDP: registro
+				ID:
+				IDE:				
+				PrecioS:
+			Fr
+		Fr 
+		Pre:Archivo de Precio indexado por IDP
+		RegPre:Precio
+
+		Mejores = registro
+			ID:N
+			Precio:N
+		Fr	
+		nodo = registro
+			ID:n
+			Desc:an
+			Dato: arreglo [1..3] de Mejores
+			Prox:Puntero a nodo 
+		Fr
+		Prim,p,q:Puntero a nodo
+		PrecioS:entero
+		Zona:arreglo [1..5] entero
+		
+		Zonas: arreglo [1..5] de entero
+        Sugeridos: arreglo[1..3] de real 
+        min1,min2,min3,id1,id2,id3:
+	Proceso 
+
+		Abrir E/(Prod);
+		Abrir E/(Loc);
+		Abrir E/(Pre);Leer(Pre,RegPre)
+		ContZ:=0
+		min1:=HV
+		min2:=HV
+		min3:=HV
+
+		Para i:=1 a 5 hacer 	
+			Zona[i]:=0		
+		Fp
+
+		Mientras NFDA(Precio) Hacer 
+			
+			RegP.ID:=RegPre.IDP.ID		
+			Leer(Pro,RegP)
+			SI EXISTE
+				Si RegP.Dato_C = "si" entonces	
+
+					Nuevo(q)
+					*q.ID:=RegP.ID
+					*q.Desc:=RegP.Desc
+
+					Mientras *q.ID = RegP.ID entonces 
+						Si RegPre.IDP.PrecioS < min1 entonces
+							Si min1 < min2 entonces
+								Si min2 < min3 entonces 
+									min3:=min2
+								fs 
+								min2:=.min1
+							fs
+							min1:=RegPre.IDP.PrecioS
+							ide1:=RegPre.IDP.IDE
+						Sino 
+							Si RegPre.IDP.PrecioS < min2 entonces
+								Si min2 < min3 entonces								
+									min3:=min2
+									min2:=RegPre.IDP.PrecioS
+									ide2:=RegPre.IDP.IDE
+								fs
+								
+							Sino
+								Si RegPre.IDP.PrecioS < min3 entonces																
+									min3:=RegPre.IDP.PrecioS
+									ide3:=RegPre.IDP.IDE
+								fs
+							Fs 
+						Fs 
+						Leer(Pro,RegP)
+					Fm
+
+					*q.dato[1].ID:=ide1
+					*q.dato[1].Precio:=min1
+					*q.dato[2].ID:=ide2
+					*q.dato[2].Precio:=min2
+					*q.dato[3].ID:=ide3
+					*q.dato[3].Precio:=min3
+					
+					Si Prim = nil entonces 
+						Prim:=q
+						*q.prox:=nil
+									
+					Sino 	
+						*p.prox:=q 
+						*q.prox:=q
+					Fs		
+					p:=q	
+
+					
+					Leer(Pre,Regpre)							
+				Sino
+					Leer(Pre,Regpre)
+				Fs 
+			Fs 
+		Fm
+
+		Mientras NFDA(Loc) hacer 
+			q:=prim 
+			Mientras q <> nil hacer 
+				para i:=1 a 3 hacer 
+					si *q.dato[i].ID = RegL.IDE entonces
+						Zonas[regL.Zona]:=Zonas[regL.Zona]+1
+					Fs 
+				Fp 
+				P:=*p.prox
+			Fm
+			Leer(Loc,RegL)
+		Fm
+		max:=lv
+		pos:=0
+		Para i:=1 a 5 hacer 	
+			si Zonas[i] > max entonces 
+				max:=zona[i]
+				pos:=i
+			fs 		
+		Fp
+	 	Esc("La zona con mas locales con precios sugeridos es la Zona: ", zona[pos])
+Fa	 	
+..............................................................................................
+
+
+Accion final2 Es 
+	Ambiente
+		Totales = registro
+			CantV:N
+			CantP:N
+			Deuda:N
+			Credito:N
+		Fr
+
+		VIAJES = registro
+			IDviaje:N(8)
+			Provincia:1..23
+			CantD:N(2)
+			CantP:N(2)
+			Comprobantes:N(3)
+			Deuda:N(6.2)
+			Credito:N(6.2)
+		Fr
+		Viaje: Archivo de VIAJE
+		RegV:VIAJES
+
+		P:Arreglo de [1..23] AN
+
+		V:Arreglo de [1..23,1..3] Totales  
+		i,j:entero
+
+		Subaccion Inicializar Es 
+			Para i:=1 a 24 hacer
+				Para j:=1 a 4 hacer  
+					V[i,j].CantV:=0
+					V[i,j].CantP:=0
+					V[i,j].Deuda:=0
+					V[i,j].Credito:=0
+				Fp 
+			Fp
+		Fs
+
+		MasP,PmasP,MenP,PMenP:entero
+		MayV;PMayV;DMayV:Entero
+	Proceso
+
+		Abrir E/(Viaje)
+		Leer(Viaje,RegV)
+		Inicializar()
+
+		Mientras NFDA(Viaje)
+
+			Segun RegV.CantD hacer 
+				3: j:=1
+				<10: j:=2
+				>10: j:=3
+			Fs 
+
+			V[i,j].CantV:=V[i,j].Cant+1
+			V[i,j].CantP:=V[i,j].Cant+RegV.CantP
+			V[i,j].Deuda:=V[i,j].Deuda+RegV.Deuda
+			V[i,j].Credito:=V[i,j].Credito+RegV.Credito
+
+			V[24,j].CantV:=V[24,j].Cant+1
+			V[24,j].CantP:=V[24,j].Cant+RegV.CantP
+			V[24,j].Deuda:=V[24,j].Deuda+RegV.Deuda
+			V[24,j].Credito:=V[24,j].Credito+RegV.Credito
+
+			V[i,4].CantV:=V[i,4].Cant+1
+			V[i,4].CantP:=V[i,4].Cant+RegV.CantP
+			V[i,4].Deuda:=V[i,4].Deuda+RegV.Deuda
+			V[i,4].Credito:=V[i,4].Credito+RegV.Credito
+
+			V[24,4].CantV:=V[24,4].Cant+1
+			V[24,4].CantP:=V[24,4].Cant+RegV.CantP
+			V[24,4].Deuda:=V[24,4].Deuda+RegV.Deuda
+			V[24,4].Credito:=V[24,4].Credito+RegV.Credito
+
+		Fm
+
+		/* */
+		MasP:=LV;PmasP:=0;MenP:=HV;PMenP:=0
+		MayV:=Lv;PMayV:=0;DMayV:=0
+		Para i:=1 a 23 hacer
+
+			Si V[i,4].CantP > MasP Entonces
+				Masp:=V[i,4].CantP
+				PMasP:=i
+			Sino 
+				Si V[i,4] < MenP entonces 
+					MenP:=V[i,4].CantP
+					PMenP:=i
+				Fs 
+			Fs 
+
+
+			Para j:=1 a 3 hacer
+				Segun j hacer 
+					1:	V[i,1].Credito:=V[i,1].Credito+1000000
+					2:	V[i,2].Credito:=V[i,2].Credito+2000000
+					3:	V[i,3].Credito:=V[i,3].Credito+3000000
+				Fs 
+
+				Si V[i,j].CantV > MayV Entonces
+					MayV:=V[i,j].CantV
+					PMayV:=i
+					DMayV:=j 	
+				Fs 
+			Fp
+			Si V[i,4].CantV = 0 entonces 
+				Esc("La provincia que no tiene ningun viaje es;"P[i])
+			Fs		
+		Fp
+		
+		Esc("La provincia que recibira una mayor cantidad de persona es:",P[PMasP],"Con una cantidad de:",Masp,"Personas")
+		Esc("La provincia que recibira una menor cantidad de personas es:",P[PMenP],"Con una cantidad de:",MenP,"Personas")
+		Esc("El porcentajes de viajes en la provincia 10 es de:",(V[10,3].CantV/V[10,4].CantV)*100,"%")
+		Esc("La Provincia:",P[PmayV],"Tiene la mayor cantidad de viajes con la duracion de:",DMayV)
+		Esc("La deuda Total a cobrar es:"V[24,4].Deuda,"Total a acreditar:",V[24,4].Credito)
+		Esc("Total de Viajes registrados es:",V[24,4].CantV,"Total de personas que viajaran por el pais en ENERO/2022:",V[24,4].CantP)
+		
+		Cerrar(Viaje)
+Fa
+
+..............................................................................................
+
+Accion FINAL1 Es 
+	Ambiente  	
+		MULTA = registro
+			Id:N(6)
+			Patente:An(7)
+			TipoP:0..24 
+			Importe:N(5.2)
+		Fr 
+		MUL:Archivo de MULTA
+		M:MULTA
+		Res_Tipo:0..24
+		Contipo,ContM1,ContM2,ContM3,ContM4:entero
+
+		Op1:('S','N','s','n')
+		Op2: ('C','A','B')
+		
+		Nodo = registro
+			Dato:MULTA 
+			Prox:Puntero a nodo 
+		Fr 
+
+		Prim,prim1,p,q,,q1,p1,ant:Puntero a nodo
+		CantMultas,ImporteTot:Entero
+
+	Proceso 
+		Prim:=nil
+		ant:=nil	
+		CantMultas:=0
+		ImporteTot:=0
+		Abrir E/(Mul)
+		Leer(Mul,M)
+		Mientras NFDA(MUL)
+
+			Esc("C:Cargar Multa, A:Almacenar Multa,B:Buscar Multa, Ingrese La opcion Deseada, M:")
+			Leer(OP2)
+
+			Segun  OP1 Hacer 
+
+				'C':	
+					p:=prim	
+					Mientras (p <> Nil) ^ ( *p.dato.id < m.id) hacer
+						ant := p;
+						p := *p.prox;
+					FinMientras
+
+					Si *p.dato.id = M.id entonces
+						*p.dato.importe:=*p.dato.importe+m.importe
+					Sino
+						Nuevo (q)
+						*q.dato.id:=M.id
+						*q.dato.Patente:=M.Patente
+						*q.dato.TipoP:=M.TipoP
+						*q.dato.importe:=M.Importe
+
+						Si prim = Nil entonces
+							prim:= q
+							*q.prox := Nil
+						sino
+						
+							Si p = prim entonces
+								*q.prox := prim;
+								prim := q;
+							sino
+								*ant.prox := q;
+								*q.prox := p;
+							Fs
+						FinSi
+					Fs	
+					CantMultas:=CantMultas+1	
+					ImporteTot:=ImporteTot+M.importe
+				'A':	
+					Promedio:=ImporteTot/CantMultas  
+					p:=prim
+					Mientras p<> nil Hacer 
+						Si (*p.dato.importe > Promedio) Entonces
+							Nuevo (q1)
+							*q1.dato.id:=*p1.dato.id 
+							*q1.dato.Patente:=*p1.dato.Patente 
+							*q1.dato.TipoP:= *p1.dato.TipoP
+							*q1.dato.Importe:=*p1.dato.Importe
+							
+						    SI Prim1 = nil ENTONCES
+						        Prim1 := q1
+						        *Prim1.prox:=nil
+						    SINO		    	
+						        *q1.Prox:= prim1
+						        prim1:=q1
+						    FIN SI
+						Fs 
+						p:=*p.prox
+					Fm 
+
+				'B':
+					p:=prim
+					Esc("Ingresar ID para ver multas")
+					Leer(AuxID)
+
+					MIENTRAS (p <> nil) y (*p.dato.id <> AuxID) HACER
+					    p := *p.prox
+					FIN MIENTRAS
+
+					SI (*p.dato.id = AuxID) ENTONCES
+					    *p.dato.importe:=*p.dato.importe*1.10
+					SINO
+					    Escribir ("No se encontro multas para este ID")
+					FIN SI
+
+				'M':
+					ImporteTot:=0 
+					Esc("Ingresar Patente para ver multas")
+					Leer(AuxPatente)
+					
+					MIENTRAS (p <> nil) y (*p.dato.Patente <> AuxPatente) HACER
+					    p := *p.prox
+					FIN MIENTRAS
+
+					SI (p = AuxPatente) ENTONCES
+					    Esc("Tipo de multa:",*p.dato.TipoP)
+					    Esc("Importe a pagar:",*p.dato.importe)
+					SINO
+					    Escribir ("No se encontro multas para esta PATENTE")
+					FIN SI
+
+				'E':
+					'|'a
+				
+			Fs
+
+		Fm
+
+		Cerrar(arch)
+
+-------------------------------------------------------------------------------------------------------------------------
+Accion p7 es 
+	Ambiente 
+		Vuelos = registro
+		Fr 
+		AV:Archivo de vuelos indexado por CodV
+		RV:Vuelos
+		Reservas = registro
+		Fr
+		AR:Archivo ordenado por CodV y Dni
+		RR:Reservas
+
+	Proceso
+
+		Abrir E/S(AV)
+		Abrir E/(AR)
+		Leer(AR,RR)
+
+
+
+		Mientras NFDA(AR) Hacer 
+			RV.CodV:=RR.CodV
+			Leer(AV,RV)
+
+			Si EXISTE entonces
+
+				RV.ContPD:=RV.ContPD-RR.ContPS
+				Tickets:=RR.ContPS
+
+				Si RV.ContPD > Max entonces 
+					CodV:=RV.CodV
+				Fs
+			Fs
+			Leer(AV,RV)
+		FM
+
+		Esc("Dni:",RR.DNI,"Pasajero:",RR.APyN,"Codigo de vuelo:",RV.CodV,"")
+FA
+-------------------------------------------------------------------------------------------------------------------------
+Accion F5 Es 
+	Ambiente
+		Oracion = registro
+			Palabra:AN 
+			Prox:Puntero a oracion 
+		Fr
+		Po,ao,primo:puntero a oracion
+	
+		Participante = registro
+			NyAp:An
+			Prox:Puntero a participante 
+		Fr
+		Pp,qp,primp:puntero a participante
+		Rondas,ContPal,Particip:
+	
+		Subaccion CargarPal() Es
+			Nuevo(Po)
+			Esc("Ingrese Palabra")
+			Leer(AuxPal)
+			*Po.Palabra:=AuxPal
+			Si primo = nil entonces 
+				primo:=po 
+			Sino 	
+				*ao.prox:=po
+			Fs
+			*po.prox:=nil
+			ao:=po
+			ContR:=ContR+1
+		Fs
+		op:{'s','n'}
+		AuxNyAp:An
+		AuxPal:An
+		Subaccion CargarParticipante() Es
+			Esc("Desea ingresar participante s/n")
+			Leer(op)
+			Mientras op = 's' entonces
+				Nuevo(Pp)
+				Esc("Ingrese Nombre y Apellido del participante")
+				Leer(AuxNyAp)
+				*Pp.NyAp:=AuxNyAp
+				Si primp = nil entonces 
+					primp:=pp 
+				Sino 	
+					*ap.prox:=pp
+				Fs
+				*pp.prox:=nil
+				ap:=pp
+				ContP:=ContP+1
+				Esc("Desea seguir ingresando participantes s/n")
+				leer(op)
+			Fm
+		Fs
+
+		Subaccion Recordar(p:puntero a participante) Es
+			po:=primo
+			qp:=primp
+			
+			Mientras po<>nil Hacer
+				Esc("Palabra de la oracion")
+				Leer(palabra)
+				Si *Po.Palabra = palabra entonces 
+					Po:=*Po.Prox
+				Sino  
+					Mientras p <> nil y *p.NyAp <> *qp.NyAp hacer 
+						ap:=p
+						p:=*p.prox
+					Fm						
+					Si *p.NyAp = *qp.NyAp entonces 						
+						Si p = prim entonces 
+							primp:=*p.prox 
+						Sino 	
+							*ap.prox:=*p.prox
+						Fs
+						Esc("El jugador eliminado es:"p.NyAp)
+						Disponer(p)
+						Contp:=Contp-1
+						po:=nil
+					Fs
+				Fs
+			FM
+
+			Si Po = nil entonces 	
+				CargarPal() 
+			Fs
+		Fs
+
+		Subaccion Mostrar() ES 
+			Po:=primo
+			Mientras Po<>nil Hacer 
+				Esc(*Po.Palabra)
+				Po:=*Po.Prox
+			Fm
+		Fs
+
+
+	Proceso 
+
+		Primo:=nil 
+		Primp:=nil 
+		ao:=nil
+		ap:=nil
+		ContP:=1
+		ContR:=0
+
+		CargarPal()
+		CargarParticipante() 
+		Recordar(pp)
+
+		Si ContR = 20 entonces
+			Esc("El ganador del juego es:"*Pp.NyAp)
+			Esc("Fin del juego la oracion es:")
+			Mostrar()
+		Sino 
+			Si Contp = 1 Entonces
+				Esc("El ganador del juego es:"*Pp.NyAp)
+				Esc("Fin del juego la oracion es:")
+				Mostrar()
+			fs 
+		fs
+	Fp
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------
+"obtenga la suma de los numeros almacenados en las posiciones pares de un vector de 10 posiciones,hacer una funcion recursiva"
+
+	Caso Base: i = 2
+	Caso Recursivo:	i mod 2 = 0
+	Funcion Sum(i:entero,Arr:Arreglo de [1..10] de entero):entero
+
+		Si (i = 1) entonces 
+			Sum:=0
+		Sino 
+			Si (i mod 2 = 0)entonces 
+				Sum:=Sum(i+1,Arr)+Arr[i]
+			Sino
+				Sum:=Sum(i+1,Arr)		
+			Fs
+		Fs
+		
+	Fs
+-------------------------------------------------------------------------------------------------------------------------
+"Apartir de enteros positivos imprimir las combinaciones posibles de sumas de un numero N,Funcion recursiva"
+
+Funcion Ent(n:entero):entero Es 
+	Si n <= 1 entonces 
+		Esc(1)
+	Sino 			
+		Esc(n)      
+ 		Esc((n/2),(n-n/2)) 
+ 		Esc(Ent((n/2)-1),Ent((n-n/2)+1)
+	Fs
+Ff
+4    	
+2,2
+1,3
+
+3
+1 2 
+
+
+
+		
+
+[
+[5]
+[2, 3]
+[1, 4]
+[1, 2, 2]
+[1, 1, 3] 
+[1, 1, 1, 2]
+[1, 1, 1, 1, 1] 
+]
+
+
+-------------------------------------------------------------------------------------------------------------------------
+Realizar una funcion que reciba un presupuesto y que permita saber cuantas combinaciones de cena se pueden hacer (1 bebida +  1 comida)
+teniendo en cuenta el costo. 
+Si sobra, mostrar cuanto le queda para el postre.
+
+
+Una chica va a comer a un restaurante, ella tiene un presupuesto y el 
+restaurante ofrece bebidas y comidas, podes combinarlas como quieras ella quiere una función que muestre 
+todos los combos que podria pedir con su presupuesto
+Las bebidas y las comidas, con sus costos,
+no están cargadas y al final tenes que mostrar lo que ella eligió, 
+y descontar de su presupuesto.
+
+
+Accion P1 es 
+	Ambiente 
+		Combo = registro
+			Comida:N 
+			Costo:real
+			Prox:puntero a Combo
+		Fr
+		PrimC,PrimB,PrimP,Pc,Pb:Puntero a Combo
+		
+		Cont_Combi:entero  
+
+		Procedimiento Cargar(Prim:Puntero a Combo) Es
+
+			Nuevo(q)
+			Esc("Ingrese elemento del menu ")
+			Leer(Com)
+			Esc("Ingrese costo")
+			Leer(Cos)
+
+			*q.comida:=Com 
+			*q.costo:=Cos
+
+			Si Prim = nil entonces 
+				prim:=q 
+				*q.prox:=nil 
+			sino 
+				P:=Prim;
+				*q.prox:=prim 
+				prim:=q 
+				
+			Fs	
+		Fp 
+
+	Proceso	
+
+
+		
+------------------------------------------------------------------------------------------------------

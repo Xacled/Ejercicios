@@ -1,0 +1,140 @@
+Se pide mostrar cuantas entradas que tengan el campo1 = "Si" existen en el archivo, discriminando por la clave1, clave2, clave3 y total general.
+
+Accion ejercicio es
+
+    Ambiente
+        reg = registro de 
+            clave3: N(4)
+            clave2: N(4)   
+            clave1: N(4)
+            campo1: ("Si", "No") 
+            campo2: N(2)
+            campo3: AN(30)
+        Fin registro
+    Arch : archivo de reg ordenado por clave3, clave2, clave1
+    clave: reg.clave  
+    r:reg
+    res_clave3 : N(4)
+    res_clave2 : N(4)
+    res_clave1: N(4)
+    contt, cont3, cont2, cont1:entero    
+        
+    subaccion inicializar es
+    
+        Abribr E/(Arch)
+
+        contt:=0
+        cont3:=0
+        cont2:=0
+        cont1:=0
+        res_clave3 := r.clave3
+        res_clave2 := r.clave2
+        res_clave1 := r.clave1
+    
+    Fin subaccion
+    
+    
+    subaccion Corte_1 es
+        
+        Esc("Para el",res_clave1,"existen:",cont1)
+        cont2 := cont2 + cont1
+        cont1 := 0
+        res_clave1 := r.clave1
+  
+    Fin subaccion
+    
+    subaccion Corte_2 es
+        cont_1
+        Esc("Para el",res_clave2,"existen:",cont2)
+        cont3:= cont3 + cont2
+        cont2:=0
+        res_clave2:= r.clave2
+            
+    Fin subaccion 
+    
+    subaccion Corte_3 es
+         cont_2   
+        Esc("Para el",res_clave3,"existen:",cont3)
+        contt:= contt + cont3
+        cont1 := 0
+        res_clave3 := r.clave3
+   
+    Fin subaccion
+    
+    
+    Subaccion tratar_corte es
+    Si r.clave3 <> Res_clave3 entonces
+      corte_3
+    sino
+      si r.clave2 <> Res_clave2 entonces
+        corte_2
+      sino
+        si r.clave1 <> Res_clave1 entonces
+          corte_1
+        fin si
+      fin si
+    fin si
+    fin subaccion
+
+    Subaccion total_si es
+        Si  campo1= "Si" entonces
+        contt:= contt + 1
+        fin si
+    Fin subaccion     
+            
+    subaccion tratar_registro es
+        cont1 := cont1 + 1
+    Fin subaccion
+    
+    subaccion emitir_total_si es
+        Esc("El total general de entradas con "si" son: ", contt)
+    fin subaccion
+Proceso
+   Inicializar
+    
+    Mientras NFDA(Arch) hacer
+        tratar_corte
+        tratar_registro
+        leer(Arch,r)
+    Fin mientras
+    
+    
+    Corte_3
+    emitir_total_si
+    cerrar(Arch)
+    
+Fin accion
+
+
+sal :secuencia de caracteres
+v:
+
+crear(sal)
+
+arr(sal)
+
+codigos = registro
+    codigo1:n(10)                 1234567890
+    codigo2:n(10)
+    codigo3:n(10)
+fr
+arch: archivo de codigos
+reg: codigos
+
+aux := reg.codigo1
+
+para i:=10 a 1 hacer   
+    aux := aux mod 10**i
+    num := aux div 10**(i-1)
+    esc(sal,enterocaracter(num))  
+fp
+esc(sal,"#")
+aux :=reg.codigo2
+para i:=10 a 1 hacer   
+    aux := aux mod 10**i
+    num := aux div 10**(i-1)
+    esc(sal,enterocaracter(num))  
+fp
+
+mientras nombre <> " " hacer 
+    esc(sal,nombre)
