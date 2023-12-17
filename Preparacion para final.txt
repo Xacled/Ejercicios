@@ -2056,50 +2056,82 @@ Accion 3.4 Es
 			Fs 
 		Fp		
 ..............................................................................................
+Ejercicio 4.2¶
+Se dispone de una lista simplemente encadenada de números enteros, 
+diseñar un algoritmo que a partir de ella genere 
+otra lista conteniendo los nodos cuyos datos terminan en cero; 
+dichos elementos, deberán ser eliminados de la lista original. 
+Se asume que la lista está cargada, y que el algoritmo recibe como 
+parámetro de entrada la dirección del primer elemento.
+
 Accion 4.2 (Prim:Puntero a nodo) Es 
-	Ambiente
-		Nodo = registro
-			Dato:entero
-			Prox:Puntero a nodo 
-		Fr 
-		p,q,Prim1:puntero a nodo
-	Proceo 
-		P:=Prim 
-		ant:=Nil
-		Prim1:=nil1 
+Ambiente
+	Nodo = registro
+		Dato:entero
+		Prox:Puntero a nodo 
+	Fr 
+	p,q,Prim1:puntero a nodo
+Proceso 
+	P:=Prim 
+	ant:=Nil
+	Prim1:=nil
 
-		Si p = nil entonces 
-			Esc("LISTA VACIA")
-		Sino 
-			Mientras P <> nil entonces
+	Si p = nil entonces 
+		Esc("LISTA VACIA")
+	Sino 
+		Mientras P <> nil entonces
+			Si *p.dato mod 10 = 0 entonces 
+				Nuevo (q)
+				*q.dato:=*p.dato
+				*q.prox:=nil 
 
-				Si *p.dato mod 10 = 0 entonces 
-					Nuevo (q)
-					Si prim1 = nil entonces 
-						Nuevo (q)
-						*q.dato:=*p.dato
-						*q.prox:=nil
-						Prim1:=q
-					Sino 
-						*q.prox:=nil 
-						prim1:=q 
-					Fs 
-
-					Si ant = prim entonces 
-						prim:=*prim.prox
-					Sino 	
-						*ant.prox:=*p.prox	
-					Fs 
-					disponer(p)
+				Si prim1 = nil entonces 
+					prim1:=q 
 				Fs 
-				ant:=p 
-				P:=*p.prox
-			Fm 
-		Fs 
+				Si ant = prim entonces 
+					prim:=*prim.prox
+				Sino 	
+					*ant.prox:=*p.prox	
+				Fs 
+				disponer(p)
+			Fs 
+			ant:=p 
+			P:=*p.prox
+		Fm 
+	Fs 
 Fa
 ..............................................................................................
+Ejercicio 4.3¶
+Dada una lista simplemente encadenada de números diseñar un algoritmo que calcule en forma independiente: 
+La suma de los números impares, y la suma de los números pares
+
+Accion 4.3 (prim: Puntero a Nodo) Es
+Ambiente
+	Nodo = Registro
+		dato: Entero
+		prox: Puntero a Nodo
+	Fin_Registro
+	p, prim1, q: Puntero a Nodo
+
+Proceso
+	p:= prim
+	par:=0
+	impar:=0
+	Mientras (p <> Nil) Hacer
+		Si (*p.dato mod 2) = 0 Entonces
+			par:=par+*p.dato
+		Sino                  
+			impar:=impar+*p.dato
+		Fin_Si
+		p:= *p.prox
+	Fin_Mientras
+	esc("La suma de los pares es:",par)
+	esc("La suma de los impares es:",impar)
+Fa
 
 ..............................................................................................
+Se dispone de una lista simplemente encadenada cuyos registros están ordenados en forma ascendente 
+por una clave de tipo entero; diseñar un algoritmo que invierta el orden de la lista.
 Accion 4.4 (prim: Puntero a Nodo) Es
     Ambiente
         Nodo = Registro
@@ -2126,6 +2158,13 @@ Accion 4.4 (prim: Puntero a Nodo) Es
         
 Fin_Accion
 ..............................................................................................
+Dada una lista simplemente encadenada que contiene datos de todas las provincias de la República Argentina: 
+nombre, capital, cantidad total de habitantes y cantidad de analfabetos, y está ordenada en forma decreciente por número de habitantes analfabetos, 
+generar otras tres listas que contengan el nombre, la capital y el porcentaje de analfabetos de las Provincias que respondan a las siguientes restricciones.
+
+L1: <= 10 % analfabetos
+L2: 16 a 25 % analfabetos
+L3: => 26 % analfabetos
 Accion 4_5(Prim:puntero a nodo) Es
 	Ambiente 
 
@@ -2187,6 +2226,15 @@ FA
 
 
 ..............................................................................................
+En el restaurante ÑOQUIS se está pensando en una solución informática para el soporte de datos del nuevo sistema de atención a clientes. 
+Se han decidido por LISTAS por su dinamismo en cuanto a la cantidad de elementos. Diseñe un algoritmo que realice las siguientes funciones:
+
+Añadir cliente al ser atendido (lista simple ordenada por Nombre del Cliente).
+Registrar su consumo (Acumular el Total Consumido en valores de montos).
+Realizar el cobro (emitir ticket con Nombre, Fecha, Número de Mesa y Total).
+Eliminar del listado de atención.
+La información almacenada debe mantenerse ordenada por Nombre del cliente.
+
 Accion 4_6(Prim:puntero a nodo) Es
 	Ambiente 
 		Nodo = registro 
@@ -2199,10 +2247,8 @@ Accion 4_6(Prim:puntero a nodo) Es
 r
 		q,prim:Puntero a nodo
 	
-		op: ("")
+		op: ("A","R","C")
 	Proceso
-
-	
 		Esc("Que Funcion desea realizar: A:Añadir cliente,R:Registrar consumo,C:Realizar cobro")
 		Leer(op)
 		Prim:= nil
