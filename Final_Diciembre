@@ -1860,12 +1860,267 @@ Accion 2223 Es
 		cerrar archivos
 Fin accion
 				
+-----------------------------------------------------------------------------------------------------------------------
+Accion 233 Es 
+Ambiente
+	PEAJE = registro 
+		Patente:AN(7)
+		Fecha:N(8)
+		Ult_Hora:N(4)
+		Costo:real[2]
+		categoria:1..4
+	Fr
+	peaje:Archivo de PEAJE indexado por patente,fecha
+	Rp:PEAJE
+	res_patente:An(7)
+	res_fecha:N(8)
 
 
+Proceso
 
+	Abrir E/S(peaje)
+	
+	Esc("Sistema de peaje")
+
+	Esc("Desea iniciar el sistema: s o n")
+	leer(op)
+
+	Mientras op = "s" hacer 
+		Esc("ingrese numero de patente")
+		leer(res_patente)
+		Esc("Ingrese fecha de entrada")
+		Leer(res_fecha)
+		Reg_P.Ult_Hora:=0
+		Leer(peaje,Rp)
+		Si EXISTE entonces 
+			Esc("Pase libre")
+			Esc("Patente:",Rp.Patente)
+		Sino 
+			Esc("Ingrese categoria")
+			Leer(Rp.categoria)
+			Segun Rp.categoria hacer 
+				1:  Rp.costo:=Rp.costo *1.20
+				2:	Rp.costo:=Rp.costo *2.50
+				3:	Rp.costo:=Rp.costo *4.00
+				4:	Rp.costo:=Rp.costo *5.00
+			Fs
+			Esc("Ingrese la ultima hora de ingreso")
+			Leer(Rp.Ult_Hora)
+			Esc("Patente:",Rp.patente,"Costo",Rp.costo,"$")
+		Fs
+		Esc("Desea contiunar: s o  n")
+		leer(Op)
+	Fm
+	Cerrar(peaje)
+Fa
+-----------------------------------------------------------------------------------------------------------------------
+
+Accion 234 es 	
+Ambiente
+	fecha =  registro 
+		AA:N(4)
+		MM:1..12
+		DD:1..31
+	Fr
+
+	PRODUCTOS = registro 
+		Cod_prod:n(5)
+		Nombre:An(60)
+		Stock:n(2)
+		Precio:real
+	Fr
+	Aprod:Archivo de PRODUCTOS indexado por Cod_prod
+	Rp:PRODUCTOS
+
+	TICKET = registro
+		Nro_Ticket:n(4)
+		Fecha:fecha
+		Cliente:
+	Fr
+	Atick:Archivo de Ticket indexado por Nro_Ticket
+	Rt:TICKET
+
+	DETALLE_TICKET = registro 
+		Nro_Ticket:
+		Nro_linea:
+		Cod_prod:
+		Cantidad:
+	Fr
+	Adet:Archivo de DETALLE_TICKET indexado por Nro_Ticket
+	Rd:DETALLE_TICKET
+	op1,op2:("s","n")
+	cantdidad,total,subtotal,lin:entero
+
+
+Proceso 
+	Abrir E/S(Aprod)
+	Abrir /S(Adet)
+	Abrir /S(Atick)
+	Cod_prod:=n(5)
+	cantidad:=0
+	total:=0
+	subtotal:=0
+
+	esc("Desea emitir un ticket : s o n")
+	leer(op1)
+
+	Mientras op1 = "s" hacer 
+		Rt.Nro_Ticket:=OBTENER_TICKET()
+		Rt.Fecha:=Fecha_Sistema()
+		Rt.Cliente:="Consumidor final"
+		Grabar(Atick,Rt)		
+		esc("Desea añadir algun producto a su compra: s o n")
+		leer(op2)
+
+		ESC("EMPRESA: _________","CUIT:_______","Fecha:",Rt.Fecha)
+		Esc("Cliente:",Rt.cliente)
+		Mientras op2 = "s" hacer
+			lin:=lin+1
+			Esc("Ingrese el codigo de producto y la cantidad")
+			leer(Cod_prod)
+			Leer(cantidad)
+			
+			Rp.Cod_Prod:=Cod_prod
+			leer(Aprod,Rp)
+			Si EXISTE entonces 
+				Rp.stock:=Rp.stock-cantidad
+				Regrabar(Aprod,Rp)
+			Fs
+			Rd.Nro_Ticket:=Rt.Nro_Ticket
+			Rd.Nro_linea:=lin
+			Rd.Cod_prod:=Cod_prod
+			Rd.cantidad:=cantidad
+			grabar(Adet,Rd)
+			Subtotal:=Rp.precio*cantidad
+			total:=total+subtotal
+			esc("Producto--Cantidad--subtotal")
+			esc(Producto,"--",cantidad,"--",subtotal)
+			Esc("Desea añadir otro producto a la compra: s o n")
+			leer(op2)
+		fm
+		
+		esc("Total:"Total)
+		esc("Desea emitir otro ticket:s o n")
+		leer(Op1)
+	Fm
+	Cerrar archivos
+	
+Fin Accion
 
 -----------------------------------------------------------------------------------------------------------------------
 
+Accion MODELOPARCIAL(prim:puntero a nodo) es 
+Ambiente
+	Nodo = registro 
+		min=1.18
+		max=1.30
+		Estado_C:("S","C","O")
+		mes:1..12
+		prox:puntero a nodo
+	Fr
+	p:Puntero a nodo
+
+	PERSONAS = registro 
+		Dni: n(8)
+		AyN:An(40)
+		Direccion:An(60)
+		Estado_C:("S","C","O")
+	Fr
+	persona:Archivo de PERSONAS indexado por Dni
+	Rp:PERSONAS
+
+	ANTECEDENTES = registro
+		Dni:N(8)
+		Mes:1..12
+		Ingreso:N(7,2)
+		Gastos:N(7,2)
+	Fr
+	Ante:Archivo de ANTECEDENTES indexado por DNI,MES
+	Ra:ANTECEDENTES
+
+	PEDIDOS_COMPRA = registro 
+		Dni:N(8)
+		Mes: 1..12
+		Monto_Solicitado:N(7,2)
+	Fr
+	pedido,aut,noaut:Archivo de PEDIDOS_COMPRA ordenado por Dni,Mes
+	Rc,Raut,Rnaut:PEDIDOS_COMPRA
+
+	Res_dni:n(8)
+	contp,total,Monto:N
+Proceso 
+	Abrir E/(persona)
+	Abrir E/(ante)
+	Abrir E/(pedido)
+	Abrir /S(aut)
+	Abrir /S(naut)
+	Leer(pedido,Rc)
+
+	Mientras NFDA(pedido) Hacer 
+		Rp.Dni:=Rc.Dni
+		Leer(persona,Rp)
+		Si EXISTE entonces
+			Ra.Dni:=Rc.Dni
+			Ra.Mes:=Rc.Mes
+			Leer(Ante,Ra)
+			Si Existe entonces				
+				mientras (p<>nil) y [(*p.mes  <> Ra.Mes) y (*p.Estado_C <> Rp.Estado_C)] hacer
+					*p.prox
+				fm	
+				
+				Si p = nil entonces 
+					Esc("Datos no encontrados")
+				sino 
+					si ((Ra.ingresos-Ra.Gastos) < (Rc.Monto_Solicitado*q.max)) y ((Ra.ingresos-Ra.Gastos) > (Rc.Monto_Solicitado*q.min)) entonces 
+						autorizado:=autorizado+1
+						Raut:=Rc
+						Grabar(Aut,Raut)
+						Leer(pedido,Rc)
+					Sino
+						si ((Ra.ingresos-Ra.Gastos) > (Rc.Monto_Solicitado*q.max)) entonces 
+							Rechazados:=Rechazados+1
+							RNaut:=Rc
+							Grabar(Aut,Raut)
+							Esc("Excede el monto maximo")
+							Leer(pedido,Rc)
+						sino 	
+							si ((Ra.ingresos-Ra.Gastos) < (Rc.Monto_Solicitado*q.min)) entonces 
+								Rechazados:=Rechazados+1
+								RNaut:=Rc
+								Grabar(Aut,Raut)
+								Esc("No alcanza el monto minimo")
+								Leer(pedido,Rc)
+							fs
+						fs
+					fs
+				fs
+				total:=autorizados+Rechazados
+			fs
+		fs
+		leer(pedido,Rc)
+	fm
+	Esc("El porcentajo de pedidos rechazados sobre el total de pedidos de compra es:",Rechazados/total *100,"%")
+
+	Cerrar archivos
+Fa
+-----------------------------------------------------------------------------------------------------------------------
+
+Funcion primo (k,n) es 
+
+	si k = 2 entonces 
+		Esc("Es primo")
+	sino 
+		si n =  1 entonces 
+			esc("Es primo")
+		sino
+			si (k mod n )= 0 entonces  
+				Esc("No es primo")
+			sino 
+				primo (k,n-1)
+			fs
+		fs
+	fs
+-----------------------------------------------------------------------------------------------------------------------
 Accion EjercicioFinal  es 
 	Ambiente 
 		LISTADO = registro
@@ -1956,6 +2211,7 @@ Accion EjercicioFinal  es
 			Leer(usuario)
 		Fm
 Fa
+-----------------------------------------------------------------------------------------------------------------------
 
 
 -----------------------------------------------------------------------------------------------------------------------
@@ -2011,8 +2267,8 @@ Informar cuántos números cumplieron la condició
 Accion 304 es 
 
 	Ambiente 
-		arr1: arreglo(1,,50) de enteros
-		arr2: arreglo(1,,50) de enteros
+		arr1: arreglo(1..50) de enteros
+		arr2: arreglo(1..50) de enteros
 		cont:entero
 	Proceso 
 	Para i:=1 a 50 hacer 
@@ -2148,3 +2404,286 @@ Accion 3010  (a: arreglo [1.50] de pre)es
 		fin si
 
 Fin Accion
+
+------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+//PUNTO 1
+Accion punto1 es 
+Ambiente 
+	DPTOS =  registro 
+		Ndpto:N(6)
+		Desc:An(200)
+		Estado : ("D","A","R")
+		Nivel: 1..5
+	Fr
+	Adp:archivo de DPTOS indexado por ndpto
+	Reg_TA:DPTOS
+	DUEÑO = registro 
+		Ndto:N(6)
+		Dueño:N(8)
+		Nombre:AN(20)
+		alqui:N(4)
+		reser:N(4)
+		Cancel:N(4)
+	Fr
+	Ad:Archivo de DUEÑO ordenado por Ndto,dueño
+	Reg_due:DUEÑOD
+	Procedimiento operaciones es 
+		correctas:=0
+		Incorrectas:=0
+		Esc("Que operacion desea realizar : alquilar(1),reservar(2),,cancelar(3)")
+		Leer(operacion)
+
+		Segun operacion hacer 
+			1:	Si (Reg_TA.Estado = "D") o (Reg_TA.Estado = "R") entonces 
+					Reg_TA. Estado:= "A"
+					Reg_Due.alqui:=Reg_Due.alqui+1
+					cambioA:=CambioA+1
+					correcta:=correcta+1
+				sino 
+					Esc("No puede alquilar este departamento")
+					incorrecta:=incorrecta+1
+				fs
+
+			2:	Si (Reg_TA.Estado = "D") y (Reg_TA.Nivel > 3) entonces 
+					Reg_TA. Estado:= "R"
+					Reg_Due.reser:=Reg_Due.reser+1
+					correcta:=correcta+1
+				sino 
+					Esc("No puede reservar este departamento")
+					incorrecta:=incorrecta+1
+				fs
+			3:	Si (Reg_TA.Estado = "R") o (Reg_TA.Estado = "A") entonces 
+					Si Reg_Due.cancel > 50 entonces 
+						Reg_Due.nivel:=Reg_Due.nivel-2
+						si Reg_Due.nivel < 1 entonces 
+							Reg_Due.nivel:=1
+						fs
+					fs
+					Reg_TA.Estado = "D"
+				sino 
+					Esc("No puede cancelar este departamento")
+					incorrecta:=incorrecta+1
+				fs
+		Fs
+	Fp				
+Proceso 
+	Abrir E/S(Adp)
+	Abrir E/S(Ad)
+	Esc("Desea operar el sistema: S O N")
+	Leer(Op)
+	mientras  op = "S" hacer 
+		Esc("Escriba el numero de dpto")
+		leer(Reg_Ta.ndpto)
+		Leer(Adp,Reg_TA)
+		Si EXISTE entonces
+			Esc("Dni  del dueño del departamento")	
+			Leer(Reg_due.Dueño)
+			Leer(Ad,Reg_due)
+			Si EXISTE entonces
+
+				Segun Reg_due.nivel hacer 
+					1:
+						operaciones()
+						N1correcta:=N1correcta+correctas
+						N1incorrecta:=N1incorrecta+incorrecta
+					2:
+						operaciones()
+						N2correcta:=N2correcta+correctas
+						N2incorrecta:=N2incorrecta+incorrecta	
+					3:
+						operaciones()
+						N3correcta:=N3correcta+correctas
+						N3incorrecta:=N3incorrecta+incorrecta
+					4:
+						operaciones()
+						N4correcta:=N4correcta+correctas
+						N4incorrecta:=N4incorrecta+incorrecta
+					5:
+						operaciones()
+						N5correcta:=N5correcta+correctas
+						N5incorrecta:=N5incorrecta+incorrecta
+				Fs
+				TotalCorrectas:=N1correcta+N2correcta+N3correcta+N4correcta+N5correcta
+				grabar(Adp,Reg_TA)
+				grabar(Ad,Reg_due)
+			sino 
+				Esc("No existe ese dueño de departamento")
+			fs
+		sino 
+			Esc("No existe ese departamento")
+		fs
+		Esc("Desea seguir operando el sistema: S O N")
+		Leer(Op)
+	fm
+	esc("Cantidad de transacciones correctas en nivel1:"N1correcta,"Incorrectas:"N1incorrecta)
+	esc("Cantidad de transacciones correctas en nivel2:"N2correcta,"Incorrectas:"N2incorrecta)
+	esc("Cantidad de transacciones correctas en nivel3:"N3correcta,"Incorrectas:"N3incorrecta)
+	esc("Cantidad de transacciones correctas en nivel4:"N4correcta,"Incorrectas:"N4incorrecta)
+	esc("Cantidad de transacciones correctas en nivel5:"N5correcta,"Incorrectas:"N5incorrecta)
+	esc("Porcetaje de departamentos que cambiaron sus estado A:"(CambioA/TotalCorrectas)*100,"%")
+	cerrar(Adp)
+	cerrar(Ad)
+
+Fa
+
+------------------------------------------------------------------------------------------------------------------------
+Secuencia :  NOMBREMASCOTA*LLL8#direccion?!
+//PUNTO 2
+Accion punto2 es 
+	Mascota = registro 
+		tipodoc:N(1)
+		num:An(8)
+		nombre_M:An(30)
+		dir:An(40)
+	Fr
+	Ma:Mascota
+	reg_mas:Mascota
+	Texto: secuencia de caracteres
+	v:caracter	
+Proceso 
+	crear(MA)
+	Abrir /S(Ma)
+	arr(Texto)
+	avz(Texto,v)
+	t0:=0
+	t1:=0
+	t2:=0
+	t3:=0	
+	Mientras v<>"!" Hacer 
+		Mientras v <> "*" hacer 
+			anidar(v,nombre)
+			avz(Texto,V)
+		Fm
+		reg_mas.nombre_M:=nombre
+		avz(texto,v)	
+		si v = "D" entonces 
+			avz(texto,v)
+			si v = "N" entonces 
+				avz(texto,v)
+				si v = "I" entonecs 
+					reg_mas.tipodoc:=0
+					t0:=t0+1
+				sino 
+					reg_mas.tipodoc:=3
+					t3:=t3+1
+				fs
+			sino
+				reg_mas.tipodoc:=3
+				t3:=t3+1
+			fs		
+		sino
+			si v = "L" entonces 
+				avz(texto,v)
+				si v = "C" entonces 
+					avz(texto,v)
+					si v = "E" entonecs 
+						reg_mas.tipodoc:=1
+						t1:=t1+1
+					sino 
+						reg_mas.tipodoc:=3
+						t3:=t3+1
+					fs	
+				sino
+					si v = "E" entonecs 
+						avz(texto,v)
+						si v = "N" entonecs 
+							reg_mas.tipodoc:=2
+							t2:=t2+1
+						sino 
+							reg_mas.tipodoc:=3
+							t3:=t3+31
+						fs
+					sino 
+						reg_mas.tipodoc:=3
+						t3:=t3+31
+					fs
+				fs
+			sino
+				avz(texto,v)
+				avz(texto,v)
+				reg_mas.tipodoc:=3
+				t3:=t3+31
+			fs
+		fs
+		para i:=1 a 8 hacer
+			anidar(v,num) 
+			avz(texto,v)	
+		fp
+		reg_Mas.num:=num
+		avz
+		mientras v<>"?" hacer 
+			anidar(v,direccion)
+			avz(texto,v)
+		fm
+		reg_mas.direccion:=direccion
+		grabar(ma,reg_mas)
+	fm
+	esc("Totales de tipo0",t0)
+	esc("Totales de tipo1",t1)
+	esc("Totales de tipo2",t2)
+	esc("Totales de tipo3",t3)
+	esc("Totales regristros",t1+t2+t3+t0)
+	cerrar(ma)
+	cerrar(texto)
+fa
+
+Punto 3
+
+Funcion comprobas(arr: arreglo [1..n] de enteros,i:entero):booleano
+	si arr[i] = i entonces
+		comprobas:=Verdadero
+	sino 
+		si i = n o i>=arr[i] entonces 
+			comprobas:= falso
+		sino
+			comprobas(arr,i+1)
+		fs
+	fs
+ff
+
+--------------------------------------------------------------------------------------
+Accion p2(prim:puntero a nodo) Es 
+Ambiente
+	nodo = registro 
+		mensaje:N
+		prox:puntero a nodo
+	fr
+	p,q,prim2:puntero a nodo
+	mensaje:N
+
+	Funcion deteccion(mensaje:n):booleano es 
+		si mensaje = 0 entonces 
+			si (mensaje mod 2)=0 entonces 
+				deteccion:=verdadero
+			sino 
+				deteccion:=falso
+			fs
+		sino
+			si (mensaje mod 10)  = 1 entonces 
+				cont:=cont+1
+			fs
+			deteccion:=deteccion(mensaje div 10)
+		fs
+	ff
+
+
+Proceso
+	
+	p:=prim
+	prim2:=nil
+	mientras p <> nil entonces 
+		si no (deteccion(*p.mensaje)) entonces 
+			cont:=0
+			nuevo(q)
+			*q.mensaje:=*p.mensaje
+			si prim2 = nil entonces 
+				*q.prox:=nil
+				prim2:=q
+			sino 
+				*q.prox:=prim2
+			fs
+		fs
+		p:=*p.prox
+	fm
+fp		

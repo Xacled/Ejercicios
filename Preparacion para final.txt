@@ -2378,7 +2378,7 @@ Accion P2 Es
 			Esc("En el Site:",res_Site)
 			Esc("Se resolvieron:",Tot_Site,"Tickets")
 			Reg_sal.Site:=res_Site
-			Reg_Sal.Tot_Ticket_Res:=Tot_Site+1
+			Reg_Sal.Tot_Ticket_Res:=Tot_Site +1
 			Grabar(Sal,Reg_sal)
 			Tot_Gral:=Tot_Gral+Tot_Site
 			Tot_Site:=0
@@ -2438,14 +2438,13 @@ FA
 
  	n:entero 
  	Palabra:Arreglo de [1..n] de caracteres 
- 	C:caracter
- 	Funcion capi(in,fin,p):Booleano
+ 	Funcion capi(in,fin,p:arreglo [1..n] de caracter):Booleano
 
  		Si  in > fin entonces
  			Capi:=Verdadero
  		Sino
 	 		Si p[in] = p[fin] entonces 
-				capi:=capi(In+1,fin-1,z)
+				capi:=capi(In+1,fin-1,p)
 			Sino  
 				capi:=Falso
 			Fs
@@ -2462,9 +2461,10 @@ FA
 
  	Para i:=1 a n hacer
  		Esc("Ingrese Caracter")
- 		Leer(C)
- 		Palabra[i]:=C
+ 		Leer(Palabra[i])
  	Fp 
+	 
+	capi(1,n,palabra)
 
  	Si capi Entonces 
  		Esc("Capicua")
@@ -2473,172 +2473,197 @@ FA
   	Fs 
   Fp 
 Fa
+---------------------------------------------------------------------------------------------
+procedimiento perfecto es 
+	para i:=1 a n-1 hacer 
+		si (n mod i) = 0 entonces 
+			sum:=sum+i
+		fs
+	fp 
+
+	si n = sum entonces 
+		esc("Es perfecto")
+	sino
+		esc("No es perfecto")
+	fs
+fp
+
+Recursivo 
+sum:=0
+Funcion perfecto (n,divi:entero):Booleano es 
+
+	si divi = n-1 entonces 
+		si n = sum entonces 
+			perfecto := verdadero 
+		sino 
+			perfecto :=falso
+		fs
+	sino
+		si (n mod divi) = 0 entonces 
+			sum:=sum+divi
+		fs
+		perfecto(n,divi+1)
+	fs
+ff
+
 
 ..............................................................................................
 Funcion Arbo(nodito:Puntero a nodo):entero 
-	
 	Si nodito = nil  entonces 
 		Arbo:=0
 	sino 	
 		Arbo:=Arbo(nodito.izq)+Arbo(nodito.der)+1
-	Fs 
-
+	Fs
 Ff 
 
-Funcion Altura(nodito:Puntero a nodo):entero 
-	
-	Si nodito = nil  entonces 
-		Altura:=-1
-	sino 	
-		Altura:=Altura(nodito.izq)+Altura(nodito.der)+1
-	Fs 
-
-Ff 
+Funcion Altura(nodito: Puntero a nodo): Entero
+    Si nodito = nil entonces 
+        Altura := 0
+    Sino 
+        Si Altura(nodito.izq) > Altura(nodito.der) entonces
+            Altura := Altura(nodito.izq) + 1
+        Sino 
+            Altura := Altura(nodito.der) + 1
+        Fs
+    Fs 
+Ff
 ..............................................................................................
 Accion Parcial1 Es 
-	Ambiente 
-		Producto = registro
-			ID:N(4)
-			Desc:An(250) 
-			Dato_C:("si","no")
-		Fr 
-		Prod:Archivo de Producto indexado por ID 
-		RegP:Producto 
+Ambiente 
+	Producto = registro
+		ID:N(4)
+		Desc:An(250) 
+		Dato_C:("si","no")
+	Fr 
+	Prod:Archivo de Producto indexado por ID 
+	RegP:Producto 
 
-		Local = Registro 
-			IDE:N(4)
-			Zona:1..5
-			RazonS:An(200)
-		Fs 
-		Loc:Archivo de Local indexado por IDE y Zona 
-		RegL:Local
+	Local = Registro 
+		IDE:N(4)
+		Zona:1..5
+		RazonS:An(200)
+	Fs 
+	Loc:Archivo de Local indexado por IDE y Zona 
+	RegL:Local
 
-		Precio = registro
-			IDP: registro
-				ID:
-				IDE:				
-				PrecioS:
-			Fr
-		Fr 
-		Pre:Archivo de Precio indexado por IDP
-		RegPre:Precio
-
-		Mejores = registro
-			ID:N
-			Precio:N
-		Fr	
-		nodo = registro
-			ID:n
-			Desc:an
-			Dato: arreglo [1..3] de Mejores
-			Prox:Puntero a nodo 
+	Precio = registro
+		IDP: registro
+			ID:
+			IDE:				
+			PrecioS:
 		Fr
-		Prim,p,q:Puntero a nodo
-		PrecioS:entero
-		Zona:arreglo [1..5] entero
-		
-		Zonas: arreglo [1..5] de entero
-        Sugeridos: arreglo[1..3] de real 
-        min1,min2,min3,id1,id2,id3:
-	Proceso 
+	Fr 
+	Pre:Archivo de Precio indexado por IDP
+	RegPre:Precio
 
-		Abrir E/(Prod);
-		Abrir E/(Loc);
-		Abrir E/(Pre);Leer(Pre,RegPre)
-		ContZ:=0
-		min1:=HV
-		min2:=HV
-		min3:=HV
+	Mejores = registro
+		ID:N
+		Precio:N
+	Fr	
+	nodo = registro
+		ID:n
+		Desc:an
+		Dato: arreglo [1..3] de Mejores
+		Prox:Puntero a nodo 
+	Fr
+	Prim,p,q:Puntero a nodo
+	PrecioS:entero
+	Zona:arreglo [1..5] entero
+	Zonas: arreglo [1..5] de entero
+	Sugeridos: arreglo[1..3] de real 
+	min1,min2,min3,id1,id2,id3:
+Proceso 
 
-		Para i:=1 a 5 hacer 	
-			Zona[i]:=0		
-		Fp
+	Abrir E/(Prod);
+	Abrir E/(Loc);
+	Abrir E/(Pre);Leer(Pre,RegPre)
+	ContZ:=0
+	min1:=HV
+	min2:=HV
+	min3:=HV
 
-		Mientras NFDA(Precio) Hacer 
-			
-			RegP.ID:=RegPre.IDP.ID		
-			Leer(Pro,RegP)
-			SI EXISTE
-				Si RegP.Dato_C = "si" entonces	
+	Para i:=1 a 5 hacer 	
+		Zona[i]:=0		
+	Fp
 
-					Nuevo(q)
-					*q.ID:=RegP.ID
-					*q.Desc:=RegP.Desc
+	Mientras NFDA(Precio) Hacer 
+		RegP.ID:=RegPre.IDP.ID		
+		Leer(Pro,RegP)
+		SI EXISTE
+			Si RegP.Dato_C = "si" entonces	
+				Nuevo(q)
+				*q.ID:=RegP.ID
+				*q.Desc:=RegP.Desc
 
-					Mientras *q.ID = RegP.ID entonces 
-						Si RegPre.IDP.PrecioS < min1 entonces
-							Si min1 < min2 entonces
-								Si min2 < min3 entonces 
-									min3:=min2
-								fs 
-								min2:=.min1
+				Mientras *q.ID = RegP.ID entonces 
+					Si RegPre.IDP.PrecioS < min1 entonces
+						Si min1 < min2 entonces
+							Si min2 < min3 entonces 
+								min3:=min2
+							fs 
+							min2:=.min1
+						fs
+						min1:=RegPre.IDP.PrecioS
+						ide1:=RegPre.IDP.IDE
+					Sino 
+						Si RegPre.IDP.PrecioS < min2 entonces
+							Si min2 < min3 entonces								
+								min3:=min2
+								min2:=RegPre.IDP.PrecioS
+								ide2:=RegPre.IDP.IDE
 							fs
-							min1:=RegPre.IDP.PrecioS
-							ide1:=RegPre.IDP.IDE
-						Sino 
-							Si RegPre.IDP.PrecioS < min2 entonces
-								Si min2 < min3 entonces								
-									min3:=min2
-									min2:=RegPre.IDP.PrecioS
-									ide2:=RegPre.IDP.IDE
-								fs
-								
-							Sino
-								Si RegPre.IDP.PrecioS < min3 entonces																
-									min3:=RegPre.IDP.PrecioS
-									ide3:=RegPre.IDP.IDE
-								fs
-							Fs 
+							
+						Sino
+							Si RegPre.IDP.PrecioS < min3 entonces																
+								min3:=RegPre.IDP.PrecioS
+								ide3:=RegPre.IDP.IDE
+							fs
 						Fs 
-						Leer(Pro,RegP)
-					Fm
-
-					*q.dato[1].ID:=ide1
-					*q.dato[1].Precio:=min1
-					*q.dato[2].ID:=ide2
-					*q.dato[2].Precio:=min2
-					*q.dato[3].ID:=ide3
-					*q.dato[3].Precio:=min3
-					
-					Si Prim = nil entonces 
-						Prim:=q
-						*q.prox:=nil
-									
-					Sino 	
-						*p.prox:=q 
-						*q.prox:=q
-					Fs		
-					p:=q	
-
-					
-					Leer(Pre,Regpre)							
-				Sino
-					Leer(Pre,Regpre)
-				Fs 
-			Fs 
-		Fm
-
-		Mientras NFDA(Loc) hacer 
-			q:=prim 
-			Mientras q <> nil hacer 
-				para i:=1 a 3 hacer 
-					si *q.dato[i].ID = RegL.IDE entonces
-						Zonas[regL.Zona]:=Zonas[regL.Zona]+1
 					Fs 
-				Fp 
-				P:=*p.prox
-			Fm
-			Leer(Loc,RegL)
+					Leer(Pro,RegP)
+				Fm
+				*q.dato[1].ID:=ide1
+				*q.dato[1].Precio:=min1
+				*q.dato[2].ID:=ide2
+				*q.dato[2].Precio:=min2
+				*q.dato[3].ID:=ide3
+				*q.dato[3].Precio:=min3			
+				Si Prim = nil entonces 
+					Prim:=q
+					*q.prox:=nil								
+				Sino 	
+					*p.prox:=q 
+					*q.prox:=q
+				Fs		
+				p:=q	
+				Leer(Pre,Regpre)							
+			Sino
+				Leer(Pre,Regpre)
+			Fs 
+		Fs 
+	Fm
+
+	Mientras NFDA(Loc) hacer 
+		q:=prim 
+		Mientras q <> nil hacer 
+			para i:=1 a 3 hacer 
+				si *q.dato[i].ID = RegL.IDE entonces
+					Zonas[regL.Zona]:=Zonas[regL.Zona]+1
+				Fs 
+			Fp 
+			P:=*p.prox
 		Fm
-		max:=lv
-		pos:=0
-		Para i:=1 a 5 hacer 	
-			si Zonas[i] > max entonces 
-				max:=zona[i]
-				pos:=i
-			fs 		
-		Fp
-	 	Esc("La zona con mas locales con precios sugeridos es la Zona: ", zona[pos])
+		Leer(Loc,RegL)
+	Fm
+	max:=lv
+	pos:=0
+	Para i:=1 a 5 hacer 	
+		si Zonas[i] > max entonces 
+			max:=zona[i]
+			pos:=i
+		fs 		
+	Fp
+	Esc("La zona con mas locales con precios sugeridos es la Zona: ", zona[pos])
 Fa	 	
 ..............................................................................................
 
@@ -3085,20 +3110,10 @@ Funcion Ent(n:entero):entero Es
 		Esc(1)
 	Sino 			
 		Esc(n)      
- 		Esc((n/2),(n-n/2)) 
- 		Esc(Ent((n/2)-1),Ent((n-n/2)+1)
+ 		Esc((n/2),(n-(n/2))) 
+ 		Esc(Ent((n/2)-1),Ent((n-(n/2)+1)))
 	Fs
 Ff
-4    	
-2,2
-1,3
-
-3
-1 2 
-
-
-
-		
 
 [
 [5]
@@ -3110,7 +3125,30 @@ Ff
 [1, 1, 1, 1, 1] 
 ]
 
+-------------------------------------------------------------------------------------------------------------------------
+0
+1
+1
+2
+3
+5
+8					
 
+fibonacci(n)   
+
+funcion fibonacci(n:entero):entero es 
+	
+	si n <= 0 entonces  
+		fibonacci:= 0
+	sino 	
+		si n = 1 entonces  
+			fibonacci:=1
+		sino
+			fibonacci:=fibonacci(n-1)+fibonacci(n-2)
+		fs
+	fs
+ff	
+		
 -------------------------------------------------------------------------------------------------------------------------
 Realizar una funcion que reciba un presupuesto y que permita saber cuantas combinaciones de cena se pueden hacer (1 bebida +  1 comida)
 teniendo en cuenta el costo. 
@@ -3163,3 +3201,187 @@ Accion P1 es
 
 		
 ------------------------------------------------------------------------------------------------------
+Accion EJERCICIOJE es 
+Ambiente	
+	Archivo = registro 
+		Departamento:n(6)
+		Origen:1..3
+		Nivel:1..5
+		Valida: ("si","no")
+	Fr
+	Arch:Archivo de Archivo
+	Reg:Archivo
+
+	arr: arreglo de [1..6,1..4] de entero
+	transacciones:entero
+	i,j:entero
+
+	subaccion inicializar es 
+		para i:=1 a 6 hacer 
+			para j:=1 a 4 hacer 
+				arr[i,j]:=0
+			fp
+		fp
+	fs
+	MayT,total,MenT:entero
+Proceso 
+	Abrir E/(Arch)
+	leer(Arch,Reg)
+
+	mientras NFDA(Arch) hacer
+
+		Si reg.valida = "si" entonces
+			arr[reg.origen,reg.nivel]:=arr[reg.origen,reg.nivel]+1
+			arr[1,reg.nivel]:=arr[1,reg.nivel]+arr[reg.origen,reg.nivel]
+			arr[reg.origen,4]:=arr[reg.origen,4]+arr[reg.origen,reg.nivel]
+			arr[6,reg.nivel]:=arr[6,reg.nivel]+arr[reg.origen,reg.nivel]
+		fs
+		leer(Arch,Reg)
+	fm
+
+	MenO := HV
+	MenN := 0
+	para i:= 1 a 5 hacer 
+		para j:=1 a 3 hacer 
+			si arr[i,j] < origenynivel entones
+				origenynivel:=arr[i,j]
+				MenO:=i
+				MenN:=j
+			fs
+		fp
+	fp
+	esc("La menor cantidad de transacciones se presento en el nivel:",MenO,"en el orgigen"MenN,"Con una cantidad de:",origenynivel)
+	
+	para i:=1 hasta 5 hacer
+		porcentaje:=arr[i,4]/maxn*100
+		si porcentaje>10 entonces
+			escribir('el nivel',i,'supera el 10% del nivel con mayor transacciones')
+		finsi
+	finpara
+	
+
+
+	mayor:= HV
+	MayN:=0
+	para i:=1 a 5 hacer 
+		si arr[i,4] > mayor entonces 
+			mayor:=arr[i,4]
+			MayN:=i
+		fs
+		esc("Porcentaje que representa cada nivel sobre el total",arr[i,4]/arr[6,4]*100)
+	fp
+	esc("El nivel con mayor cantidad de transacciones es:",MayN,"Con una cantidad de:",mayor)
+
+	MenO:=LV
+	origen:=0
+	para j:=1 a 3 hacer 
+		si arr[6,j] < MenO entonces 
+			MenO:=Arr[6,j]
+			origen:=j
+		fs
+	fp
+	Esc("El origen que menor transacciones validas ha registrado es:",Origen,"Con una cantidad de",MenO)
+
+
+	Cerrar archivo
+Fs
+
+
+program BusquedaLinealConCentinela;
+
+const
+  n = 100;
+
+var
+  arregloDNI: array[1..n] of Integer;
+  dniABuscar: Integer;
+
+function busqueda(dniABuscar: Integer; var arregloDNI: array of Integer): Boolean;
+var
+  i: Integer;
+begin
+  i := 1;
+
+  while (arregloDNI[i] <> dniABuscar) and (i < n) do
+  begin
+    i := i + 1;
+  end;
+
+  busqueda := (arregloDNI[i] = dniABuscar);
+end;
+
+var
+  i: Integer;
+
+begin
+  Write('Ingrese el DNI a buscar: ');
+  Readln(dniABuscar);
+
+  if busqueda(dniABuscar, arregloDNI) then
+  begin
+    WriteLn('El DNI ', dniABuscar, ' fue encontrado.');
+  end
+  else
+  begin
+    WriteLn('El DNI ', dniABuscar, ' no fue encontrado.');
+  end;
+end.
+
+
+
+program maximo
+var
+	a:array[1..10]of integer;
+	may,men:integer;
+begin
+	may:=LV;
+	men:=HV;
+	posmen:=0;
+	posmax:=0;
+	
+	Write('Carga del arreglo');
+	for i:=1 to 10 do
+	begin
+		Readln(a[i]);
+		if a[i]> may then
+		begin
+			may:=a[i];
+			posmax:=i;
+		end;
+		if a[i] < men then 
+		begin
+			men:=a[i];
+			posmen:=i;
+		end;
+	end;
+	WriteLn('El valor maximo :',may,'en la posicion:',posmax);
+	WriteLn('El valor minimo :',men,'en la posicion:',posmen);
+end.
+
+
+		caso base
+		caso recursivo
+		caso recursivo
+
+
+	-------------------------------------------
+
+funcion par(i,arr:arreglo de [1..10] de enteros):entero
+	si i = 10 entonces
+		par:= arr[i]
+	sino 
+		si (i mod 2) = 0 entones
+			par:=a[i]+par[i+1,arr]
+		sino
+			par:=par(i+1,a)
+		fs
+	fs
+ff
+
+caso base: si i = 10, le doy el valor de la posicion par
+caso recursivo si (i mopd 2) = 0, evaluo si es par y si lo es, 
+par suma el valor del arreglo en la posicion par+ el CR, es decir le sumo uno a la posicion
+para recorrer el arreglo,sino la funcion simplemente recorro el arreglo
+
+Recursividad: Directa
+			 
