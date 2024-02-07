@@ -2244,9 +2244,7 @@ Accion 4_6(Prim:puntero a nodo) Es
 			Prox:Puntero a nodo 
 		Fr
 		p:puntero a nodo
-r
 		q,prim:Puntero a nodo
-	
 		op: ("A","R","C")
 	Proceso
 		Esc("Que Funcion desea realizar: A:Añadir cliente,R:Registrar consumo,C:Realizar cobro")
@@ -2825,7 +2823,7 @@ Accion FINAL1 Es
 			Esc("C:Cargar Multa, A:Almacenar Multa,B:Buscar Multa, Ingrese La opcion Deseada, M:")
 			Leer(OP2)
 
-			Segun  OP1 Hacer 
+			Segun  OP2 Hacer 
 
 				'C':	
 					p:=prim	
@@ -3385,3 +3383,431 @@ para recorrer el arreglo,sino la funcion simplemente recorro el arreglo
 
 Recursividad: Directa
 			 
+---------------------------------------------------------------------------------------------------
+
+Accion palabras es 
+Ambiente 
+	jugador = registro 
+		NyA:An(40)
+		ora = registro 
+			char:caracter
+			prox:puntero a ora
+		Fr
+		prox:puntero a jugador
+	Fr
+	p,ant,prim:Puntero a jugador
+
+	oracion = registro 
+		palabra:caracter
+		prox:puntero a oracion
+	Fr
+	p2,prim2,ult:puntero a oracion
+
+	Subaccion jugador()  es 
+		Esc("Ingrese la cantidad de jugadores")
+		Leer(j)
+		p:=prim
+		para i:=1 a j hacer
+			nuevo(p)
+			Esc("Ingrese nombre del jugador N°:",i)
+			Leer(*p.nom)
+			*p.ora:=prim2
+			*p.prox:=prim
+			prim:=p
+		fp
+	Fs
+	NomJ:An(40)
+	
+	Subaccion eliminar_jugador() es 
+		Esc("El jugador:",Nomj,"Ha sido eliminado")
+		p:=prim
+		ant:=nil
+		mientras p <> nil y *p.nom <> NomJ hacer 
+			ant:=p
+			p:=*p.prox
+		fm
+		*ant.prox:=*p.prox
+		disponer(p)
+	Fs
+	
+	pal:caracter
+	Subaccion palabra() es 
+		Esc("Escriba la palabra caracter a caracter finalice con un espacio");
+		mientras pal <> " " hacer 
+			Esc("Ingresa un caracter")
+			Leer(pal)
+			nuevo(p2)
+			si prim2 = nil entonces
+				prim2:= p2
+				ult:=p2
+				*p2.prox:=nil
+			Sino	
+				*ult.prox:=prim2
+				ult:=p2
+			fs
+			p2:=pal
+		fm
+	fs
+	
+	Subaccion comprobar() es 	
+		p2:=prim2
+		esc("Ingrese caracter a caracter la oracion")
+		correcto:=verdadero
+		mientras p2<>nil y correcto hacer 
+			esc("Ingrese caracter")
+			leer(pal)
+			si p2.ora = pal entonces 
+				prim2:=*p2.prox
+			sino 
+				correcto:=falso
+			fs
+		fm
+		si no(correcto) entoces 
+			esc("El jugador:",p.nom,"perdio")
+			j:=j-1
+			borrar()
+		sino 
+			cargar()
+		fs
+	Fs
+
+	Subaccion borrar() es 
+		esc("El jugador :",NomJ,"Ha sido eliminado")
+		p:=prim
+		ant:=nil
+		mientras p <> nill y *p.nom <> NomJ hacer 
+			ant:=p
+			p:=*p.prox
+		fm 
+		ant.prox:=p.prox
+		disponer(p)
+	Fs
+Proceso 
+	prim:=nil
+	prim2:=
+	J:=0
+	ronda:=0
+	jugadores()
+	Mientras j > 1 y ronda <=20 hacer 
+		p:=prim 
+		mientras p <> nil hacer 
+			NomJ:=p.nom
+			comprobar()
+			p:=p.prox
+		fm
+		ronda:=ronda+1
+	fm 
+	si j  = 1 entonces 
+		esc("El jugador es",NomJ,"Y la oracion final fue:")
+		mientras *p.ora <> nil hacer 
+			esc(*p.ora.char)
+			*p.oracion:=p.oracion.prox
+		fm
+	fs 	
+fp
+---------------------------------------------------------------------------------------------------
+Accion transito  es 
+	
+	Multa = registro 
+		Id:N(6)
+		Patente:An(7)
+		Num:0..24
+		Importe:N(5,2)
+	Fr
+	Mul:Archivo de Multa
+	M:Multa
+	Res_tipo:0..24
+	Contipo,ContM1,ContM2,ContM3,ContM4:entero
+
+	nodo = registro 
+		dato:Multa
+		prox:puntero a nodo 
+	fr
+	prim,prim1,p,q,q1,p1,ant:puntero a nodo
+	CantMult:ImporteTot:Entero
+	
+
+	Subaccion Carga() es 	
+		p:=prim 
+		mientras p <> nil y *p.dato.id < m.id hacer 
+			ant:=p
+			p:=*p.prox
+		fn
+		
+		si *p.dato.id = M.id entonces
+			*p.dato.importe:=*p.dato.importe+m.importe
+		sino 	
+			Nuevo(q)
+			*q.dato:=M
+			i:=0 
+			mientras i <> M.Num hacer          
+           		i:=i+1
+			fin mientras
+			arreglo[i].ocurrencia:= arreglo[i].ocurrencia+1
+			arreglo[i].monto:= arreglo[i].monto+M.importe
+
+			Si prim = nil
+				prim:=q
+				*q.prox:=nil
+			sino 
+				si p = prim entonces 
+					*q.prox:=prim
+					prim:=q
+				sino 
+					*ant.prox:=q
+					*q.prox:=p
+				fs
+			fs
+		fs
+		CantMultas:=CantMultas+1
+		ImporteTot:=ImporteTot+M.importe
+	fs
+
+	Subaccion Almacenar() es 
+		promedio := ImporteTot/CantMultas
+		p:=prim
+		Mientras p <> nil hacer 
+			Si *p.dato.importe > promedio es 
+				Nuevo(q1)
+				*q1.dato:=*p.dato
+				*q1.prox:=prim1
+				prim:=q1
+			fs
+			p:=*p.prox
+		fm
+	Fs
+
+	Subaccion Buscar() es 
+		Esc("Ingrese ID de la multa")
+		Leer(AuxID)
+		p:=prim 
+
+		Mientras p <> nil  y  *p.dato.id <> AuxID hacer 
+			p:=*p.prox
+		fm 
+
+		Si *p.dato.id = AuxID entonces 
+			*p.dato.importe:=*p.dato.importe*1.10
+		sino 
+			Esc("No se encontro multa con ese id")
+		fs
+	Fs
+
+	Subaccion BuscarPATENTE() es 
+		Esc("Ingrese patente de la multa")
+		Leer(AuxPATENTE)
+		p:=prim 
+
+		Mientras p <> nil  y  *p.dato.patente <> AuxPATENTE hacer 
+			p:=*p.prox
+		fm 
+
+		Si *p.dato.patente = AuxPATENTE entonces 
+			Esc("Tiene una multa de tipo:"*p.dato.Num)
+			Esc("Debe pagar un importe de:"*p.dato.importe)
+		sino 
+			Esc("No se encontro multa para esa patente")
+		fs
+	Fs
+
+	Subaccion Informe() es 
+		men:=LV
+		para i:=0 a 24 hacer 
+			Si arr[i].ocurrencia < Men entonces
+				Men:= Arr[i].ocurrencia
+				PromedioP:=Arr[i].importe/CantMultas
+				Auxtipo:=i
+			fs
+		fp
+		Esc("El tipo de multa con menos registro es:",AuxTipo)
+		Esc("Promedio a pagar para este tipo:"PromedioP)
+
+	Fs
+
+Proceso 
+	Abrir E/(Mul)
+	Leer(Mul,M)
+	prim:=nil
+	ant:=nil
+	CantMult:=0
+	ImporteTot:=0
+
+	MIENTRAS nfda(Mul)
+		Esc("Que operacion desea realizar")
+		Esc("C:Cargar datos")
+		Esc("A:Almacenar datos")
+		Esc("B:Buscar multa")
+		Esc("M:Verificar si tiene alguna multa")
+		Esc("I:Informe de multas")
+		Esc("R:Mostrar Ranking")
+		Leer(op)
+
+		Segun op hacer 
+			"A":Almacenar()
+			"B":Buscar()
+			"C":Carga()
+			"I":Informe()
+			"M":BuscarPATENTE()
+		fs
+	Fm
+Fp
+		
+-------------------------------------------------------------------------------------------------------------------------------
+Accion EJERCICIO2 es 
+Ambiente
+
+	Totales = registro
+		CantV:N
+		CantP:N
+		Deuda:N
+		Credito:N
+	Fr
+
+	Archivo = registro 
+		IDviaje:N(8)
+		Provincia:1..23
+		CantD:N(2)
+		CantP:N(2)
+		Comprobantes:N(3)
+		Deuda:N(6;2)
+		Credito:N(6;2)
+	Fr
+	Arch:Archivo de Archivo
+	Reg:Archivo
+
+	Prov:Arreglo de [1..23] de An
+	V:arreglo de [1..24,1..4] de Totales
+	i,j:entero
+
+	Subaccion inicializar es 
+		Para i:=1 a 24 hacer 
+			para j:=1 a 4 hacer
+				V[i,j].CantV:=0
+				V[i,j].CantP:=0
+				V[i,j].Deudda:=0
+				V[i,j].Credito:=0
+			Fp
+		Fp
+	Fs
+	
+	Subaccion asignar() es 	
+		V[i,j].CantV:=V[i,j].CantV+1
+		V[i,j].CantP:=V[i,j].CantP+Reg.CantP
+		V[i,j].Deuda:=V[i,j].Deuda+Reg.Deuda
+		V[i,j].Credito:=V[i,j].credito+Reg.Credito
+
+		V[24,j].CantV:=V[24,j].CantV+1
+		V[24,j].CantP:=V[24,j].CantP+Reg.CantP
+		V[24,j].Deuda:=V[24,j].Deuda+Reg.Deuda
+		V[24,j].Credito:=V[24,j].credito+Reg.Credito
+
+		V[i,4].CantV:=V[i,4].CantV+1
+		V[i,4].CantP:=V[i,4].CantP+Reg.CantP
+		V[i,4].Deuda:=V[i,4].Deuda+Reg.Deuda
+		V[i,4].Credito:=V[i,4].credito+Reg.Credito
+
+		V[24,4].CantV:=V[24,4].CantV+1
+		V[24,4].CantP:=V[24,4].CantP+Reg.CantP
+		V[24,4].Deuda:=V[24,4].Deuda+Reg.Deuda
+		V[24,4].Credito:=V[24,4].credito+Reg.Credito
+	Fs
+
+Proceso 
+	Abrir E/(Arch)
+	Leer(Arch,Reg)
+
+	Mientras NFDA Hacer
+		Segun Reg.CantD hacer 
+			3: j:=1
+			10<: j:=2
+			>=10: j:=3
+		Fs
+		Asignar()
+	Fm
+
+	MasP:=LV;PmasP:=0;MenP:=HV;PMenP:=0
+	MayV:=LV;PMayV:=0;DMayV:=0
+	
+	//////PUNTO B
+	Para i :=1 a 23 hacer 
+		Si V[i,4].CantP > MasP entonces 
+			MasP:=V[i,4].CantP
+			PmasP:=i
+		Sino
+			Si V[i,4] < MenP entonces 
+				MenP:=V[i,4].CantP
+				PMenP:=i
+			Fs
+		Fs
+		//D
+		Para i:=1 a 3 hacer 
+			Segun j hacer 
+				1:V[i,1].Credito:=V[i,].Credito+1000000
+				2:V[i,2].Credito:=V[i,].Credito+2000000
+				3:V[i,3].Credito:=V[i,].Credito+3000000
+			Fs
+
+			Si V[i,j].CantV > MayV entonecs 
+				MayV:=V[i,j].CantV
+				PMayV:=i
+				DMayV:=j
+			Fs
+		Fp
+		//F
+		si V[i,4].CantV:=0 entonces 
+			Esc("La provincia que no tienen ningun viaje es:"Prov[i])
+		Fs
+	Fp
+	//B
+	Esc("La provincia que recibira una mayor cantidad de persona es:",P[PMasP],"Con una cantidad de:",Masp,"Personas")
+	Esc("La provincia que recibira una menor cantidad de personas es:",P[PMenP],"Con una cantidad de:",MenP,"Personas")
+	//C
+	Esc("El porcentajes de viajes en la provincia 10 es de:",(V[10,3].CantV/V[10,4].CantV)*100,"%")
+	//D
+	Esc("La Provincia:",Prov[PmayV],"Tiene la mayor cantidad de viajes con la duracion de:",V[PmayV,DMayV].CantD)
+	//G no entendi lo de programa deuda
+	Esc("La deuda Total a cobrar es:"V[24,4].Deuda,"Total a acreditar:",V[24,4].Credito)
+	//H
+	Esc("Total de Viajes registrados es:",V[24,4].CantV,"Total de personas que viajaran por el pais en ENERO/2022:",V[24,4].CantP)
+	
+	Cerrar(Viaje)
+Fa
+-----------------------------------------------------------------------------------------------
+
+Accion capi es 
+	n:entero
+	pal: arreglo de [1..n] de Caracter
+
+	Funcion Cap[in:N,fin:N,p:arreglo [1..n] caracter]:booleano es 
+		Si in = fin entonces 
+			Cap:=Verdadero
+		Sino 
+			si P[in] = p[fin] entonces
+				Cap:= Cap(in+1,fin-1,p)
+			Sino 
+				Cap:=Falso 
+			Fs
+		Fs
+	FF
+
+Proceso 
+	
+	Esc("Ingrese el tamaño de la palabra")
+	Leer(n)
+	Para i:=1 a n hacer 
+		pal[i]:= ""
+	Fp 
+
+	Para i:=1 a n hacer
+		Esc("Ingrese caracter")
+		Leer(Pal[i])
+	Fp
+
+	Cap(1,n,Pal)
+
+	Si cap entonces 
+		Esc("Es capicua")
+	Sino 
+		Esc(" No es capicua")
+	Fs
+Fp
