@@ -3811,3 +3811,190 @@ Proceso
 		Esc(" No es capicua")
 	Fs
 Fp
+---------------------------------------------------------------
+Accion 4.10 (prim1, ult1: Puntero a Nodo1) Es
+    Ambiente
+        numeros = Registro
+            cant:
+            num:
+        Fin_Registro
+
+        Nodo1 = Registro
+            dato: numeros
+            prox: Puntero a Nodo
+        Fin_Registro
+        p1: Puntero a Nodo
+
+        prom = Registro
+            promed: Real
+        Fin_Registro
+
+        Nodo2 = Registro
+            dato: prom
+            prox, ant: Puntero a Nodo
+        Fin_Registro
+        p2,q2, prim2,ult2: Puntero a Nodo
+
+        cant: Entero
+    Proceso
+        p1:= prim1
+        p2:= Nil
+        q2:= Nil
+        prim2:= Nil
+        ult2:= Nil
+        cant:= 0
+        Si (p = Nil)
+            Esc('Error. La lista se encuentra vacía')
+        Sino
+            Mientras (p <> ult1) Hacer
+                Nuevo (q)
+                cant:= *p.dato.cant
+                Para (i:= 1 a cant) Hacer
+                    *q.dato.promed:= *p.dato.num
+                    p:= *p.prox
+                Fin_Para
+                *q.dato.promed:= *q.dato.promed / cant
+
+                p2:= prim2
+                Mientras (*p.dato.promed > *(*p.ant).dato.promed) Hacer
+                    p2:= *p2.prox
+                Fin_Mientras
+
+                Si (p2 = prim2) Entonces
+                    *q.prox:= Nil
+                    *q.ant:= Nil
+                    prim2:= q
+                Sino
+                    *q.prox:= p2
+                    *q.ant:= *p2.ant
+                    *(*p2.ant).prox:= q
+                    *p2.ant:= q
+                Fin_Si
+            Fin_mientras
+            ult2:= p2
+        Fin_Si
+        Esc('El mayor promedio fue: ', *prim2.dato.promed, 'y el menor fue: ', *ult2.dato.prom)
+
+Fin_Accion
+---------------------------------------------------------------
+Accion 4.10 (prim1, ult1: Puntero a Nodo1) Es
+Ambiente
+	numeros = Registro
+		cant:N
+		num:N
+	Fin_Registro
+
+	Nodo1 = Registro
+		dato: numeros
+		prox: Puntero a Nodo
+	Fin_Registro
+	p1: Puntero a Nodo
+
+	prom = Registro
+		promed: Real
+	Fin_Registro
+
+	Nodo2 = Registro
+		dato: prom
+		prox, ant: Puntero a Nodo
+	Fin_Registro
+	p2,q2, prim2,ult2: Puntero a Nodo
+
+	cant: Entero
+Proceso 
+Fp
+---------------------------------------------------------------
+Accion tema2P3 (primt,ult:puntero a nodo)Es 
+	swifti = registro 
+		cod:AN
+		dni:N(8)
+	Fr
+	nodo2 = registro 
+		NroFila:N
+		cod:AN
+		dni:N(8)
+		Prox:puntero a nodo
+	Fr
+	q,prim1:=
+	nodo = registro 
+		fecha = registro 
+			DD:1..31
+			MM:11
+		fr
+		Cant:n	 	
+		swif:swifti
+		Prox:puntero a nodo
+	Fr
+	p,p2,:puntero a nodo
+	Subaccion TratarFecha() Es 
+		Si swiftieHabilitada(*p.swif.cod,*p.swif.dni) entonces
+			*p2.swif.cont:=*p2.swif.cont-1 
+			Contf:=Contf+1
+			*(*p.prox).ant:=*p.ant
+			*(*p.ant).prox:=*p.prox
+			Disponer(p)
+		sino 
+			ListaOrdenada()
+			p:=*p.prox
+		fs
+	Fs
+	Subaccion ListaOrdenada es 
+		Nuevo(q)
+		*q.swif:=*p.swif
+		NroFila:=DesencriptarLugarEnLaFila(*q.Swifties.Cod)
+		si prim1 = nill entonces 
+			prim1:=q
+			*q.NroFila:=NroFila
+			*q.prox:=Nil
+		sino
+			q:=prim1 
+			mientras q <>nil y  q.NroFila < NroFila hacer
+				q:=*q.prox
+			Fm  
+			si q.NroFila > NroFila entonces
+				*ant.prox:=q
+				*q.prox:=p
+			sino 
+				si q = nil entonces 
+					*ant.prox:=q
+					*q.prox:=nil
+				fs
+			fs
+		Fs
+	Fs			
+Proceso 
+	Prim:=Ult
+	Esc("Ingrese la Fecha que desea saber la cantidad de swifties")
+	Leer(FechaUSU)
+	Si Prim = nil entonces 
+		Esc("Lista vacia")
+	Sino
+		p2:=prim
+		ContF:=0
+		mientras p <> nil hacer
+			*p2.Fecha:=*p.Fecha
+			*p2.Cant:=p.cant 
+			p:=*p.prox
+			ant:=p
+			mientras  *p.fecha = *p2.fecha hacer
+				Si *p.fecha = FechaUsu entonces
+					TratarFecha()
+					Esc("La cantidad de swifties que ingresaron en la fecha:"*p.fecha,"Es",ContF)
+				Sino 
+					TratarFecha()
+					// Contf:=0
+				Fs
+			Fm
+			para i:=1 a P2.swif.cant+2 hacer 
+				p:=*p.prox
+			Fp
+		Fm 	
+		
+	Fs
+Fa
+
+				
+	
+
+
+	

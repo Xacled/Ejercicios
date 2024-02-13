@@ -1,5 +1,10 @@
 ------------------------------------------------------------------SECUENCIAS------------------------------------------------------------------
-
+FECHA = Registro 
+	DD: 1..31
+	MM: 1..12
+	AAAA: Entero 
+Fin Registro
+Reg = (31/02/2019) Es consistente, pero no congruente.
 Ejercicio 2.1.1¶
 Dada una secuencia de letras del alfabeto que finaliza con una marca '*', contar cuantas letras "A" hay en la secuencia.
 
@@ -2687,3 +2692,597 @@ Proceso
 		p:=*p.prox
 	fm
 fp		
+
+---------------------------------------------------------------------------------------------------
+//cada comentario finaliza con #
+//agrupado por restaurante
+//el fin de cada grupo se indica con @
+// el fin de la secuencia se marca con * 
+						
+//cada restaurante termina con un *
+
+//se pide generar una secuencia de salida de caracteres
+//que posea todos los comentarios donde la puntuación sea
+// menos o igual a 4 (CUATRO)
+// con el siguiente formato, para cada restaurante se copia el NOMBRE 1(UNA) sola vez 
+// y luego todos los COMENTARIOS que le PERTENECEN de la siguiente manera:
+// name restaurant - score(01,02,03, o 04), fecha en que se realizó el comentario (AAAAMMDD),
+//comentario que finaliza con el caracter #, y al finalizar mostrar la cantidad de palabras
+// del comentario (3 caracteres)... otro comentario... otro comentario ...@*
+//se pide al final:
+//-informar cantidad de COMENTARIOS con PUNTUACION PERFECTA (10 a 8), BUENA(7 a 5) o mala (de 4 a 1)
+//-cantidad promedio de COMENTARIO por RESTAURANTE
+
+nombre-puntuiacionmfecha,comentario# 
+
+Accion F1 Es
+Ambiente
+	com,res,,sal:Secuencia de caracteres 
+	v1,v2:Caracter
+	prom,contp,contb,contm:entero
+	
+	funcion ent(b:caracter):entero es 
+		segun b hacer 
+			"0": ent:=0
+			"1": ent:=1
+			"2": ent:=2
+			"3": ent:=3
+			"4": ent:=4
+			"5": ent:=5
+			"6": ent:=6
+			"7": ent:=7
+			"8": ent:=8
+		 	"9": ent:=9
+		fs
+	ff
+
+	funcion asChar(v:entero):caracter
+		segun v hacer
+			0=asChar:="0"
+			1=asChar:="1"
+			2=asChar:="2"
+			3=asChar:="3"
+			4=asChar:="4"
+			5=asChar:="5"
+			6=asChar:="6"
+			7=asChar:="7"
+			8=asChar:="8"
+			9=asChar:="9"
+		Fin_Segun
+  	Fin_funcion
+
+	procedimiento avanzar() es
+      mientras v1<>"#" hacer
+        avanzar(com,v1)
+      fin_mientras
+    fin_procedimiento
+
+Proceso
+
+	Arr(com);avz(com,v1)
+	Arr(res),avz(res,v2)
+	crear(sal)
+
+	Mientras NFDS(com) y NFDS(res) hacer	
+		si v2 <> "*" entonces 
+			mientras v2 <> "," hacer 
+				mientras v2<> " " hacer 
+					esc(sal,v2)
+					avz(res,v2)
+				fm
+				avz(res,v2)
+			fm
+			esc(sal,"-")
+			Mientras v2 <> "." hacer 
+				avz(res,v2)
+			fm
+			avz(res,v2)
+		fs
+		
+		Mientras v1 <> "@" hacer
+			si v1 = "1" entonces 
+				contp:=contp+1
+				avanzar()
+			sino 
+				si v1 = "0" entonces 
+					avz(com,v1)
+					segun ent(v1) hacer 
+						<=4: 
+							contpal:=0
+							contm:=contm+1
+							esc(sal,0)
+							esc(sal,v1)
+							avz(com,v1)
+							para i:=1 a 8 hacer	
+								esc(sal,v1)
+								avz(com,v1)
+							fp
+							para i:=1 a 3 hacer 
+								avz(com,v1)
+							fp
+							mientras v1 <>"#" hacer
+								esc(sal,v1)
+								avz(com,v1)
+								si v1 = " " o v1= "." entonces 
+									contpal:=contpal+1
+								fs
+							fm
+							esc(sal,v1)
+							escribir(sal, asChar(contpal div 100))
+							contpal := contpal mod 100
+							escribir(sal, asChar(contpal div 10))
+							escribir(sal, asChar(contpal mod 10))
+						>=5:
+							contb:=contb+1
+							avanzar()
+						>=8:
+							contp:=contp+1
+							avanzar()
+					fs
+				fs
+			fs
+			coment:=coment+1
+		fm
+	
+		restaurante:=restaurante+1
+		avz(com,v1)
+	fm
+	esc(sal,"*")
+	cerrar(com);cerrar(res);cerrar(sal)
+	escribir("la cantidad de comentarios perfectas: ",contp)
+	escribir("la cantidad de comentarios buena: ",contb)
+	escribir("la cantidad de comentarios mala: ",contm)
+	escribir("el promedio de comentarios por restaurante es de: ",((coment/restaurante)*100));
+Fp
+
+				 
+
+----------------------------------------------------------------------------------------------------------------
+
+Accion F2 es 
+Ambiente 
+	prod = registro 
+		tipo: 1..10
+		calidad:1..5
+		cod_prod:
+		nombre:
+		precioU:
+		StockA:
+	Fr
+	Ap:Archivo de prod ordenado por tipo,calidad
+	Rp:prod
+	res_tipo:1..10
+	res_calidad:1..5
+
+	sal = registro 
+		cod_prod:
+		nombre:
+		precioV:
+		PrecioN:
+		PorcentajeA:
+	Fr
+	Asal:Archivo de sal
+	Rs:sal
+
+	subaccion corte_calidad es 	
+		Esc("Para la calidad:"res_calidad,"con una cantidad de:",cantCalidad)
+		cantTipo:=cantTipo+cantCalidad
+
+		CantCalidad:=0
+		res_calidad:=Rp.calidad
+	fs
+
+	subaccion Corte_tipo es
+		corte_calidad 
+		Esc("Para el tipo:",res_tipo,"Con una cantidad de:",cantTipo)
+		
+		totalgral:=totalgral+cantTipo
+		cantTipo:=0
+		res_calidad:=Rp.calidad
+	Fs
+
+	Subaccion tratar_corte  es 
+		si res_tipo <> reg.tipo entonces 
+			corte_tipo
+		sino
+			si res_calidad <> reg.calidad entones 
+				corte_calidad
+			fs
+		fs
+	fs
+Proceso 
+	Abrir E/(Rp)
+	Abrir /S(Asal)
+	res_calidad:=Rp.calidad
+	res_calidad:=Rp.calidad
+	cantTipo:=0
+	CantCalidad:=0
+	totalgral:=0
+	Mientras NDFA(Rp) Hacer 
+		Tratar_Corte
+		Si Rp.Stock_Actual <> 0 entonces 
+			Rsal.cod_prod:=Rp.Cod_prod	
+			Rsal.Nombre:=Rp.nombre
+			Rsal.precioV:=Rp.precioU
+			segun Rp.Tipo hacer 	
+				<=5:		
+					Rsal.PorcentajeA:=0.50
+					Rsal.precioN:=Rp.PrecioU*(Rsal.PorcentajeA+1)
+				<=10:
+					segun Rp.Calidad hacer 
+						<=2:
+							Rsal.PorcentajeA:=0.30
+							Rsal.precioN:=Rp.PrecioU*(Rsal.PorcentajeA+1)
+						<=5:
+							Rsal.PorcentajeA:=0.40
+							Rsal.precioN:=Rp.PrecioU*(Rsal.PorcentajeA+1)
+					fs
+			fs
+			cantCalidad:=CantCalidad+1
+			grabar(Asal,Rsal)
+		fs
+		
+		Leer(Ap,Rp)
+	Fm
+	Corte_tipo
+	Esc("Total general es:"Totalgral)
+	cerrar(Asal)
+	cerrar(Rp)
+Fp
+----------------------------------------------------------------------------------------------------
+Accion f3 es 	
+Ambiente 
+	
+	FECHA = registro 
+		AA:
+		MM:
+		DD:
+	Fr
+
+	CLIENTES = registro 
+		Nro_cli:
+		AyN:
+		dni:
+		id_p:
+		saldo:
+		estado:
+		categoria:
+		puntos:
+		fecha_baja:FECHA
+	Fr
+	Ac,Asal:archivo CLIENTES ordenado por nro_cli 
+	Rc,Rsal:CLIENTES
+
+	NOVEDADES = registro
+		nro_cli:
+		nro_novedad:
+		AyN:
+		dni:
+		id_p:
+		fecha_novedad:FECHA
+		monto:
+	Fr
+	An:Archivo de NOVEDADES ordenado por nro_cli,nro_novedad
+	Rn:NOVEDADES
+
+	PAQUETES_TURISTICOS = registro 
+		id_paquete:
+		nombre:
+		costo:
+		destino:
+	Fr
+	At:Archivo de PAQUETES_TURISTICOS indexado por id_paquete
+	Rt:PAQUETES_TURISTICOS
+
+proceso 
+
+
+	si 
+
+fp
+..............................................................................................
+ Accion capicua es 
+
+ 	n:entero 
+ 	Palabra:Arreglo de [1..n] de caracteres 
+ 	Funcion capi(in,fin,p:arreglo [1..n] de caracter):Booleano
+
+ 		Si  in > fin entonces
+ 			Capi:=Verdadero
+ 		Sino
+	 		Si p[in] = p[fin] entonces 
+				capi:=capi(In+1,fin-1,p)
+			Sino  
+				capi:=Falso
+			Fs
+		Fs
+	 Ff 
+
+	
+ Proceso 
+
+ 	Esc("ingrese El tamaño de la palabra")
+ 	Leer(n)
+ 	
+ 	Para i:=1 a n hacer	
+ 		Palabra[i]:=' '
+ 	Fp 
+
+ 	Para i:=1 a n hacer
+ 		Esc("Ingrese Caracter")
+ 		Leer(Palabra[i])
+ 	Fp 
+	 
+	capi(1,n,palabra)
+
+ 	Si capi Entonces 
+ 		Esc("Capicua")
+ 	Sino 
+  		Esc("No es capicua")
+  	Fs 
+  Fp 
+Fa
+---------------------------------------------------------------------------------------------
+procedimiento perfecto es 
+	para i:=1 a n-1 hacer 
+		si (n mod i) = 0 entonces 
+			sum:=sum+i
+		fs
+	fp 
+
+	si n = sum entonces 
+		esc("Es perfecto")
+	sino
+		esc("No es perfecto")
+	fs
+fp
+---------------------------------------------------------------------------------------------
+Recursivo 
+sum:=0
+Funcion perfecto (n,divi:entero):Booleano es 
+
+	si divi = n-1 entonces 
+		si n = sum entonces 
+			perfecto := verdadero 
+		sino 
+			perfecto :=falso
+		fs
+	sino
+		si (n mod divi) = 0 entonces 
+			sum:=sum+divi
+		fs
+		perfecto(n,divi+1)
+	fs
+ff
+
+
+..............................................................................................
+Funcion Arbo(nodito:Puntero a nodo):entero 
+	Si nodito = nil  entonces 
+		Arbo:=0
+	sino 	
+		Arbo:=Arbo(nodito.izq)+Arbo(nodito.der)+1
+	Fs
+Ff 
+..............................................................................................
+
+Funcion Buscar(x:entero,nodito:Puntero a nodo):booleano 
+	Si nodito = nil  entonces 
+		Buscar:=false
+	sino 	
+		si (*nodito.valor = x)entonces
+			Buscar:=true
+		sino
+			Buscar:=Buscar(*nodito.izq ) o Buscar(*nodito.der)
+		fs
+	Fs
+Ff 
+..............................................................................................
+
+Funcion Altura(nodito: Puntero a nodo): Entero
+    Si nodito = nil entonces 
+        Altura := 0
+    Sino 
+        Si Altura(nodito.izq) > Altura(nodito.der) entonces
+            Altura := Altura(nodito.izq) + 1
+        Sino 
+            Altura := Altura(nodito.der) + 1
+        Fs
+    Fs 
+Ff
+..............................................................................................   
+Accion 4_10  (prim:puntero a nodo) es 
+Ambiente 
+
+	nodo = registro 
+		dato:
+		prox:puntero a nodo
+	fr
+	p:puntero a nodo
+
+..............................................................................................
+Accion P2 Es 
+	
+	Ambiente 
+
+		Almacena = Registro 
+			Site:An(10)
+			Area:An(5) 
+			Version:['W','M']
+			TamañoE: 3..6
+			Ticket_Res:N(3)
+			Estado_P:['F','E']
+		Fr
+		Alm:Archivo de Almacena ordenado por Site,Area,Version
+		Reg:Almacena
+
+		Salida = registro
+			Site:An(10)
+			Tot_Ticket_Res:N(3)
+		Fr
+		Sal:Archivo de Salida
+		Reg_sal:Salida
+
+		Tot_Site,Tot_Area,Tot_Version,Tot_Gral:Entero
+		res_Site:An(10)
+		res_Area:An(5)
+		res_Version:['W','M']
+
+		Subaccion Corte_Version Es 
+			Esc("La Version:",res_Version)
+			Esc("Tiene un equipo con ",Reg.TamañoE, "integrantes")
+			Esc("El estado del proyecto esta :",Reg.Estado_P)
+			Esc("Se resolvieron:",Tot_Version,"Tickets")
+
+			Tot_Area:=Tot_Area+Tot_Version
+			Tot_Version:=0
+			res_Version:=Reg.Version
+		Fs 
+
+		Subaccion Corte_Area Es 
+			Corte_Version
+			Esc("En el Area:",res_Area)
+			Esc("Se resolvieron:",Tot_Area,"Tickets")
+
+			Tot_Site:=Tot_Site+Tot_Area
+			Tot_Area:=0
+			res_Area:=Reg.Area
+		Fs 
+
+		Subaccion Corte_Site Es
+			Corte_Area
+			Esc("En el Site:",res_Site)
+			Esc("Se resolvieron:",Tot_Site,"Tickets")
+			Reg_sal.Site:=res_Site
+			Reg_Sal.Tot_Ticket_Res:=Tot_Site +1
+			Grabar(Sal,Reg_sal)
+			Tot_Gral:=Tot_Gral+Tot_Site
+			Tot_Site:=0
+			res_Site:=Reg.Site
+			
+		Fs 
+
+		Subaccion Inicializar Es 
+			Tot_Site:=0
+			Tot_Area:=0
+			Tot_Version:=0
+			Tot_Gral:=0
+			res_Version:=Reg.Version
+			res_Area:=Reg.Area
+			res_Site:=Reg.Site
+		Fs 
+
+	Proceso 
+
+		Abrir E/(Alm)
+		Abrir /S(Sal)
+		Leer(Alm,Reg)
+
+		Inicializar
+
+		MIENTRAS NFDA(Alm) HACER
+            SI (res_site <> Reg.Site ) ENTONCES
+                Corte_Site
+                
+            SINO
+                SI (res_Area <>Reg.Area ) ENTONCES
+                    Corte_Area
+                SINO
+                    SI ( res_Version<>Reg.Version ) ENTONCES
+                        Corte_Version
+                    FIN_SI
+                FIN_SI
+            FIN_SI
+
+            Si (Reg.TamañoE > 4) Y (Reg.Estado_P = E) Entonces 
+            	Tot_Version:=Tot_Version+Reg.Ticket_Res
+            Fs
+            Leer(Alm,Reg) 
+        Fm 
+
+        Corte_Site
+
+        Esc("El total general de tickets Resueltos es:"Tot_Gral)
+       	Cerrar(Alm)
+       	Cerrar(Sal)
+FA
+------------------------------------------------------------------------
+Accion 4_6(Prim:puntero a nodo) Es
+Ambiente 
+	Nodo = registro 
+		NCliente:An(30)
+		TotC:N
+		NumM: 
+		Prox:Puntero a nodo 
+	Fr
+	p:puntero a nodo
+	q,prim:Puntero a nodo
+	op: ("A","R","C")
+Proceso 
+	Esc("Que funcion desea realizar?")
+	Esc("A: Añadir cliente")
+	Esc("R: Registrar su consumo")
+	Esc("C: Realizar Cobro")
+	Leer(op)
+	p:=prim 
+	Segun op hacer 
+		"A":		
+			leer(NombreC)
+			Nuevo(q)
+			*q.NCliente:=NombreC
+			q:=prim
+
+			Mientras p<> nill y *p.NCliente < NombreC hacer 
+				p:=*p.prox
+			fm
+
+			si p = prim entonces 
+				*q.prim:=prim
+				prim:=q
+			sino
+				*q.prox:=p
+			fs
+
+
+		"R":
+			Esc("Ingrese nombre de cliente")
+			Leer(NombreC)
+
+			Mientras p<>nil y *p.NCliente <>NombreC
+				p:= *p.prox
+			fm 
+
+			si *p.NCliente = NombreC entonces 
+				esc("Ingrese monto")
+				Leer(monto)
+				*p.TotC:=*p.TotC+Monto
+			sino 
+				esc("No se puede registrar consumo")
+			fs
+
+		"C":
+			Esc("Ingrese nombre de cliente")
+			Leer(NombreC)
+			Esc("Ingrese Fecha")
+			Leer(Fecha)
+			Esc("Ingrese numero de mesa")
+			Leer(*p.numM)
+
+			Mientras p <> nil y *p.Ncliente <> NombreC
+				q:=p
+				p:=*p.prox
+			fm
+
+			Si (*p.NCliente = AuxNC) Entonces
+				Esc("Nombre:",*P.NCliente,"Fecha:",Fecha,"Numero de mesa:",*p.NumM,"Total consumido:"*p.TotC)			
+				Si p = prim entonces
+					prim:=*p.prox
+				Sino 
+					*a.prox:=*p.prox
+				Fs 
+				Disponer(p)
+			Sino
+				Esc("No se puede realizar cobro")
+			Fs
+	Fs
+Fp
