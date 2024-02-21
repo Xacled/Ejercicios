@@ -1,0 +1,416 @@
+Accion ejercicio1 es 
+	Centro = registro 
+		nom:puntero a Nombre
+		tipo:1..5
+		edad:1..3
+		popularidad:
+		cupo:N(2)
+		Monto:(6,2)
+		prox:puntero a a Centro
+	Fr
+	pc,qc,primc,antc:Puntero a centro
+	
+	Nombre = registro 
+		dato:caracter
+		prox: puntero a Nombre
+	Fr
+	qn,antn:puntero a Nombre
+
+	Sec:Secuencia de caracter
+	V:caracter
+	arr:arreglo [1..5] de entero
+	MayorCupo,MenorMonto:entero
+	Funcion conversion(v:caracter):entero es 
+		Segun v  hacer 
+			"1":conversion:=1
+			"2":conversion:=2
+			"3":conversion:=3
+			"4":conversion:=4
+			"5":conversion:=5
+		Fs
+	Ff
+
+	subaccion cargar_nombre es 
+		//Estoy en el primer elemento de la secuencia
+		antn:=nil    c a 
+		Mientras V<> "-" hacer 		 
+			Nuevo(qn)
+			*qn.dato:=v
+			si antn = nill entonces 
+				*qc.nom:=qn
+			sino 
+				*antn.prox:=qn
+			fs
+			antn:=qn
+			*qn.prox:=nill
+			avz(Sec,V)
+		Fm
+	Fs
+
+	Subaccion guardartipo() es 
+		nuevo(qc)
+		*qc.tipo:=conversion(V)
+		arr[*qc.tipo]:=arr[*qc.tipo]+1
+		Avz(Sec,V)
+		*qc.edad:=conversion(V)
+		avz(sec,v)	
+		cargar_nombre
+		Esc("Por favor escriba el cupo")
+		Leer(*qc.cupo)
+		Esc("Por favor escriba el monto")
+		Leer(*qc.monto)
+		
+		si *qc.cupo > MayorCupo entonces 
+			MayorCupo:=*qc.cupo
+		fs
+		
+		Si (*qc.edad = 3) y (*qc.monto < MenorMonto) entonces 
+			MenorMonto:=*qc.monto
+			resgcosto:=*qc.nom
+		Fs				
+	fs
+
+	subaccion acomodar es 
+		pc:=primc
+		si primc = nil entonces 
+			primc:=qc
+		sino 
+			mientras pc<> nil y (*qc.tipo >= *pc.tipo) hacer 
+				antc:=pc
+				pc:=*pc.prox
+			fm 
+			*antc.prox:=qc
+			si pc = nill entonces 
+				*qc.prox:=nil
+			sino				
+				*qc.prox:=pc				
+			fs
+		fs
+	fs
+
+Proceso 
+	Arr(Sec)
+	Avz(Sec,v)
+	primc:=nill
+	antc:=nill
+	antn:=nill
+
+	MayorCupo:=Lv
+	MenorMonto:=HV
+	Totalp:=0
+	Mientras NFDS(Sec) hacer 
+		Mientras v <> "$" hacer 
+			guardartipo
+			
+			//Estoy parado en  "-"
+				
+			avz(sec,v)//Estoy parado en popularidad
+			*qc.popularidad:= V
+			acomodar()
+			avz(sec,v)
+		Fm
+		Totplanes:=Totplanes+1
+		Avz(Sec,V)
+	Fm
+
+	para i:=1 a 5 hacer 
+		Esc("El",(arr[i]/Totalp)*100,"porciento de los planes son del tipo:",i)
+	Fp
+	esc('el nombre de los planes con mayor cupo es:')
+	mientras pc<>nill hacer
+		si *pc.cupo = mayorCupo entonces
+			qn:=*pc.nom
+			mientras qn<> nill hacer
+				esc(*qn.dato)
+				qn:=*qn.prox
+			fin mientras
+		fin si
+		pc:=*pc.prox      
+	Fm
+	esc("el nombre del plan menor costo de 35 para arriba es:")
+	qn:=resgcosto
+	mientras qn <> nill hacer
+		esc(*qn.dato)
+		qn:=*qn.prox
+	fin mientras
+	cerrar(Sec)
+Fa	
+
+----------------------
+Accion ejercicio2 es 
+	Funcion Devolver(i,x:entero,Arr:Arreglo de [1..n]de entero):entero
+		Si Arr[i] = x entonces 
+			Devolver:=i
+		sino 
+			si n = i y Arr[i] <> x entonces 
+				Devolver:=-1
+			fs
+			Devolver(i+1,x,arr)
+		Fs
+	FF
+
+	A:Arreglo de [1..n] de entero
+	pos,n,i,valor:entero	
+Proceso 
+	Esc("Ingrese el tamaño del arreglo")
+	Leer(n)
+
+	Esc("Ingrese el valor que desea buscar para saber en que posicion se encuentra")
+	Leer(valor)
+
+	Pos:= Devolver(1,valor,arr)
+	Si pos >= 1 entonces 
+		Esc("Se encuentra en la pos:",Pos)
+	sino 
+		Esc("No se encontro el valor en el arreglo, por ende la posicion es:",Pos)
+	Fs
+Fp
+...............................
+Accion Ejercio3 Es 
+	Cobro =  registro 
+		ClaveC:N(13)
+		CabinaP: ["Chaco","Corrientes","Misiones","Entre Rios","Santa fe","Neuquen","Ushuaia"]
+		Monto:N(6,2)
+		Patente:An(7)
+		HoraCobro:N(2)
+	Fr
+	Cob:Archivo de cobro
+	Rc:Cobro
+
+	A:Arreglo de [1..8,0..24] de entero
+	Nom:Arreglo de [1..7] de alfanumerico
+
+
+Proceso 
+	Abrir(Cob);Leer(Cob,)
+	Mientras NFDA(Cob) hacer 
+		j:=Rc.horacobro
+		segun rc.cabinap hacer
+			"Chaco": i:=1            
+			"Corrientes": i:=2      
+			"Misiones": i:=3     
+			"Entre Rios": i:=4      
+			"Santa fe": i:=5      
+			"Neuquen": i:=6      
+			"Ushuaia": i:=7
+		fin segun
+		A[i,j]:=A[i,j]+Rc.Monto
+		A[8,j]:=A[i,j]+Rc.Monto
+		A[i,24]:=A[i,24]+Rc.Monto
+		A[8,24]:=A[8,24]+Rc.Monto
+		cant:=cant+1
+		Leer(Cob,Rc)
+	fin mientras
+	may:=lv
+	posCabina:=0
+	PosHora:=0
+	para i:=1 a 8 hacer 
+		para j:=0 a 24 hacer 
+		si A[i,j] > may entonces 
+			may:=A[i,j]
+			posCabina:=i
+			poshora:=j
+		Fp
+	Fp
+	Esc("La cabina:",PosCabina,"a la hora",poshora,"Produjo la mayor recaudacion con:",May,"$")
+	contmen:=0
+	Para i:=1 a 7 hacer
+		Si (A[i,24]) < (A[8,24]/cant) entonces 
+			contmen:=Contmen+1
+		Fs
+	Fp
+	Esc("La cantidad de cabinas que recaudaron menos que el promedio total por cabina:",contmen)
+	Esc("El total de recaudacion es:",A[8,24],"$")
+Fa
+----------------------
+Juego_oraciones () es 
+Ambiente
+  jugadores=registro
+    nombre:an(20)
+    oracion=registro
+      dato:caracter
+      prox:puntero a oracion
+    fin_registro
+    prox:puntero a jugadores
+  fin_registro
+  p,prim,ant:puntero a jugadores
+
+  ora=registro
+    dato:caracter
+    prox:puntero a ora
+  fin_registro
+  res_p,res_prim,ult,nuevo: puntero a ora
+  
+  cant_jugadores:entero
+  car:caracter
+  correcto:logico
+  res_jug:alfanumerico(20)
+  
+  procedimiento cargar() es
+    Escribir("ingrese caracter a caracter la palabra y finalice con un espacio")
+    mientras car <> " " hacer
+      Escribir("ingrese un caracter")
+      leer(car)
+      nuevo(res_p)
+      si res_prim = nil entonces   
+        res_prim:=res_p
+      sino
+        ult.prox:=res_p     
+      fin_si
+	  res_p.prox:=nil
+	  ult:=res_p
+      res_p:=car
+    fin_mientras
+  fin_procedimiento
+
+  procedimiento comprobar() es
+  res_p:=res_prim
+  escribir("ingrese caracter a caracter la oracion")
+  correcto:=verdadero
+  mientras res_p <> nil ^ correcto hacer
+    Escribir("ingrese caracter")
+    leer(car)
+    si res_p.dato = car entonces
+      res_p:=res_p.prox
+    sino
+      correcto:=falso
+    fin_si
+  fin_mientras
+  si no(correcto) entonces
+    escribir("el jugador",p.nombre,"perdio")
+    cant_jugadores:= cant_jugadores-1
+    borrar_jugador()
+  sino entonces
+    cargar()
+    almacenar_jug()
+  fin_Si
+  
+  procedimiento borrar_jugador() es
+    escribir("el jugador: ",res_jug,"ha sido eliminado.")
+    p:=prim
+    ant:=nil
+    mientras p <> nill ^ p.nombre <> res_jug hacer
+      ant:=p
+      p:=p.prox
+    fin_mientras
+    ant.prox:=p.prox
+    disponer(p)
+  fin_procedimiento
+
+  fin_procedimiento
+  procedimiento crear_jugadores() es
+    escribir("ingresa la cantidad de jugadores")
+    leer(cant_jugadores)
+    para i:=1 hasta cant_jugadores hacer
+      nuevo(p)
+      Escribir("Ingrese el nombre del jugador")
+      leer(p.nombre)
+      p.oracion:=res_prim
+      p.prox:=prim
+      prim:=p
+    fin_para
+  fin_proceso
+    
+Proceso
+  prim:=nil;res_prim:=0,cant_jugadores:=0
+  crear_jugadores()
+  mientras cant_jugadores > 1 ^ ronda <= 20 hacer
+    p:=prim
+    mientras p <> nill hacer
+      res_jug:=p.nombre
+      comprobar()
+      p:=p.prox
+    fin_mientras
+    ronda:=ronda+1;
+  fin_mientras
+  si cant_jugadores = 1 entonces
+    escribir("el ganador es: ",res_jug," y la oracion final fue:")
+    mientras p.oracion <> nil hacer
+      escribir(p.oracion.dato)
+      p.oracion:=p.oracion.prox
+    fin_mientras
+  sino
+    Escribir("empate qsy")
+  fin_si
+Fin_accion
+---------------------------------------------------------------------
+Temas 1 listas
+
+Accion Ejer (pricmC:Prim puntero a ListaCir)Es
+Ambiente 
+	Fecha = registro 
+		AA:
+		MM:
+		DD:
+	Fr
+
+	Compras = registro 
+		FechaC:Fecha
+		Dni:n(8)
+		Cant_Art:
+		Importe:
+	Fr
+	Arch1:Archivo de Compras ordenado por FechaC
+	Reg1:Compras
+
+	Socios = registros 
+		Dni:n(8)
+		ApyN:
+		FechaAd:Fecha
+		Categoria:
+	Fr
+	Arch2:Archivo de Socios indexado por Dni
+	Reg2:Socios
+
+	ListaDoble = registro 
+		ApyN:
+		Chances_tot:
+		Prox,ant:Puntero a ListaDoble
+	Fr
+	p,q,ult,prim:Puntero a ListaDoble
+
+	ListaCir = registro 
+		Chance:
+		prox:Puntero a ListaCir
+	Fr
+	c:puntero a ListaCir
+Proceso 
+	Abrir(Arch1);Leer(Arch1,Reg1)
+	Abrir(Arch2)
+	prim:=nil
+	Ult:=nil
+	C:=primC
+
+	Mientras NFDA(Arch1) hacer 
+		Reg2.Dni:=Reg1.Dni
+		Leer(Arch2,Reg2)
+
+		Si Existe Entonces 
+			Si prim = nill entonces 
+				Nuevo (p)
+				*p.ApyN:=Reg.ApyN
+				*p.Chances_tot:=5
+				*p.ant:=nil
+				*p.prox:=nil
+				ult:=p
+				prim:=p
+			sino
+				q:=prim
+
+				mientras q <> nil y *q.AnyP < Reg1.AnyP hacer 
+					q:=*q.prox
+				fm
+
+				si *q.AnyP = Reg1.AnyP entonces 
+					*q.Chances_tot:=*q.Chances_tot+(reg1.ImporteTot div  100)
+
+					Si
+
+
+
+
+
+		Sino
+
+		Fs
+	

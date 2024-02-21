@@ -2222,9 +2222,6 @@ Accion 4_5(Prim:puntero a nodo) Es
 			Fm 
 		Fs 
 FA
-
-
-
 ..............................................................................................
 En el restaurante ÑOQUIS se está pensando en una solución informática para el soporte de datos del nuevo sistema de atención a clientes. 
 Se han decidido por LISTAS por su dinamismo en cuanto a la cantidad de elementos. Diseñe un algoritmo que realice las siguientes funciones:
@@ -2311,15 +2308,7 @@ Accion 4_6(Prim:puntero a nodo) Es
 				Fs
 		Fs
 
-Fa 
-
-
-
-		
-
-	
-
-	
+Fa 	
 ..............................................................................................
 Accion P2 Es 
 	
@@ -2417,7 +2406,7 @@ Accion P2 Es
                 FIN_SI
             FIN_SI
 
-            Si (Reg.TamañoE > 4) Y (Reg.Estado_P = E) Entonces 
+            Si (Reg.TamañoE > 4) Y (Reg.Estado_P = "E") Entonces 
             	Tot_Version:=Tot_Version+Reg.Ticket_Res
             Fs
             Leer(Alm,Reg) 
@@ -2525,6 +2514,19 @@ Funcion Altura(nodito: Puntero a nodo): Entero
         Fs
     Fs 
 Ff
+
+funcion encontrar(p: puntero a nodo,valor: entero):booleano
+  si p = nil entonces
+  
+    encontrar:=falso
+  sino
+    si *p.dato = valor entonces
+      encontrar:=verdadero
+    Sino
+      encontrar:= (encontrar(*p.izquierda,valor)) o (encontrar(*p.derecha,valor))
+    Fin_si
+  fin_Si
+Fin_funcion
 ..............................................................................................
 Accion Parcial1 Es 
 Ambiente 
@@ -2923,10 +2925,17 @@ Accion FINAL1 Es
 Accion p7 es 
 	Ambiente 
 		Vuelos = registro
+			Codv:AN(8)
+			CantD:N(3)
 		Fr 
 		AV:Archivo de vuelos indexado por CodV
 		RV:Vuelos
+
 		Reservas = registro
+			CodV:AN(8)
+			Dni:N(8)
+			ApyN:AN(50)
+			CantS:N(3)
 		Fr
 		AR:Archivo ordenado por CodV y Dni
 		RR:Reservas
@@ -2936,7 +2945,7 @@ Accion p7 es
 		Abrir E/S(AV)
 		Abrir E/(AR)
 		Leer(AR,RR)
-
+		Max:=Lv
 
 
 		Mientras NFDA(AR) Hacer 
@@ -2947,7 +2956,7 @@ Accion p7 es
 
 				RV.ContPD:=RV.ContPD-RR.ContPS
 				Tickets:=RR.ContPS
-
+				
 				Si RV.ContPD > Max entonces 
 					CodV:=RV.CodV
 				Fs
@@ -2956,6 +2965,7 @@ Accion p7 es
 		FM
 
 		Esc("Dni:",RR.DNI,"Pasajero:",RR.APyN,"Codigo de vuelo:",RV.CodV,"")
+		Esc("El codigo de vuelo con mator cantidad de pasajeros dispobles es:",CodV)
 FA
 -------------------------------------------------------------------------------------------------------------------------
 Accion F5 Es 
@@ -3362,26 +3372,9 @@ end.
 		caso recursivo
 
 
-	-------------------------------------------
+	
 
-funcion par(i,arr:arreglo de [1..10] de enteros):entero
-	si i = 10 entonces
-		par:= arr[i]
-	sino 
-		si (i mod 2) = 0 entones
-			par:=a[i]+par[i+1,arr]
-		sino
-			par:=par(i+1,a)
-		fs
-	fs
-ff
 
-caso base: si i = 10, le doy el valor de la posicion par
-caso recursivo si (i mopd 2) = 0, evaluo si es par y si lo es, 
-par suma el valor del arreglo en la posicion par+ el CR, es decir le sumo uno a la posicion
-para recorrer el arreglo,sino la funcion simplemente recorro el arreglo
-
-Recursividad: Directa
 			 
 ---------------------------------------------------------------------------------------------------
 
@@ -3742,19 +3735,19 @@ Proceso
 		//D
 		Para i:=1 a 3 hacer 
 			Segun j hacer 
-				1:V[i,1].Credito:=V[i,].Credito+1000000
-				2:V[i,2].Credito:=V[i,].Credito+2000000
-				3:V[i,3].Credito:=V[i,].Credito+3000000
+				1:V[i,1].Credito:=V[i,1].Credito+1000000
+				2:V[i,2].Credito:=V[i,2].Credito+2000000
+				3:V[i,3].Credito:=V[i,3].Credito+3000000
 			Fs
 
-			Si V[i,j].CantV > MayV entonecs 
+			Si V[i,j].CantV > MayV entonces 
 				MayV:=V[i,j].CantV
 				PMayV:=i
 				DMayV:=j
 			Fs
 		Fp
 		//F
-		si V[i,4].CantV:=0 entonces 
+		si V[i,4].CantV = 0 entonces 
 			Esc("La provincia que no tienen ningun viaje es:"Prov[i])
 		Fs
 	Fp
@@ -3774,44 +3767,7 @@ Proceso
 Fa
 -----------------------------------------------------------------------------------------------
 
-Accion capi es 
-	n:entero
-	pal: arreglo de [1..n] de Caracter
 
-	Funcion Cap[in:N,fin:N,p:arreglo [1..n] caracter]:booleano es 
-		Si in = fin entonces 
-			Cap:=Verdadero
-		Sino 
-			si P[in] = p[fin] entonces
-				Cap:= Cap(in+1,fin-1,p)
-			Sino 
-				Cap:=Falso 
-			Fs
-		Fs
-	FF
-
-Proceso 
-	
-	Esc("Ingrese el tamaño de la palabra")
-	Leer(n)
-	Para i:=1 a n hacer 
-		pal[i]:= ""
-	Fp 
-
-	Para i:=1 a n hacer
-		Esc("Ingrese caracter")
-		Leer(Pal[i])
-	Fp
-
-	Cap(1,n,Pal)
-
-	Si cap entonces 
-		Esc("Es capicua")
-	Sino 
-		Esc(" No es capicua")
-	Fs
-Fp
----------------------------------------------------------------
 Accion 4.10 (prim1, ult1: Puntero a Nodo1) Es
     Ambiente
         numeros = Registro
@@ -3964,7 +3920,7 @@ Accion tema2P3 (primt,ult:puntero a nodo)Es
 	Fs			
 Proceso 
 	Prim:=Ult
-	Esc("Ingrese la Fecha que desea saber la cantidad de swifties")
+	Esc("Ingrese la Fecha que desea saber la cantidad de fans")
 	Leer(FechaUSU)
 	Si Prim = nil entonces 
 		Esc("Lista vacia")
@@ -3979,10 +3935,9 @@ Proceso
 			mientras  *p.fecha = *p2.fecha hacer
 				Si *p.fecha = FechaUsu entonces
 					TratarFecha()
-					Esc("La cantidad de swifties que ingresaron en la fecha:"*p.fecha,"Es",ContF)
+					Esc("La cantidad de fans que ingresaron en la fecha:"*p.fecha,"Es",ContF)
 				Sino 
 					TratarFecha()
-					// Contf:=0
 				Fs
 			Fm
 			para i:=1 a P2.swif.cant+2 hacer 
@@ -3995,6 +3950,161 @@ Fa
 
 				
 	
+----------------------------------------------------------------------------------------------
+-------------
+Accion FINAL22 es 
+Ambiente 
+	prod = registro 
+		CodP:An
+		prox:puntero a prod
+	fr 
+	prim_cod,p_cod,ant_cod,comp_cod:puntero a prod
+
+	prodlis = registro 
+		CodP:An
+		deseable:
+		nula:
+		cant:
+		prox:puntero a prodlis
+	fr 
+	p,prim:Puntero a prod
+
+	ContNul,ContD:Entero
+	CantCom:entero
+	EdadNul,EdadDes:Entero
+	Sec:Secuencia de caracter
+	v:caracter
+
+	Funcion carEn(C:caracter):entero  es 
+		Segun C hacer 
+			"1": carEn:=1
+			"2": carEn:=2
+			"3" carEn:=3
+			"4" carEn:=4
+			"5" carEn:=5
+			"6" carEn:=6
+			"7" carEn:=7
+			"8" carEn:=8
+			"9" carEn:=9
+			"0" carEn:=0
+		Fs
+	FF
+	
+	subaccion cargarlista() es 	
+		nuevo(p_cod)
+		*p_cod.dato:=v
+		si ant_cod = nil hacer
+			*p_cod.prox:=nil
+			prim_cod:=p_cod
+		Sino
+			*ant_cod.prox:=p_cod
+		Fin_si
+		ant_cod:=p_cod
+	Fs
+	
+	subaccion guardarCod() es
+		Nuevo(p)
+		prim:=p
+		*p.prox:=nill
+		
+		
+		*p.CodP:= prim_cod
+		*p.nulo:=0
+		*p.deseado:=0
+		*p.cant_prod:=0
+	Fs
+
+	Subaccion comparar() es 
+		igual:=verdadero 
+		comp:=prim_cod
+		Mientras (igual) y comp <> nil hacer 
+			si *p_cod.codeP = *comp.codP entonces 
+				igual:=verdadero
+			sino
+				igual:=falso
+			fs
+			p_cod:=*p_cod.prox
+			comp:=*comp.prox	
+		fm
+	Fs
+
+	Procedimiento resetear() es
+        Mientras prim_cod <> nil hacer
+            p_cod:=prim_cod
+            prim_cod:=*p_cod.prox
+            disponer(p_cod)
+        Fin_mientras
+    Fin_procedimiento
+Proceso 
+	Avz(Sec)
+	Esc(Sec,V)
+	edad:=0
+	prim:=nil;total_edad:=0;cant_nul:=0;igual:=falso
+	Mientras NFDS(sec) hacer 
+		Mientras v <> "/" hacer 
+			Si v <> "-" hacer 
+				Avz(Sec,V)
+				para i:=1 a 6 hacer 
+					Avz(Sec,V)
+				Fp
+				//Me ubico en la edad 
+				Edad:= carEn(V) * 10
+				Avz(Sec,V)
+				Edad:=Edad + CarEn(V)
+				Avz(Sec,V)
+				ant_cod:=nil; prim_cod:=nill
+				Mientras v <> "-" hacer
+					cargarlista()
+					Avz(Sec,V)
+				Fm
+				*p_cod.prox:=nill 
+				Mientras p <> nil y no(igual) hacer 
+					comparar()
+					p:=*p.prox
+				fm
+				si no(igual) entonces 
+					guardar()
+					prim:=p
+				fs
+				*p.cant:=*p.cant+1
+				Avz(Sec,V)
+
+				Segun v hacer 
+					"D":
+						*p.deseado:=*p.deseado+1
+					"N":
+						*p.nulo:=*p.nulo+1
+						ContNul:=ContNul+1
+						EdadNul:=EdadNul+Edad
+				Fs
+			Fs
+			resetear()
+			Avz(Sec,V)
+		Fm
+		p:=prim
+		
+		
+		Avz(Sec,V)		
+	Fm	
+	Mientras p <> nil hacer 
+		Esc("Tiene una cantidad de compras de:",*p.cant)
+		Si *p.nulo>*p.deseable entonces 
+			Esc("Se ha registrado una mayor cantidad de preferencia nula")
+			Esc("El codigo de producto:")
+			Mientras p_cod <> nil hacer 
+				esc(*p_cod.CodP)
+				p:=*p.prox
+			Fm
+		fs		
+	Fm
+	Esc("El promedio de edad de clientes que han indicado preferencia del tipo Nula es:",EdadNul/CantNul)
+	Cerrar Sec	
+
+Fa
+
+
+
+
 
 
 	

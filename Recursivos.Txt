@@ -1,0 +1,323 @@
+funcion par(i,arr:arreglo de [1..10] de enteros):entero
+	si i = 10 entonces
+		par:= arr[i]
+	sino 
+		si (i mod 2) = 0 entones
+			par:=a[i]+par[i+1,arr]
+		sino
+			par:=par(i+1,a)
+		fs
+	fs
+ff
+
+caso base: si i = 10, le doy el valor de la posicion par
+caso recursivo si (i mopd 2) = 0, evaluo si es par y si lo es, 
+par suma el valor del arreglo en la posicion par+ el CR, es decir le sumo uno a la posicion
+para recorrer el arreglo,sino la funcion simplemente recorro el arreglo
+
+Recursividad: Directa
+-------------------------------------------
+
+Accion capi es 
+	n:entero
+	pal: arreglo de [1..n] de Caracter
+
+	Funcion Cap[in:N,fin:N,p:arreglo [1..n] caracter]:booleano es 
+		Si in = fin entonces 
+			Cap:=Verdadero
+		Sino 
+			si P[in] = p[fin] entonces
+				Cap:= Cap(in+1,fin-1,p)
+			Sino 
+				Cap:=Falso 
+			Fs
+		Fs
+	FF
+
+Proceso 
+	
+	Esc("Ingrese el tamaño de la palabra")
+	Leer(n)
+	Para i:=1 a n hacer 
+		pal[i]:= ""
+	Fp 
+
+	Para i:=1 a n hacer
+		Esc("Ingrese caracter")
+		Leer(Pal[i])
+	Fp
+
+	Cap(1,n,Pal)
+
+	Si cap entonces 
+		Esc("Es capicua")
+	Sino 
+		Esc(" No es capicua")
+	Fs
+Fp
+---------------------------------------------------------------
+
+
+Accion recursivo (prim:puntero a nodo)es
+Ambiente		
+	Nodo = registro 
+		num:N
+		Prox:puntero a nodo
+	Fr
+	p:puntero a nodo
+
+	Nodo2 = registro 
+		NoMul:N
+		Prox:puntero a nodo2
+	Fr
+	q,prim:puntero a nodo2
+	
+	Funcion control(num:entero):booleano
+		si num = 0 entonces 
+			control:=Verdadero
+		sino 
+			si num = 1 o num =2 entonces
+				control:=falso
+			sino 
+				control:=control(Abs(numero) - 3)
+			fs
+		fs
+	FF
+	
+Proceso
+	p:=prim
+	prim1:=nil
+	Mientras p <> nil hacer 
+		cont:= 0
+		auxNum:=*p.num
+
+		Mientras auxNum > 0 hacer
+			digito := auxNum mod 10
+			Si digito = 0 entonces
+				cont:= cont + 1
+			Fin Si
+			auxNum := auxNum div 10
+		Fin Mientras
+
+		Si NO(control(auxNum)) entonces 
+			Nuevo(q)
+			*q.NoMul:=*P.num
+			Si prim1 = nil entonces 
+				prim1:=q
+				ult:=q
+				*q.prox:=nil
+				*q.ant:=nil
+			sino 
+				*q.prox:=prim1
+				*q.ant:=nil
+				*(*prim.prox).ant:=q
+				prim1:=q
+			fs
+		fs
+		*p.prox
+	Fm
+	
+	Mientras q <> nil hacer 
+		esc(*q.NoMul)
+		q:=*q.prox
+	Fm
+Fm
+---------------------------------------------------------------
+
+
+Accion recursivo2 (prim:puntero a nodo)es
+Ambiente		
+	Nodo = registro 
+		num:N
+		Prox:puntero a nodo
+	Fr
+	p,q,prim2:puntero a nodo
+
+	
+	10
+	Funcion potencia(num,pot):booleano es 
+		si num = 0 entonces 
+			potencia := falso
+		sino 
+			si (num mod 10) <> 0 o (num mod 2) = 1 entonces 
+				potencia:=falso
+			sino
+				potencia:=(num div 10,pot+1)
+			fs
+		fs
+	ff
+
+	Subaccion PATRON(cod,n):booleano ES 
+		Si n=1 Entonces 
+			Si cod = 10 entonces 
+				patron:=V 
+			Sino 
+				Patron:=f
+			Finsi
+		Sino 
+			Si cod MOD 100 = 10 Entonces 
+				Patron:= Patron(cod DIV 100, n-1) 
+			Sino 
+				patron:=F 
+			Finsi 
+		Finsi
+	Fin
+
+----------------------------------------------------------------------------------------------------------------------------------
+procedimiento perfecto es 
+	para i:=1 a n-1 hacer 
+		si (n mod i) = 0 entonces 
+			sum:=sum+i
+		fs
+	fp 
+
+	si n = sum entonces 
+		esc("Es perfecto")
+	sino
+		esc("No es perfecto")
+	fs
+fp
+---------------------------------------------------------------------------------------------
+Recursivo 
+sum:=0
+Funcion perfecto (n,divi:entero):Booleano es 
+
+	si divi = n entonces 
+		si n = sum entonces 
+			perfecto := verdadero 
+		sino 
+			perfecto :=falso
+		fs
+	sino
+		si (n mod divi) = 0 entonces 
+			sum:=sum+divi
+		fs
+		perfecto(n,divi+1)
+	fs
+ff
+
+
+..............................................................................................
+Funcion Arbo(nodito:Puntero a nodo):entero 
+	Si nodito = nil  entonces 
+		Arbo:=0
+	sino 	
+		Arbo:=Arbo(nodito.izq)+Arbo(nodito.der)+1
+	Fs
+Ff 
+..............................................................................................
+
+Funcion Buscar(x:entero,nodito:Puntero a nodo):booleano 
+	Si nodito = nil  entonces 
+		Buscar:=false
+	sino 	
+		si (*nodito.valor = x)entonces
+			Buscar:=true
+		sino
+			Buscar:=Buscar(*nodito.izq ) o Buscar(*nodito.der)
+		fs
+	Fs
+Ff 
+..............................................................................................
+
+Funcion Altura(nodito: Puntero a nodo): Entero
+    Si nodito = nil entonces 
+        Altura := 0
+    Sino 
+        Si Altura(*nodito.izq) > Altura(*nodito.der) entonces
+            Altura := Altura(*nodito.izq) + 1
+        Sino 
+            Altura := Altura(*nodito.der) + 1
+        Fs
+    Fs 
+Ff
+.............................................................................................. 
+Funcion comp_vector(arr:arreglo de entero de [1...n],i:entero):booleano es
+    Si arr[i] = i entonces
+        comp_vector:=verdadero
+    Sino
+        Si (arr[i] < i) o (i = n) entonces
+            comp_vector:=falso
+        Sino
+            comp_vector:=comp_vector(arr,i+1)
+        Fin_si
+    Fin_si
+Fin_funcion
+
+----------------------------------------------------------------------------------
+Subaccion PATRON(cod,n):booleano ES 
+	Si n=1 Entonces 
+		Si cod = 10 entonces 
+			patron:=V 
+		Sino 
+			Patron:=f
+		Finsi
+	Sino 
+		Si cod MOD 100 = 10 Entonces 
+			Patron:= Patron(cod DIV 100, n-1) 
+		Sino 
+			patron:=F 
+		Finsi 
+	Finsi
+Fin
+
+----------------------------------------------------------------------------------
+
+Funcion par(arr: arreglo de [1..10] de entero,i:entero):entero es 
+	Si i = 10 entonces 
+		par:=arr[i]
+	sino 
+		si i mod 2 = 0 entonces 
+			par:=Arr[i]+Par[arr,i+1]
+		sino 
+			par:=par(Arr,i+1)
+		fs
+	fs
+Ff
+
+------------------------------------------------------------------------------------
+funcion fibonacci(n:entero):entero es 
+
+	si n <= 0 entonces  
+		fibonacci:= 0
+	sino 	
+		si n = 1 entonces  
+			fibonacci:=1
+		sino
+			fibonacci:=fibonacci(n-1)+fibonacci(n-2)
+		fs
+	fs
+ff	
+---------------------------------------------------------------------------------------
+"obtenga la suma de los numeros almacenados en las posiciones pares de un vector de 10 posiciones,hacer una funcion recursiva"
+	Caso Base: i = 1
+	Caso Recursivo:	i mod 2 = 0
+	Funcion suma(arr:Arreglo de [1..10],i:entero):entero es 
+		Si i = 11 entonces 
+			suma:= 0 
+		sino 
+			si (i mod 2  = 0) entonces 
+				suma:= suma(arr,i+1)+arr[i]
+			sino 	
+				suma:=(arr,i+1)
+			fS
+		fs
+	ff
+
+	
+
+
+		
+-------------------------------------------------------------------------------------------------------------------------
+"Apartir de enteros positivos imprimir las combinaciones posibles de sumas de un numero N,Funcion recursiva"
+Funcion Ent(n:entero):entero Es 
+	Si n <= 1 entonces 
+		Esc(1)
+	Sino 			
+		Esc(n)      
+ 		Esc((n/2),(n-n/2)) 
+ 		Esc(Ent((n/2)-1),Ent((n-n/2)+1)
+ 		Esc((n/2),(n-(n/2))) 
+ 		Esc(Ent((n/2)-1),Ent((n-(n/2)+1)))
+	Fs
+Ff
