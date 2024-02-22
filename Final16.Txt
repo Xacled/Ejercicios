@@ -404,13 +404,87 @@ Proceso
 				si *q.AnyP = Reg1.AnyP entonces 
 					*q.Chances_tot:=*q.Chances_tot+(reg1.ImporteTot div  100)
 
-					Si
+					Si reg2.Categoria = "black" entonces 
+						vueltas:= tirar()
+						cont:=0
+						mientras cont <> vueltas hacer 
+							c:=*c.prox
+							cont:=cont+1
+						Fm
+						*q.Chances_tot:=*q.Chances_tot+*C.chance
+					fs
+				sino 
+					Nuevo (p)
+					*p.ApyN:=Reg.ApyN
+					*p.Chances_tot:=5
 
+					si  q = prim entonces 
+						*p.ant:= nil
+						*p.prox:=prim
+						*prim.ant:=p
+						prim:=p
+					sino
+						si q = nil entonces 
+							*p.prox:=nil 
+							*p.ant:=ult
+							*ult.prox:=p
+							ult:=p
+						sino 
+							*p.prox:=q
+							*p.ant:=*q.ant
+							*(*q.ant).prox:=p
+							*q.ant:=p
+						fs
+					fs
+				fs
+			fs
+		fs
+		leer(reg1)
+	fM
+fm
+-------------------------------------------------------------------
+Accion eje2 (prim:puntero a nodo) es 
+Ambiente 
+	nodo = registro 
+		Dni:n(8)
+		NyA:An(50)
+		Edad:n(2)
+		NroC:n(2)
+		NroH:n(2)
+		Temp:arreglo de [1..4] de reales
+		prox:puntero a nodo
+	Fr
+	p,q,ant:punteo a nodo
 
+	funcion fiebre (arr:arreglo de [1..4] reales ,i:entero):booleano es 
+		si arr[i] > 36,5 entonces 
+			Fiebre:=Verdadero 
+		Sino 
+			si i = 4 y arr[i] < 36,5 entonces 
+				Fiebre:=Falso
+			fs
+			fiebre:=Fiebre(arr,i+1)
+		fs
+	Ff
 
+Proceso
+	p:=prim
 
+	mientras p <> nil hacer 
+		esc("Nombre del paciente:"*p.NyA)
+		Si no(Fiebre(*p.temp,1)) entonces
+			si p = prim entonces 
+				prim:=*p.prox
+			sino 	
+				*ant.prox:=*p.prox
+			fs
+			ant:=p
+			p:=*p.prox
+			disponer(ant)
+		sino
+			ant:=p
+			p:=*p.prox
+		fs
+	fm
+Fagi
 
-		Sino
-
-		Fs
-	
